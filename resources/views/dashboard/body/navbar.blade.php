@@ -80,7 +80,7 @@
                                 <a class="dropdown-item" href="{{ route('offices.index') }}">
                                     {{ __('Kantor') }}
                                 </a>
-                                <a class="dropdown-item" href="./cookie-banner.html">
+                                <a class="dropdown-item" href="{{ route('brands.index') }}">
                                     {{ __('Brand') }}
                                 </a>
                             </div>
