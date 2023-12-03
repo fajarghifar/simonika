@@ -21,7 +21,7 @@ class OfficeController extends Controller
      */
     public function index() : View
     {
-        $row = (int) request('row', 5);
+        $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 25) {
             abort(400);
@@ -145,7 +145,7 @@ class OfficeController extends Controller
 
         return redirect()
             ->route('offices.index')
-            ->with('success', 'Excel file imported successfully!');
+            ->with('success', 'Berkas excel berhasil diimport!');
     }
 
     // Excel Export

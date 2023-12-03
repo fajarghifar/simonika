@@ -31,4 +31,14 @@ class Office extends Model
                     ->orWhere('name', 'like', "%{$search}%");
         });
     }
+
+    // public function inventories()
+    // {
+    //     return $this->hasMany(Inventory::class);
+    // }
+
+    // public function vehicles()
+    // {
+    //     return $this->hasMany(Vehicle::class);
+    // }
 }

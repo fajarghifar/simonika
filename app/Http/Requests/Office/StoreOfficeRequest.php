@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Office;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOfficeRequest extends FormRequest
@@ -27,7 +28,7 @@ class StoreOfficeRequest extends FormRequest
             'code' => [
                 'required',
                 'string',
-                'unique:offices,code'
+                Rule::unique('offices', 'code')
             ],
             'name' => [
                 'required',

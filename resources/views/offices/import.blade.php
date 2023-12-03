@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <div>
                         <h3 class="card-title">
-                            {{ __('Tambah Kantor') }}
+                            {{ __('Import Kantor') }}
                         </h3>
                     </div>
 
