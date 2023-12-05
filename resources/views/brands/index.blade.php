@@ -9,7 +9,7 @@
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        {{ __('Brand') }}
+                        {{ __('Data Brand') }}
                     </h3>
                 </div>
 
@@ -43,9 +43,9 @@
                             Tampilkan
                             <div class="mx-2 d-inline-block">
                                 <select class="form-select form-select-sm" aria-label="result per page" name="row">
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="25">25</option>
+                                    <option value="10" {{ request('row') == '10' ? 'selected' : '' }}>10</option>
+                                    <option value="15" {{ request('row') == '15' ? 'selected' : '' }}>15</option>
+                                    <option value="25" {{ request('row') == '25' ? 'selected' : '' }}>25</option>
                                 </select>
                             </div>
                             baris
@@ -68,7 +68,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th class="align-middle text-center w-1">
-                                {{ __('No.') }}
+                                {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Nama') }}

@@ -3,13 +3,14 @@
 @section('content')
 <div class="page-body">
     <div class="container-xl">
+
         <x-alert/>
 
         <div class="card">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        {{ __('Data Kantor') }}
+                        {{ __('Data Inventaris') }}
                     </h3>
                 </div>
 
@@ -19,17 +20,17 @@
                             <x-icon.vertical-dots/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
-                            <a href="{{ route('offices.create') }}" class="dropdown-item">
+                            <a href="{{ route('inventories.create') }}" class="dropdown-item">
                                 <x-icon.plus/>
-                                {{ __('Tambah Kantor') }}
+                                {{ __('Tambah Inventaris') }}
                             </a>
-                            <a href="{{ route('offices.import.view') }}" class="dropdown-item">
+                            <a href="{{ route('inventories.import.view') }}" class="dropdown-item">
                                 <x-icon.plus/>
-                                {{ __('Import Kantor') }}
+                                {{ __('Import Inventaris') }}
                             </a>
-                            <a href="{{ route('offices.export') }}" class="dropdown-item">
+                            <a href="{{ route('inventories.export') }}" class="dropdown-item">
                                 <x-icon.plus/>
-                                {{ __('Export Kantor') }}
+                                {{ __('Export Inventaris') }}
                             </a>
                         </div>
                     </div>
@@ -37,7 +38,7 @@
             </div>
 
             <div class="card-body border-bottom py-3">
-                <form action="{{ route('offices.index') }}" method="GET">
+                <form action="{{ route('inventories.index') }}" method="GET">
                     <div class="d-flex">
                         <div class="text-secondary">
                             Tampilkan
@@ -71,13 +72,22 @@
                                 {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Kode') }}
+                                {{ __('Nomor Seri') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Nama') }}
+                                {{ __('Merek') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Alamat') }}
+                                {{ __('Model') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Kategori') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Kantor') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Status') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Aksi') }}
@@ -85,35 +95,50 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse ($offices as $office)
+                    @forelse ($inventories as $inventory)
                         <tr>
                             <td class="align-middle text-center">
-                                {{ $loop->iteration }}
+                                {{ ($inventories->currentPage() - 1) * $inventories->perPage() + $loop->iteration }}
+                            </td>
+
+                            <td class="align-middle">
+                                {{ $inventory->serial_number }}
                             </td>
                             <td class="align-middle">
-                                {{ $office->code }}
+                                {{ $inventory->brand->name }}
                             </td>
                             <td class="align-middle">
-                                {{ $office->name }}
+                                {{ $inventory->model }}
+                            </td>
+                            <td class="align-middle text-center">
+                                {{ $inventory->category->label() }}
                             </td>
                             <td class="align-middle">
-                                {{ $office->address }}
+                                {{ $inventory->office->code }} - {{ $inventory->office->name }}
+                            </td>
+                            <td class="align-middle text-center">
+                                <x-status
+                                    dot color="{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }}"
+                                    class="text-uppercase"
+                                >
+                                    {{ $inventory->status->label() }}
+                                </x-status>
                             </td>
                             <td class="align-middle text-center" style="width: 10%">
-                                <x-button.show class="btn-icon" route="{{ route('offices.show', $office) }}"/>
-                                <x-button.edit class="btn-icon" route="{{ route('offices.edit', $office) }}"/>
-                                <x-button.delete class="btn-icon" route="{{ route('offices.destroy', $office) }}"/>
+                                <x-button.show class="btn-icon" route="{{ route('inventories.show', $inventory) }}"/>
+                                <x-button.edit class="btn-icon" route="{{ route('inventories.edit', $inventory) }}"/>
+                                <x-button.delete class="btn-icon" route="{{ route('inventories.destroy', $inventory) }}"/>
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td class="align-middle text-center" colspan="7">
                                 <x-empty
-                                    route="{{ route('offices.create') }}"
+                                    route="{{ route('inventories.create') }}"
                                     title="{{ __('Kantor tidak ditemukan') }}"
                                     message="{{ __('Coba sesuaikan pencarian atau filter Anda untuk menemukan apa yang sedang Anda cari.') }}"
                                     buttonLabel="{{ __('Tambahkan kantor terlebih dahulu!') }}"
-                                    buttonRoute="{{ route('offices.create') }}"
+                                    buttonRoute="{{ route('inventories.create') }}"
                                 />
                             </td>
                         </tr>
@@ -124,12 +149,12 @@
 
             <div class="card-footer d-flex align-items-center">
                 <p class="m-0 text-secondary">
-                    Showing <span>{{ $offices->firstItem() }}</span>
-                    to <span>{{ $offices->lastItem() }}</span> of <span>{{ $offices->total() }}</span> entries
+                    Showing <span>{{ $inventories->firstItem() }}</span>
+                    to <span>{{ $inventories->lastItem() }}</span> of <span>{{ $inventories->total() }}</span> entries
                 </p>
 
                 <ul class="pagination m-0 ms-auto">
-                    {{ $offices->links() }}
+                    {{ $inventories->links() }}
                 </ul>
             </div>
         </div>

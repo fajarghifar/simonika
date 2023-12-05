@@ -32,7 +32,7 @@
         <div class="navbar">
         <div class="container-xl">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('dashboard') ? 'active' : null }}">
                     <a class="nav-link" href="{{ route('dashboard') }}" >
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <x-icon.home/>
@@ -43,10 +43,10 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" >
+                <li class="nav-item {{ request()->is('inventories*') ? 'active' : null }}">
+                    <a class="nav-link" href="{{ route('inventories.index') }}" >
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" /><path d="M12 12l8 -4.5" /><path d="M12 12l0 9" /><path d="M12 12l-8 -4.5" /><path d="M16 5.25l-8 4.5" /></svg>
+                            <x-icon.box/>
                         </span>
                         <span class="nav-link-title">
                             {{ __('Inventaris') }}
@@ -54,7 +54,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('vehicles*') ? 'active' : null }}">
                     <a class="nav-link" href="#" >
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <x-icon.car/>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown {{ request()->is('offices*', 'brands*') ? 'active' : null }}">
                     <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <x-icon.star/>
@@ -77,10 +77,10 @@
                     <div class="dropdown-menu">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
-                                <a class="dropdown-item" href="{{ route('offices.index') }}">
+                                <a class="dropdown-item {{ request()->is('offices*') ? 'active' : null }}" href="{{ route('offices.index') }}">
                                     {{ __('Kantor') }}
                                 </a>
-                                <a class="dropdown-item" href="{{ route('brands.index') }}">
+                                <a class="dropdown-item {{ request()->is('brands*') ? 'active' : null }}" href="{{ route('brands.index') }}">
                                     {{ __('Brand') }}
                                 </a>
                             </div>

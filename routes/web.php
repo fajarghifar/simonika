@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OfficeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InventoryDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('brands/import/', [BrandController::class, 'importHandler'])->name('brands.import.handler');
     Route::get('brands/export/', [BrandController::class, 'export'])->name('brands.export');
     Route::resource('/brands', BrandController::class);
+
+    // Inventory
+    Route::get('inventories/import/', [InventoryController::class, 'import'])->name('inventories.import.view');
+    Route::post('inventories/import/', [InventoryController::class, 'importHandler'])->name('inventories.import.handler');
+    Route::get('inventories/export/', [InventoryController::class, 'export'])->name('inventories.export');
+    Route::resource('/inventories', InventoryController::class);
+
+    // Inventory Detail
+    Route::post('/inventory/details', [InventoryDetailController::class, 'store'])->name('inventory.details.store');
+    Route::put('/inventory/{id}', [InventoryDetailController::class, 'update'])->name('inventory.details.update');
 
 });
 

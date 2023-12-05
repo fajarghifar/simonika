@@ -23,14 +23,14 @@ class UserSeeder extends Seeder
                 'created_at' => now()
             ],
             [
-                'name' => 'guest',
+                'name' => 'Guest',
                 'email' => 'guest@quest.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'created_at' => now()
             ],
             [
-                'name' => 'user',
+                'name' => 'User',
                 'email' => 'user@user.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
         ]);
 
         $users->each(function ($user){
-            User::insert($user);
+            User::factory()->create($user);
         });
     }
 }

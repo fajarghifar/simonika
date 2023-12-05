@@ -32,10 +32,10 @@ class Office extends Model
         });
     }
 
-    // public function inventories()
-    // {
-    //     return $this->hasMany(Inventory::class);
-    // }
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class);
+    }
 
     // public function vehicles()
     // {
