@@ -101,19 +101,6 @@
                                 </div>
 
                                 <div class="col-sm-6 col-md-6">
-                                    <x-input.select name="office_id"
-                                                    label="Kantor"
-                                                    placeholder="{{ __('Pilih kantor:') }}"
-                                    >
-                                        @foreach ($offices as $office)
-                                            <option value="{{ $office->id }}" @if(old('office_id') == $office->id) selected="selected" @endif>
-                                                {{ $office->code }} - {{ $office->name }}
-                                            </option>
-                                        @endforeach
-                                    </x-input.select>
-                                </div>
-
-                                <div class="col-sm-6 col-md-6">
                                     <div class="mb-3">
                                         <label for="purchased_date" class="form-label">
                                             {{ __('Tanggal Pembelian') }}
@@ -132,6 +119,19 @@
                                         </div>
                                         @enderror
                                     </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6">
+                                    <x-input.select name="office_id"
+                                                    label="Kantor"
+                                                    placeholder="{{ __('Pilih kantor:') }}"
+                                    >
+                                        @foreach ($offices as $office)
+                                            <option value="{{ $office->id }}" @if(old('office_id') == $office->id) selected="selected" @endif>
+                                                {{ $office->code }} - {{ $office->name }}
+                                            </option>
+                                        @endforeach
+                                    </x-input.select>
                                 </div>
 
                             </div>

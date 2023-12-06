@@ -79,7 +79,7 @@ class InventoryController extends Controller
 
         return redirect()
             ->route('inventories.index')
-            ->with('success', 'Inventaris berhasil dibuat!');
+            ->with('success', 'Inventaris berhasil ditambahkan!');
     }
 
     /**

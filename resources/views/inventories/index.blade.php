@@ -132,12 +132,12 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle text-center" colspan="7">
+                            <td class="align-middle text-center" colspan="8">
                                 <x-empty
                                     route="{{ route('inventories.create') }}"
-                                    title="{{ __('Kantor tidak ditemukan') }}"
+                                    title="{{ __('Inventaris tidak ditemukan') }}"
                                     message="{{ __('Coba sesuaikan pencarian atau filter Anda untuk menemukan apa yang sedang Anda cari.') }}"
-                                    buttonLabel="{{ __('Tambahkan kantor terlebih dahulu!') }}"
+                                    buttonLabel="{{ __('Tambahkan inventaris terlebih dahulu!') }}"
                                     buttonRoute="{{ route('inventories.create') }}"
                                 />
                             </td>

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             OfficeSeeder::class,
             BrandSeeder::class,
             InventorySeeder::class,
+            VehicleSeeder::class,
         ]);
     }
 }

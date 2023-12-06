@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\VehicleDetailController;
 use App\Http\Controllers\InventoryDetailController;
 
 /*
@@ -46,7 +48,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Inventory Detail
     Route::post('/inventory/details', [InventoryDetailController::class, 'store'])->name('inventory.details.store');
-    Route::put('/inventory/{id}', [InventoryDetailController::class, 'update'])->name('inventory.details.update');
+    Route::put('/inventory/{inventoryDetail}', [InventoryDetailController::class, 'update'])->name('inventory.details.update');
+
+    // Vehicle
+    Route::get('vehicles/import/', [VehicleController::class, 'import'])->name('vehicles.import.view');
+    Route::post('vehicles/import/', [VehicleController::class, 'importHandler'])->name('vehicles.import.handler');
+    Route::get('vehicles/export/', [VehicleController::class, 'export'])->name('vehicles.export');
+    Route::resource('/vehicles', VehicleController::class);
+
+    // Vehicle Detail
+    Route::post('/vehicle/details', [VehicleDetailController::class, 'store'])->name('vehicle.details.store');
+    Route::put('/vehicle/{vehicleDetail}', [VehicleDetailController::class, 'update'])->name('vehicle.details.update');
 
 });
 

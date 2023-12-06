@@ -55,7 +55,7 @@
                 </li>
 
                 <li class="nav-item {{ request()->is('vehicles*') ? 'active' : null }}">
-                    <a class="nav-link" href="#" >
+                    <a class="nav-link" href="{{ route('vehicles.index') }}" >
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <x-icon.car/>
                         </span>

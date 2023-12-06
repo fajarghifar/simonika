@@ -3,13 +3,14 @@
 @section('content')
 <div class="page-body">
     <div class="container-xl">
+
         <x-alert/>
 
         <div class="card">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        {{ __('Data Brand') }}
+                        {{ __('Data Kendaraan') }}
                     </h3>
                 </div>
 
@@ -19,17 +20,17 @@
                             <x-icon.vertical-dots/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
-                            <a href="{{ route('brands.create') }}" class="dropdown-item">
+                            <a href="{{ route('vehicles.create') }}" class="dropdown-item">
                                 <x-icon.plus/>
-                                {{ __('Tambah Brand') }}
+                                {{ __('Tambah Kendaraan') }}
                             </a>
-                            <a href="{{ route('brands.import.view') }}" class="dropdown-item">
+                            <a href="{{ route('vehicles.import.view') }}" class="dropdown-item">
                                 <x-icon.plus/>
-                                {{ __('Import Brand') }}
+                                {{ __('Import Kendaraan') }}
                             </a>
-                            <a href="{{ route('brands.export') }}" class="dropdown-item">
+                            <a href="{{ route('vehicles.export') }}" class="dropdown-item">
                                 <x-icon.plus/>
-                                {{ __('Export Brand') }}
+                                {{ __('Export Kendaraan') }}
                             </a>
                         </div>
                     </div>
@@ -37,7 +38,7 @@
             </div>
 
             <div class="card-body border-bottom py-3">
-                <form action="{{ route('brands.index') }}" method="GET">
+                <form action="{{ route('vehicles.index') }}" method="GET">
                     <div class="d-flex">
                         <div class="text-secondary">
                             Tampilkan
@@ -71,10 +72,25 @@
                                 {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Nama') }}
+                                {{ __('Nomor STNK') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Nomor Polisi') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Brand') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Model') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Kategori') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Kantor') }}
+                            </th>
+                            <th scope="col" class="align-middle text-center">
+                                {{ __('Status') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Aksi') }}
@@ -82,32 +98,53 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse ($brands as $brand)
+                    @forelse ($vehicles as $vehicle)
                         <tr>
                             <td class="align-middle text-center">
-                                {{ $loop->iteration }}
+                                {{ ($vehicles->currentPage() - 1) * $vehicles->perPage() + $loop->iteration }}
+                            </td>
+
+                            <td class="align-middle text-center">
+                                {{ $vehicle->stnk_number }}
                             </td>
                             <td class="align-middle text-center">
-                                {{ $brand->name }}
+                                {{ $vehicle->license_plate }}
                             </td>
                             <td class="align-middle text-center">
-                                {{ $brand->category->label() }}
+                                {{ $vehicle->brand->name }}
+                            </td>
+                            <td class="align-middle">
+                                {{ $vehicle->model }}
+                            </td>
+                            <td class="align-middle text-center">
+                                {{ $vehicle->category->label() }}
+                            </td>
+                            <td class="align-middletext-center">
+                                {{ $vehicle->office->code }} - {{ $vehicle->office->name }}
+                            </td>
+                            <td class="align-middle text-center">
+                                <x-status
+                                    dot color="{{ $vehicle->status === \App\Enums\VehicleStatus::TERSEDIA ? 'green' : 'orange' }}"
+                                    class="text-uppercase"
+                                >
+                                    {{ $vehicle->status->label() }}
+                                </x-status>
                             </td>
                             <td class="align-middle text-center" style="width: 10%">
-                                <x-button.show class="btn-icon" route="{{ route('brands.show', $brand) }}"/>
-                                <x-button.edit class="btn-icon" route="{{ route('brands.edit', $brand) }}"/>
-                                <x-button.delete class="btn-icon" route="{{ route('brands.destroy', $brand) }}"/>
+                                <x-button.show class="btn-icon" route="{{ route('vehicles.show', $vehicle) }}"/>
+                                <x-button.edit class="btn-icon" route="{{ route('vehicles.edit', $vehicle) }}"/>
+                                <x-button.delete class="btn-icon" route="{{ route('vehicles.destroy', $vehicle) }}"/>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle text-center" colspan="4">
+                            <td class="align-middle text-center" colspan="9">
                                 <x-empty
-                                    route="{{ route('brands.create') }}"
-                                    title="{{ __('Brand tidak ditemukan') }}"
+                                    route="{{ route('vehicles.create') }}"
+                                    title="{{ __('Kendaraan tidak ditemukan!') }}"
                                     message="{{ __('Coba sesuaikan pencarian atau filter Anda untuk menemukan apa yang sedang Anda cari.') }}"
-                                    buttonLabel="{{ __('Tambahkan brand terlebih dahulu!') }}"
-                                    buttonRoute="{{ route('brands.create') }}"
+                                    buttonLabel="{{ __('Tambahkan kendaraan terlebih dahulu!') }}"
+                                    buttonRoute="{{ route('vehicles.create') }}"
                                 />
                             </td>
                         </tr>
@@ -118,12 +155,12 @@
 
             <div class="card-footer d-flex align-items-center">
                 <p class="m-0 text-secondary">
-                    Showing <span>{{ $brands->firstItem() }}</span>
-                    to <span>{{ $brands->lastItem() }}</span> of <span>{{ $brands->total() }}</span> entries
+                    Showing <span>{{ $vehicles->firstItem() }}</span>
+                    to <span>{{ $vehicles->lastItem() }}</span> of <span>{{ $vehicles->total() }}</span> entries
                 </p>
 
                 <ul class="pagination m-0 ms-auto">
-                    {{ $brands->links() }}
+                    {{ $vehicles->links() }}
                 </ul>
             </div>
         </div>

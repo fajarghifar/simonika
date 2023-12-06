@@ -85,28 +85,16 @@ class InventoryDetailController extends Controller
      */
     public function update(Request $request, InventoryDetail $inventoryDetail) : RedirectResponse
     {
-        $rules = [
-            'id' => [
-                'required',
-                'string',
-                'exists:inventory_details,id'
-            ]
-        ];
+        $inventoryDetail->update([
+            'status' => InventoryDetailStatus::KEMBALI,
+            'returned_date' => now()->format('Y-m-d'),
+        ]);
 
-        $validatedData = $request->validate($rules);
-        $validatedData['status'] = InventoryDetailStatus::KEMBALI;
-        $validatedData['returned_date'] = Carbon::now()->format('Y-m-d');
-
-        $inventory_detail = InventoryDetail::where('id', $validatedData['id'])->first();
-
-        InventoryDetail::findOrFail($inventory_detail->id)
-                    ->update($validatedData);
-
-        Inventory::findOrFail($inventory_detail->inventory_id)
-                    ->update(['status' => InventoryStatus::TERSEDIA]);
+        Inventory::findOrFail($inventoryDetail->inventory_id)
+            ->update(['status' => InventoryStatus::TERSEDIA]);
 
         return redirect()
-            ->route('inventories.edit', $inventory_detail->inventory_id)
+            ->route('inventories.edit', $inventoryDetail->inventory_id)
             ->with('success', 'Inventaris berhasil dikembalikan!');
     }
 

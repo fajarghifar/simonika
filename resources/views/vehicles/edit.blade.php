@@ -6,10 +6,9 @@
 
         <x-alert/>
 
-        <form class="row" action="{{ route('inventories.update', $inventory->id) }}" method="POST" enctype="multipart/form-data">
+        <form class="row" action="{{ route('vehicles.update', $vehicle->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
-
             <div class="col-lg-4 mb-3">
                 <div class="card">
                     <div class="card-body">
@@ -17,11 +16,7 @@
                             {{ __('Foto') }}
                         </h3>
 
-                        <img class="img-fluid rounded mx-auto d-block mb-2"
-                            style="max-width: 250px"
-                            src="{{ asset('storage/inventory/' . ($inventory->photo ?? 'product.webp')) }}"
-                            id="image-preview"
-                        />
+                        <img class="img-fluid rounded mx-auto d-block mb-2" style="max-width: 250px" src="{{ asset('storage/vehicle/' . ($vehicle->photo ?? 'product.webp')) }}" alt="" id="image-preview" />
 
                         <div class="small font-italic text-muted mb-2">
                             JPG or PNG no larger than 2 MB
@@ -50,12 +45,12 @@
                     <div class="card-header">
                         <div>
                             <h3 class="card-title">
-                                {{ __('Edit Inventaris') }}
+                                {{ __('Edit Kendaraan') }}
                             </h3>
                         </div>
 
                         <div class="card-actions">
-                            <x-action.close route="{{ route('inventories.index') }}" />
+                            <x-action.close route="{{ route('vehicles.index') }}" />
                         </div>
                     </div>
 
@@ -68,7 +63,7 @@
                                                 placeholder="{{ __('Pilih brand:') }}"
                                 >
                                     @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}" @if(old('brand_id', $inventory->brand_id) == $brand->id) selected="selected" @endif>
+                                        <option value="{{ $brand->id }}" @if(old('brand_id', $vehicle->brand_id) == $brand->id) selected="selected" @endif>
                                             {{ $brand->name }}
                                         </option>
                                     @endforeach
@@ -81,7 +76,7 @@
                                                 placeholder="{{ __('Pilih kategori:') }}"
                                 >
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->value }}" @if(old('category', $inventory->category->value) == $category->value) selected="selected" @endif>{{ $category->label() }}</option>
+                                        <option value="{{ $category->value }}" @if(old('category', $vehicle->category->value) == $category->value) selected="selected" @endif>{{ $category->label() }}</option>
                                     @endforeach
                                 </x-input.select>
                             </div>
@@ -90,34 +85,98 @@
                                 <x-input name="model"
                                         label="Model"
                                         placeholder="Model"
-                                        value="{{ old('model', $inventory->model) }}"
+                                        value="{{ old('model', $vehicle->model) }}"
                                         required="true"
                                 />
                             </div>
 
                             <div class="col-sm-6 col-md-6">
-                                <x-input name="serial_number"
-                                        label="Nomor Seri"
-                                        placeholder="Nomor seri"
-                                        value="{{ old('serial_number', $inventory->serial_number) }}"
+                                <x-input name="year"
+                                        label="Tahun Pembuatan"
+                                        placeholder="Tahun pembuatan"
+                                        value="{{ old('year', $vehicle->year) }}"
+                                        required="true"
+                                />
+                            </div>
+
+                            <div class="col-sm-6 col-md-6">
+                                <x-input name="license_plate"
+                                        label="Nomor Polisi"
+                                        placeholder="Nomor polisi"
+                                        value="{{ old('license_plate', $vehicle->license_plate) }}"
+                                        required="true"
+                                />
+                            </div>
+
+                            <div class="col-sm-6 col-md-6">
+                                <x-input name="stnk_number"
+                                        label="Nomor STNK"
+                                        placeholder="Nomor STNK"
+                                        value="{{ old('stnk_number', $vehicle->stnk_number) }}"
+                                        required="true"
+                                />
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <x-input name="bpkb_number"
+                                        label="Nomor BPKB"
+                                        placeholder="Nomor BPKB"
+                                        value="{{ old('bpkb_number', $vehicle->bpkb_number) }}"
+                                        required="true"
+                                />
+                            </div>
+
+                            <div class="col-sm-6 col-md-6">
+                                <x-input name="chassis_number"
+                                        label="Nomor Rangka"
+                                        placeholder="Nomor rangka"
+                                        value="{{ old('chassis_number', $vehicle->chassis_number) }}"
+                                        required="true"
+                                />
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <x-input name="engine_number"
+                                        label="Nomor Mesin"
+                                        placeholder="Nomor mesin"
+                                        value="{{ old('engine_number', $vehicle->engine_number) }}"
                                         required="true"
                                 />
                             </div>
 
                             <div class="col-sm-6 col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">
-                                        {{ __('Tanggal Pembelian') }}
+                                    <label for="stnk_period" class="form-label">
+                                        {{ __('Masa Berlaku STNK') }}
                                         <span class="text-danger">*</span>
                                     </label>
 
-                                    <input name="purchased_date" type="date"
-                                        class="form-control @error('purchased_date') is-invalid @enderror"
-                                        value="{{ old('purchased_date', $inventory->purchased_date ? \Carbon\Carbon::parse($inventory->purchased_date)->format('Y-m-d') : now()->format('Y-m-d')) }}"
+                                    <input name="stnk_period" id="stnk_period" type="date"
+                                        class="form-control @error('stnk_period') is-invalid @enderror"
+                                        value="{{ old('stnk_period', $vehicle->stnk_period ? \Carbon\Carbon::parse($vehicle->stnk_period)->format('Y-m-d') : now()->format('Y-m-d')) }}"
                                         required
                                     >
 
-                                    @error('purchased_date')
+                                    @error('stnk_period')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label for="tax_period" class="form-label">
+                                        {{ __('Masa Berlaku Pajak') }}
+                                        <span class="text-danger">*</span>
+                                    </label>
+
+                                    <input name="tax_period" id="tax_period" type="date"
+                                        class="form-control @error('tax_period') is-invalid @enderror"
+                                        value="{{ old('tax_period', $vehicle->tax_period ? \Carbon\Carbon::parse($vehicle->tax_period)->format('Y-m-d') : now()->format('Y-m-d')) }}"
+                                        required
+                                    >
+
+                                    @error('tax_period')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -131,7 +190,7 @@
                                                 placeholder="{{ __('Pilih kantor:') }}"
                                 >
                                     @foreach ($offices as $office)
-                                        <option value="{{ $office->id }}" @if(old('office_id', $inventory->office_id) == $office->id) selected="selected" @endif>
+                                        <option value="{{ $office->id }}" @if(old('office_id', $vehicle->office_id) == $office->id) selected="selected" @endif>
                                             {{ $office->code }} - {{ $office->name }}
                                         </option>
                                     @endforeach
@@ -145,10 +204,10 @@
                                     </label>
 
                                     <x-status
-                                        dot color="{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }}"
+                                        dot color="{{ $vehicle->status === \App\Enums\VehicleStatus::TERSEDIA ? 'green' : 'orange' }}"
                                         class="text-uppercase"
                                     >
-                                        {{ $inventory->status->label() }}
+                                        {{ $vehicle->status->label() }}
                                     </x-status>
                                 </div>
                             </div>
@@ -169,11 +228,10 @@
             </div>
         </form>
 
-        @if ($inventory_detail_current && $inventory_detail_current->status == \App\Enums\InventoryDetailStatus::PINJAM)
-        <form class="row" action="{{ route('inventory.details.update', $inventory_detail_current->id) }}" method="POST">
+        @if ($vehicle_detail_current && $vehicle_detail_current->status == \App\Enums\VehicleDetailStatus::PINJAM)
+        <form class="row" action="{{ route('vehicle.details.update', $vehicle_detail_current->id) }}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" name="id" value="{{ $inventory_detail_current->id }}"/>
 
             <div class="col-lg-4 mb-3"></div>
 
@@ -193,14 +251,14 @@
                             <div class="col-sm-6 col-md-6">
                                 <x-input name="user_id"
                                             label="Nama Pengguna"
-                                            value="{{ $inventory_detail_current->user->name }}"
+                                            value="{{ $vehicle_detail_current->user->name }}"
                                             readonly="true"
                                 />
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <x-input name="borrowed_date"
                                             label="Tanggal Pinjam"
-                                            value="{{ $inventory_detail_current->borrowed_date }}"
+                                            value="{{ $vehicle_detail_current->borrowed_date }}"
                                             readonly="true"
                                 />
                             </div>
@@ -217,9 +275,9 @@
             </div>
         </form>
         @else
-        <form action="{{ route('inventory.details.store') }}" class="row" method="POST">
+        <form action="{{ route('vehicle.details.store') }}" class="row" method="POST">
             @csrf
-            <input type="hidden" name="inventory_id" value="{{ $inventory->id }}" required>
+            <input type="hidden" name="vehicle_id" value="{{ $vehicle->id }}" required>
 
             <div class="col-lg-4 mb-3"></div>
 
@@ -242,7 +300,7 @@
                                                 placeholder="{{ __('Pilih pengguna:') }}"
                                 >
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" @if(old('user_id', $inventory->user_id) == $user->id) selected="selected" @endif>
+                                        <option value="{{ $user->id }}" @if(old('user_id', $vehicle->user_id) == $user->id) selected="selected" @endif>
                                             {{ $user->name }}
                                         </option>
                                     @endforeach
@@ -318,7 +376,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse ($inventory_details as $log)
+                    @forelse ($vehicle_details as $log)
                         <tr>
                             <td class="align-middle text-center">
                                 {{ $loop->iteration }}
@@ -335,7 +393,7 @@
                             </td>
                             <td class="align-middle text-center">
                                 <x-status
-                                    dot color="{{ $log->status === \App\Enums\InventoryDetailStatus::KEMBALI ? 'green' : 'orange' }}"
+                                    dot color="{{ $log->status === \App\Enums\VehicleDetailStatus::KEMBALI ? 'green' : 'orange' }}"
                                     class="text-uppercase"
                                 >
                                     {{ $log->status->label() }}
