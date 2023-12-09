@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\VehicleDetailController;
@@ -28,6 +29,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Routes Profile
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.edit.password');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     // Offices
     Route::get('offices/import/', [OfficeController::class, 'import'])->name('offices.import.view');
     Route::post('offices/import/', [OfficeController::class, 'importHandler'])->name('offices.import.handler');
