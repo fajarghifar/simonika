@@ -10,7 +10,7 @@
     </label>
 
     <select name="{{ $name }}" class="form-select @error($name) is-invalid @enderror">
-        <option selected="" disabled="">{{ $placeholder }}</option>
+        <option selected disabled="">{{ $placeholder }}</option>
         {{ $slot }}
     </select>
 
