@@ -1,5 +1,3 @@
-{{-- {{ dd($office) }} --}}
-
 @extends('layouts.dashboard')
 
 @section('content')
@@ -28,45 +26,44 @@
 
 <div class="page-body">
     <div class="container-xl">
-        <div class="row row-cards">
-            <div class="row">
+        <div class="row">
 
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                {{ __('Detail Kantor') }}
-                            </h3>
-                        </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {{ __('Detail Kantor') }}
+                        </h3>
+                    </div>
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
-                                <tbody>
-                                    <tr>
-                                        <td>Kode</td>
-                                        <td>{{ $office->code }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nama</td>
-                                        <td>{{ $office->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat</td>
-                                        <td>{{ $office->address }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer text-end">
-                            <a class="btn btn-info" href="{{ url()->previous() }}">
-                                <x-icon.arrow-left/>
-                                {{ __('Back') }}
-                            </a>
-                            <a class="btn btn-warning" href="{{ route('offices.edit', $office) }}">
-                                <x-icon.pencil/>
-                                {{ __('Edit') }}
-                            </a>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                            <tbody>
+                                <tr>
+                                    <td>Kode</td>
+                                    <td>{{ $office->code }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>{{ $office->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>{{ $office->address }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer text-end">
+                        <a class="btn btn-info" href="{{ url()->previous() }}">
+                            <x-icon.arrow-left/>
+                            {{ __('Back') }}
+                        </a>
+                        <a class="btn btn-warning" href="{{ route('offices.edit', $office) }}">
+                            <x-icon.pencil/>
+                            {{ __('Edit') }}
+                        </a>
                     </div>
                 </div>
             </div>

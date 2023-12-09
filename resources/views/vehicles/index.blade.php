@@ -110,7 +110,7 @@
                             <td class="align-middle text-center">
                                 {{ $vehicle->license_plate }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $vehicle->brand->name }}
                             </td>
                             <td class="align-middle">
@@ -119,7 +119,7 @@
                             <td class="align-middle text-center">
                                 {{ $vehicle->category->label() }}
                             </td>
-                            <td class="align-middletext-center">
+                            <td class="align-middle">
                                 {{ $vehicle->office->code }} - {{ $vehicle->office->name }}
                             </td>
                             <td class="align-middle text-center">

@@ -26,41 +26,39 @@
 
 <div class="page-body">
     <div class="container-xl">
-        <div class="row row-cards">
-            <div class="row">
+        <div class="row">
 
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                {{ __('Detail Brand') }}
-                            </h3>
-                        </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {{ __('Detail Brand') }}
+                        </h3>
+                    </div>
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
-                                <tbody>
-                                    <tr>
-                                        <td>Nama</td>
-                                        <td>{{ $brand->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kategori</td>
-                                        <td>{{ $brand->category->label() }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer text-end">
-                            <a class="btn btn-info" href="{{ url()->previous() }}">
-                                <x-icon.arrow-left/>
-                                {{ __('Back') }}
-                            </a>
-                            <a class="btn btn-warning" href="{{ route('brands.edit', $brand) }}">
-                                <x-icon.pencil/>
-                                {{ __('Edit') }}
-                            </a>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                            <tbody>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>{{ $brand->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Kategori</td>
+                                    <td>{{ $brand->category->label() }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a class="btn btn-info" href="{{ url()->previous() }}">
+                            <x-icon.arrow-left/>
+                            {{ __('Back') }}
+                        </a>
+                        <a class="btn btn-warning" href="{{ route('brands.edit', $brand) }}">
+                            <x-icon.pencil/>
+                            {{ __('Edit') }}
+                        </a>
                     </div>
                 </div>
             </div>

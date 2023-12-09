@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="row row-cards">
+                            <div class="row">
 
                                 <div class="col-sm-6 col-md-6">
                                     <x-input.select name="brand_id"

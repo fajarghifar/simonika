@@ -60,9 +60,9 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row row-cards">
+                        <div class="row">
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <x-input.select name="brand_id"
                                                 label="Brand"
                                                 placeholder="{{ __('Pilih brand:') }}"
@@ -75,7 +75,7 @@
                                 </x-input.select>
                             </div>
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <x-input.select name="category"
                                                 label="Kategori"
                                                 placeholder="{{ __('Pilih kategori:') }}"
@@ -86,7 +86,7 @@
                                 </x-input.select>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-lg-12">
                                 <x-input name="model"
                                         label="Model"
                                         placeholder="Model"
@@ -95,7 +95,7 @@
                                 />
                             </div>
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <x-input name="serial_number"
                                         label="Nomor Seri"
                                         placeholder="Nomor seri"
@@ -104,7 +104,7 @@
                                 />
                             </div>
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">
                                         {{ __('Tanggal Pembelian') }}
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <x-input.select name="office_id"
                                                 label="Kantor"
                                                 placeholder="{{ __('Pilih kantor:') }}"
@@ -138,7 +138,7 @@
                                 </x-input.select>
                             </div>
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">
                                         {{ __('Status') }}
@@ -158,7 +158,7 @@
 
                     <div class="card-footer text-end">
                         <x-button.save type="submit">
-                            {{ __('Simpan') }}
+                            {{ __('Update') }}
                         </x-button.save>
 
                         <a class="btn btn-warning" href="{{ url()->previous() }}">
@@ -234,22 +234,22 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row row-cards">
+                        <div class="row">
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <x-input.select name="user_id"
                                                 label="Nama Pengguna"
                                                 placeholder="{{ __('Pilih pengguna:') }}"
                                 >
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" @if(old('user_id', $inventory->user_id) == $user->id) selected="selected" @endif>
+                                        <option value="{{ $user->id }}">
                                             {{ $user->name }}
                                         </option>
                                     @endforeach
                                 </x-input.select>
                             </div>
 
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">
                                         {{ __('Tanggal Pinjam') }}

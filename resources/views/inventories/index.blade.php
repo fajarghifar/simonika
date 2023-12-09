@@ -101,7 +101,7 @@
                                 {{ ($inventories->currentPage() - 1) * $inventories->perPage() + $loop->iteration }}
                             </td>
 
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 {{ $inventory->serial_number }}
                             </td>
                             <td class="align-middle">

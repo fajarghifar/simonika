@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="col d-flex flex-co+lumn">
+                <div class="col d-flex flex-column">
                     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
@@ -156,7 +156,7 @@
 
                             <h3 class="card-title mt-4">Ganti Password</h3>
                             <div class="mb-3">
-                                <a href="#" class="btn">
+                                <a href="{{ route('profile.edit.password') }}" class="btn">
                                     Atur password baru
                                 </a>
                             </div>

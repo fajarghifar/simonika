@@ -55,8 +55,7 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row row-cards">
-
+                        <div class="row">
                             <div class="col-sm-6 col-md-6">
                                 <x-input.select name="brand_id"
                                                 label="Brand"
@@ -217,7 +216,7 @@
 
                     <div class="card-footer text-end">
                         <x-button.save type="submit">
-                            {{ __('Simpan') }}
+                            {{ __('Update') }}
                         </x-button.save>
 
                         <a class="btn btn-warning" href="{{ url()->previous() }}">
@@ -246,7 +245,7 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row row-cards">
+                        <div class="row">
 
                             <div class="col-sm-6 col-md-6">
                                 <x-input name="user_id"
@@ -300,7 +299,7 @@
                                                 placeholder="{{ __('Pilih pengguna:') }}"
                                 >
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" @if(old('user_id', $vehicle->user_id) == $user->id) selected="selected" @endif>
+                                        <option value="{{ $user->id }}">
                                             {{ $user->name }}
                                         </option>
                                     @endforeach
