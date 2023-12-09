@@ -91,7 +91,10 @@ class InventoryDetailController extends Controller
         ]);
 
         Inventory::findOrFail($inventoryDetail->inventory_id)
-            ->update(['status' => InventoryStatus::TERSEDIA]);
+            ->update([
+                'status' => InventoryStatus::TERSEDIA,
+                'user_id' => null
+            ]);
 
         return redirect()
             ->route('inventories.edit', $inventoryDetail->inventory_id)

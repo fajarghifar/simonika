@@ -91,7 +91,10 @@ class VehicleDetailController extends Controller
         ]);
 
         Vehicle::findOrFail($vehicleDetail->vehicle_id)
-            ->update(['status' => VehicleStatus::TERSEDIA]);
+            ->update([
+                'status' => VehicleStatus::TERSEDIA,
+                'user_id' => null
+            ]);
 
         return redirect()
             ->route('vehicles.edit', $vehicleDetail->vehicle_id)
