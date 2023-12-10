@@ -69,6 +69,17 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ request()->is('users*') ? 'active' : null }}">
+                    <a class="nav-link" href="{{ route('users.index') }}" >
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <x-icon.users/>
+                        </span>
+                        <span class="nav-link-title">
+                            {{ __('Pengguna') }}
+                        </span>
+                    </a>
+                </li>
+
                 <li class="nav-item dropdown {{ request()->is('offices*', 'brands*') ? 'active' : null }}">
                     <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                         <span class="nav-link-icon d-md-none d-lg-inline-block">

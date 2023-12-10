@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use App\Enums\Gender;
+use App\Enums\Role;
+use App\Models\Vehicle;
+use App\Models\Inventory;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -51,6 +55,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'gender' => Gender::class
+        'gender' => Gender::class,
+        'role_id' => Role::class
     ];
+
+    /**
+     * Get the inventories associated with the user.
+     */
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(Inventory::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get the vehicles associated with the user.
+     */
+    public function vehicles(): HasMany
+    {
+        return $this->hasMany(Vehicle::class, 'user_id', 'id');
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('nip', 'like', "%{$search}%");
+        });
+    }
 }

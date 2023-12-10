@@ -62,11 +62,8 @@ class Vehicle extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query
-                ->whereHas('brand', function ($subQuery) use ($search) {
-                    $subQuery->where('name', 'like', '%' . $search . '%');
-                })
-                ->orWhere('model', 'like', '%' . $search . '%');
+            return $query->where('stnk_number', 'like', "%{$search}%")
+                    ->orWhere('license_plate', 'like', "%{$search}%");
         });
     }
 }

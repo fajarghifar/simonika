@@ -103,7 +103,7 @@
 
                     <div class="card-footer text-end">
                         <a class="btn btn-info" href="{{ url()->previous() }}">
-                            <x-icon.arrow-left/>
+                            <x-icon.chevron-left/>
                             {{ __('Kembali') }}
                         </a>
                         <a class="btn btn-warning" href="{{ route('vehicles.edit', $vehicle) }}">

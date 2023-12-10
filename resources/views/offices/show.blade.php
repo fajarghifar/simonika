@@ -57,7 +57,7 @@
 
                     <div class="card-footer text-end">
                         <a class="btn btn-info" href="{{ url()->previous() }}">
-                            <x-icon.arrow-left/>
+                            <x-icon.chevron-left/>
                             {{ __('Back') }}
                         </a>
                         <a class="btn btn-warning" href="{{ route('offices.edit', $office) }}">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OfficeController;
@@ -35,6 +36,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.edit.password');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // User
+    Route::get('users/import/', [BrandController::class, 'import'])->name('users.import.view');
+    Route::post('users/import/', [BrandController::class, 'importHandler'])->name('users.import.handler');
+    Route::get('users/export/', [BrandController::class, 'export'])->name('users.export');
+    Route::get('users/{user}/vehicles', [UserController::class, 'showUserVehicles'])->name('users.vehicles');
+    Route::get('users/{user}/inventories', [UserController::class, 'showUserInventories'])->name('users.inventories');
+    Route::resource('/users', UserController::class);
 
     // Offices
     Route::get('offices/import/', [OfficeController::class, 'import'])->name('offices.import.view');

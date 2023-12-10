@@ -45,7 +45,7 @@
                                 placeholder="Alamat Kantor"
                         >{{ old('address') }}</textarea>
 
-                        @error('notes')
+                        @error('address')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

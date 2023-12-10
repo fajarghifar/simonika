@@ -38,8 +38,8 @@ class Brand extends Model
         return $this->hasMany(Inventory::class);
     }
 
-    // public function vehicles()
-    // {
-    //     return $this->hasMany(Vehicle::class);
-    // }
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
 }
