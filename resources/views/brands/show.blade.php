@@ -51,7 +51,7 @@
                         </table>
                     </div>
                     <div class="card-footer text-end">
-                        <a class="btn btn-info" href="{{ url()->previous() }}">
+                        <a class="btn btn-info" href="{{ route('brands.index') }}">
                             <x-icon.chevron-left/>
                             {{ __('Back') }}
                         </a>

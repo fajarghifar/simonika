@@ -132,7 +132,7 @@
                     </div>
 
                     <div class="card-footer text-end">
-                        <a class="btn btn-warning" href="{{ url()->previous() }}">
+                        <a class="btn btn-warning" href="{{ route('users.index') }}">
                             <x-icon.chevron-left/>
                             {{ __('Kembali') }}
                         </a>

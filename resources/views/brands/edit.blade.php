@@ -55,7 +55,7 @@
                     <x-button.save type="submit">
                         {{ __('Simpan') }}
                     </x-button.save>
-                    <x-button class="btn btn-warning" route="{{ url()->previous() }}">
+                    <x-button class="btn btn-warning" route="{{ route('brands.index') }}">
                         {{ __('Batal') }}
                     </x-button>
                 </div>

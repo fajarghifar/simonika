@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="card-footer text-end">
-                        <a class="btn btn-info" href="{{ url()->previous() }}">
+                        <a class="btn btn-info" href="{{ route('inventories.index') }}">
                             <x-icon.chevron-left/>
                             {{ __('Kembali') }}
                         </a>

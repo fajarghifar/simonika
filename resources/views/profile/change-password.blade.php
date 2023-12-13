@@ -31,7 +31,9 @@
                 </div>
 
                 <div class="col d-flex flex-column">
-                    <x-form action="{{ route('password.update') }}" method="PUT">
+                    <x-form action="{{ route('profile.password.update') }}" method="POST">
+                        @csrf
+                        @method('put')
                         <div class="card-body">
                             <h3 class="card-title mt-4">Ganti Password</h3>
                             <div class="row">

@@ -11,7 +11,7 @@
         <div class="navbar-nav flex-row order-md-last">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                    <span class="avatar avatar-sm" style="background-image: url({{ Auth::user()->photo ? asset('storage/profile/'.Auth::user()->photo) : Avatar::create(Auth::user()->name)->toBase64() }})"></span>
+                    <span class="avatar avatar-sm" style="background-image: url({{ Auth::user()->photo ? asset('images/profile/'.Auth::user()->photo) : Avatar::create(Auth::user()->name)->toBase64() }})"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{ Auth::user()->name }}</div>
                         <div class="mt-1 small text-muted">{{ Auth::user()->email }}</div>

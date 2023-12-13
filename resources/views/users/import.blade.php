@@ -4,17 +4,17 @@
 <div class="page-body">
     <div class="container-xl">
         <div class="card">
-            <form action="{{ route('brands.import.handler') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('users.import.handler') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-header">
                     <div>
                         <h3 class="card-title">
-                            {{ __('Import Brand') }}
+                            {{ __('Import Pengguna') }}
                         </h3>
                     </div>
 
                     <div class="card-actions">
-                        <x-action.close route="{{ route('brands.index') }}" />
+                        <x-action.close route="{{ route('users.index') }}" />
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@
                     <x-button type="submit">
                         {{ __('Import') }}
                     </x-button>
-                    <x-button class="btn btn-warning" route="{{ route('brands.index') }}">
+                    <x-button class="btn btn-warning" route="{{ route('users.index') }}">
                         {{ __('Batal') }}
                     </x-button>
                 </div>
