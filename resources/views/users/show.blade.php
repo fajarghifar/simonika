@@ -16,11 +16,14 @@
                                     {{ __('Foto') }}
                                 </h3>
 
-                                <img class="img-fluid rounded mx-auto d-block mb-2" style="max-width: 250px" src="{{ Auth::user()->photo ? asset('storage/profile/'.Auth::user()->photo) : Avatar::create(Auth::user()->name)->toBase64() }}" alt=""/>
+                                <img
+                                    class="img-fluid rounded mx-auto d-block mb-2" style="max-width: 250px"
+                                    src="{{ Auth::user()->photo ? asset('images/profile/'.Auth::user()->photo) : Avatar::create(Auth::user()->name)->toBase64() }}"
+                                    id="image-preview"
+                                />
                             </div>
                         </div>
                     </div>
-
 
                     <div class="col-12">
                         <div class="card">

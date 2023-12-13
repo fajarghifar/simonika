@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-auto">
-                <span class="avatar avatar-lg rounded" style="background-image: url({{ $user->photo ? asset('storage/profile/'.$user->photo) : Avatar::create(Auth::user()->name)->toBase64() }})"></span>
+                <span class="avatar avatar-lg rounded" style="background-image: url({{ $user->photo ? asset('images/profile/'.$user->photo) : Avatar::create(Auth::user()->name)->toBase64() }})"></span>
             </div>
             <div class="col">
                 <h1 class="fw-bold">{{ $user->name }}</h1>

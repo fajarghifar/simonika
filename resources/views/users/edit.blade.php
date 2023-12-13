@@ -19,7 +19,11 @@
                                         {{ __('Foto') }}
                                     </h3>
 
-                                    <img class="img-fluid rounded mx-auto d-block mb-2" style="max-width: 250px" src="{{ Auth::user()->photo ? asset('storage/profile/'.Auth::user()->photo) : Avatar::create(Auth::user()->name)->toBase64() }}" id="image-preview"/>
+                                    <img
+                                        class="img-fluid rounded mx-auto d-block mb-2" style="max-width: 250px"
+                                        src="{{ Auth::user()->photo ? asset('images/profile/'.Auth::user()->photo) : Avatar::create(Auth::user()->name)->toBase64() }}"
+                                        id="image-preview"
+                                    />
 
                                     <div class="small font-italic text-muted mb-2">
                                         JPG or PNG no larger than 2 MB

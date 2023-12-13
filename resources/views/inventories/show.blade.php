@@ -11,8 +11,13 @@
                         <h3 class="card-title">
                             {{ __('Foto') }}
                         </h3>
+                        <img class="img-fluid rounded mx-auto d-block mb-2"
+                            style="max-width: 250px"
+                            src="{{ $inventory->photo ? asset('images/inventories/'.$inventory->photo) : asset('static/product.webp') }}"
+                            id="image-preview"
+                        />
 
-                        <img class="img-fluid rounded mx-auto d-block" style="max-width: 250px" src="{{ asset('storage/inventory/' . ($inventory->photo ?? 'product.webp')) }}" id="image-preview" />
+                        {{-- <img class="img-fluid rounded mx-auto d-block" style="max-width: 250px" src="{{ $inventory->photo ? asset('images/inventories/'.$inventory->photo) : Avatar::create($inventory->model)->toBase64() }}" id="image-preview" /> --}}
                     </div>
                 </div>
             </div>
@@ -22,7 +27,7 @@
                     <div class="card-header">
                         <div>
                             <h3 class="card-title">
-                                {{ __('Detail Kendaraan') }}
+                                {{ __('Detail Inventaris') }}
                             </h3>
                         </div>
 

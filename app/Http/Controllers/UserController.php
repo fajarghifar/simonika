@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
-use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use App\Enums\Gender;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -58,15 +57,12 @@ class UserController extends Controller
         $validatedData = $request->all();
         $validatedData['password'] = Hash::make($request->password);
 
-        /**
-         * Handle upload image
-         */
-        if($request->hasFile('photo')){
-            $file = $request->file('photo');
-            $filename = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->move(public_path('images/profile'), $imageName);
 
-            $file->storeAs('user/', $filename, 'public');
-            $validatedData['photo'] = $filename;
+            $validatedData['photo'] = $imageName;
         }
 
         User::create($validatedData);
@@ -137,26 +133,18 @@ class UserController extends Controller
     {
         $updateData = $request->validated();
 
-        /**
-        * Handle upload image
-        */
-        if ($file = $request->file('photo')) {
-            $fileName = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
-            $path = 'public/profile/';
+        if ($request->hasFile('photo')) {
+            $filePath = public_path('images/profile/' . $user->photo);
 
-            // Delete an old image if it exists.
-            if ($user->photo) {
-                $oldPhotoPath = $path . $user->photo;
-
-                // Check if the old photo exists and is a file
-                if (Storage::exists($oldPhotoPath) && is_file(storage_path('app/' . $oldPhotoPath))) {
-                    Storage::delete($oldPhotoPath);
-                }
+            if (File::exists($filePath)) {
+                File::delete($filePath);
             }
 
-            // Store the new image to Storage.
-            $file->storeAs($path, $fileName);
-            $updateData['photo'] = $fileName;
+            $image = $request->file('photo');
+            $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->move(public_path('images/profile'), $imageName);
+
+            $updateData['photo'] = $imageName;
         }
 
         $user->update($updateData);

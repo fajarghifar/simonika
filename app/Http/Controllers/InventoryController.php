@@ -13,6 +13,7 @@ use App\Models\InventoryDetail;
 use App\Enums\InventoryCategory;
 use App\Exports\InventoriesExport;
 use App\Imports\InventoriesImport;
+use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Inventory\StoreInventoryRequest;
@@ -64,17 +65,14 @@ class InventoryController extends Controller
     {
         $inventory = Inventory::create($request->all());
 
-        /**
-         * Handle upload image
-         */
-        if($request->hasFile('photo')){
-            $file = $request->file('photo');
-            $filename = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->move(public_path('images/inventories'), $imageName);
 
-            $file->storeAs('inventory/', $filename, 'public');
-            $inventory->update([
-                'photo' => $filename
-            ]);
+            $inventory->update(
+                ['photo' => $imageName]
+            );
         }
 
         return redirect()
@@ -139,28 +137,20 @@ class InventoryController extends Controller
     {
         $inventory->update($request->except('photo'));
 
-        /**
-         * Handle upload an image
-         */
-        if($request->hasFile('photo')){
-            $photoPath = public_path('storage/inventory/') . $inventory->photo;
+        if ($request->hasFile('photo')) {
+            $filePath = public_path('images/inventories/' . $inventory->photo);
 
-            // Delete Old Photo
-            if(file_exists($photoPath) && is_file($photoPath)){
-                unlink($photoPath);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
             }
 
-            // Prepare New Photo
-            $file = $request->file('photo');
-            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            $image = $request->file('photo');
+            $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->move(public_path('images/inventories'), $imageName);
 
-            // Store an image to Storage
-            $file->storeAs('inventory/', $fileName, 'public');
-
-            // Save DB
-            $inventory->update([
-                'photo' => $fileName
-            ]);
+            $inventory->update(
+                ['photo' => $imageName]
+            );
         }
 
         return redirect()
@@ -176,10 +166,12 @@ class InventoryController extends Controller
      */
     public function destroy(Inventory $inventory) : RedirectResponse
     {
-        // Menggunakan metode delete() pada instance model $inventory untuk menghapus data
-        $inventory->delete();
+        $filePath = public_path('images/inventories/' . $inventory->photo);
+        if (File::exists($filePath)) {
+            File::delete($filePath);
+        }
 
-        // Menggunakan metode where() dengan operator '=' untuk mencari data yang sesuai
+        $inventory->delete();
         InventoryDetail::where('inventory_id', $inventory->id)->delete();
 
         return redirect()

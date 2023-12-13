@@ -16,7 +16,11 @@
                             {{ __('Foto') }}
                         </h3>
 
-                        <img class="img-fluid rounded mx-auto d-block mb-2" style="max-width: 250px" src="{{ asset('storage/vehicle/' . ($vehicle->photo ?? 'product.webp')) }}" alt="" id="image-preview" />
+                        <img class="img-fluid rounded mx-auto d-block mb-2"
+                            style="max-width: 250px"
+                            src="{{ $vehicle->photo ? asset('images/vehicles/'.$vehicle->photo) : asset('static/product.webp') }}"
+                            id="image-preview"
+                        />
 
                         <div class="small font-italic text-muted mb-2">
                             JPG or PNG no larger than 2 MB

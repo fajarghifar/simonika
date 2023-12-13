@@ -11,8 +11,11 @@
                         <h3 class="card-title">
                             {{ __('Foto') }}
                         </h3>
-
-                        <img class="img-fluid rounded mx-auto d-block" style="max-width: 250px" src="{{ asset('storage/vehicle/' . ($vehicle->photo ?? 'product.webp')) }}" alt="" id="image-preview" />
+                        <img class="img-fluid rounded mx-auto d-block mb-2"
+                            style="max-width: 250px"
+                            src="{{ $vehicle->photo ? asset('images/vehicles/'.$vehicle->photo) : asset('static/product.webp') }}"
+                            id="image-preview"
+                        />
                     </div>
                 </div>
             </div>

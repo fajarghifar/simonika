@@ -6,7 +6,7 @@
 
         <x-alert/>
 
-        <form class="row" action="{{ route('inventories.update', $inventory->id) }}" method="POST" enctype="multipart/form-data">
+        <form class="row" action="{{ route('inventories.update', $inventory) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -19,7 +19,7 @@
 
                         <img class="img-fluid rounded mx-auto d-block mb-2"
                             style="max-width: 250px"
-                            src="{{ asset('storage/inventory/' . ($inventory->photo ?? 'product.webp')) }}"
+                            src="{{ $inventory->photo ? asset('images/inventories/'.$inventory->photo) : asset('static/product.webp') }}"
                             id="image-preview"
                         />
 

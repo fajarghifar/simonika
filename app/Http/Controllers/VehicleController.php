@@ -13,6 +13,7 @@ use App\Models\VehicleDetail;
 use App\Enums\VehicleCategory;
 use App\Exports\VehiclesExport;
 use App\Imports\VehiclesImport;
+use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Vehicle\StoreVehicleRequest;
@@ -101,17 +102,14 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::create($request->all());
 
-        /**
-         * Handle upload image
-         */
-        if($request->hasFile('photo')){
-            $file = $request->file('photo');
-            $filename = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->move(public_path('images/vehicles'), $imageName);
 
-            $file->storeAs('vehicle/', $filename, 'public');
-            $vehicle->update([
-                'photo' => $filename
-            ]);
+            $vehicle->update(
+                ['photo' => $imageName]
+            );
         }
 
         return redirect()
@@ -176,28 +174,20 @@ class VehicleController extends Controller
     {
         $vehicle->update($request->except('photo'));
 
-        /**
-         * Handle upload an image
-         */
-        if($request->hasFile('photo')){
-            $photoPath = public_path('storage/vehicle/') . $vehicle->photo;
+        if ($request->hasFile('photo')) {
+            $filePath = public_path('images/vehicles/' . $vehicle->photo);
 
-            // Delete Old Photo
-            if(file_exists($photoPath) && is_file($photoPath)){
-                unlink($photoPath);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
             }
 
-            // Prepare New Photo
-            $file = $request->file('photo');
-            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            $image = $request->file('photo');
+            $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->move(public_path('images/vehicles'), $imageName);
 
-            // Store an image to Storage
-            $file->storeAs('vehicle/', $fileName, 'public');
-
-            // Save DB
-            $vehicle->update([
-                'photo' => $fileName
-            ]);
+            $vehicle->update(
+                ['photo' => $imageName]
+            );
         }
 
         return redirect()
