@@ -6,8 +6,12 @@ use App\Enums\Role;
 use App\Models\User;
 use App\Enums\Gender;
 use Illuminate\View\View;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -87,7 +91,6 @@ class UserController extends Controller
 
     public function showUserInventories(User $user) : View
     {
-        // Menggunakan eager loading untuk memuat relasi inventories dan user
         $userInventories = $user->load('inventories');
 
         return view('users.user-inventories', [
@@ -98,7 +101,6 @@ class UserController extends Controller
 
     public function showUserVehicles(User $user) : View
     {
-        // Menggunakan eager loading untuk memuat relasi vehicles dan user
         $userVehicles = $user->load('vehicles');
 
         return view('users.user-vehicles', [
@@ -163,5 +165,35 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    // Import Excel
+    public function import(Request $request)
+    {
+        return view('users.import');
+    }
+
+    public function importHandler(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        // Get the uploaded file
+        $file = $request->file('file');
+
+        // Process the Excel file
+        Excel::import(new UsersImport, $file);
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Excel file imported successfully!');
+    }
+
+    // Excel Export
+    public function export(){
+        $file_name = 'users_'.date('Y_m_d_H_i_s').'.xlsx';
+        return Excel::download(new UsersExport, $file_name);
     }
 }
