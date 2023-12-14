@@ -75,7 +75,7 @@
                                 {{ __('NIP') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Nama') }}
+                                @sortablelink('name', 'Nama')
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Email') }}
@@ -84,7 +84,7 @@
                                 {{ __('Telepon') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Role') }}
+                                @sortablelink('role_id', 'Role')
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Aksi') }}

@@ -33,6 +33,7 @@ class InventoryController extends Controller
         abort_if($perPage < 1 || $perPage > 25, 404);
 
         $inventories = Inventory::with(['brand', 'office'])
+            ->sortable()
             ->filter(request(['search']))
             ->paginate($perPage)
             ->appends(request()->query());

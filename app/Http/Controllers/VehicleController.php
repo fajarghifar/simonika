@@ -33,6 +33,7 @@ class VehicleController extends Controller
         abort_if($perPage < 1 || $perPage > 25, 404);
 
         $vehicles = Vehicle::with(['brand', 'office'])
+            ->sortable()
             ->filter(request(['search']))
             ->paginate($perPage)
             ->appends(request()->query());

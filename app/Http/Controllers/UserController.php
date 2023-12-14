@@ -30,6 +30,7 @@ class UserController extends Controller
         abort_if($perPage < 1 || $perPage > 25, 404);
 
         $users = User::filter(request(['search']))
+            ->sortable()
             ->paginate($perPage)
             ->appends(request()->query());
 

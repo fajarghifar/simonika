@@ -71,10 +71,10 @@
                                 {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Nama') }}
+                                @sortablelink('name', 'Nama')
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Kategori') }}
+                                @sortablelink('category', 'Kategori')
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Aksi') }}
@@ -87,7 +87,7 @@
                             <td class="align-middle text-center">
                                 {{ $loop->iteration }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $brand->name }}
                             </td>
                             <td class="align-middle text-center">

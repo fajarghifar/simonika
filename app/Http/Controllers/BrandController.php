@@ -29,6 +29,7 @@ class BrandController extends Controller
         }
 
         $brands = Brand::filter(request(['search']))
+            ->sortable()
             ->paginate($row)
             ->appends(request()->query());
 

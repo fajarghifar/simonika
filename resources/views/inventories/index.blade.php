@@ -78,16 +78,16 @@
                                 {{ __('Merek') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Model') }}
+                                @sortablelink('model', 'Model')
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Kategori') }}
+                                @sortablelink('category', 'Kategori')
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Kantor') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Status') }}
+                                @sortablelink('status', 'Status')
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Aksi') }}

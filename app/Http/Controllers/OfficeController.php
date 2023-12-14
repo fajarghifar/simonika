@@ -28,6 +28,7 @@ class OfficeController extends Controller
         }
 
         $offices = Office::filter(request(['search']))
+            ->sortable()
             ->paginate($row)
             ->appends(request()->query());
 

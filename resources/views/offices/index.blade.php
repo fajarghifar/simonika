@@ -71,10 +71,10 @@
                                 {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Kode') }}
+                                @sortablelink('code', 'Kode')
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Nama') }}
+                                @sortablelink('name', 'Nama')
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Alamat') }}

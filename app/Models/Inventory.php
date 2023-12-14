@@ -6,10 +6,11 @@ use App\Enums\InventoryCategory;
 use App\Enums\InventoryStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Inventory extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $guarded = ['id'];
 
@@ -36,6 +37,12 @@ class Inventory extends Model
         'brand',
         'office',
         'user',
+    ];
+
+    protected $sortable = [
+        'model',
+        'category',
+        'status'
     ];
 
     public function brand(){

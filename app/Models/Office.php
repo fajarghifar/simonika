@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Office extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $guarded = [
         'id',
@@ -22,6 +23,11 @@ class Office extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+    ];
+
+    protected $sortable = [
+        'code',
+        'name'
     ];
 
     public function scopeFilter($query, array $filters)

@@ -6,10 +6,11 @@ use App\Enums\VehicleCategory;
 use App\Enums\VehicleStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Vehicle extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $guarded = ['id'];
 
@@ -38,11 +39,16 @@ class Vehicle extends Model
         'status' => VehicleStatus::class
     ];
 
-
     protected $with = [
         'brand',
         'office',
         'user'
+    ];
+
+    protected $sortable = [
+        'model',
+        'category',
+        'status'
     ];
 
     public function brand(){

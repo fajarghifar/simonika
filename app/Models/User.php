@@ -6,6 +6,7 @@ use App\Enums\Gender;
 use App\Enums\Role;
 use App\Models\Vehicle;
 use App\Models\Inventory;
+use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,13 +15,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Sortable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'nip',
@@ -36,21 +32,11 @@ class User extends Authenticatable
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
@@ -59,17 +45,16 @@ class User extends Authenticatable
         'role_id' => Role::class
     ];
 
-    /**
-     * Get the inventories associated with the user.
-     */
+    protected $sortable = [
+        'name',
+        'role_id'
+    ];
+
     public function inventories(): HasMany
     {
         return $this->hasMany(Inventory::class, 'user_id', 'id');
     }
 
-    /**
-     * Get the vehicles associated with the user.
-     */
     public function vehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class, 'user_id', 'id');

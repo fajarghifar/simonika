@@ -6,10 +6,11 @@ use App\Enums\BrandCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Kyslik\ColumnSortable\Sortable;
 
 class Brand extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Sortable;
 
     protected $guarded = ['id'];
 
@@ -24,6 +25,11 @@ class Brand extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'category' => BrandCategory::class
+    ];
+
+    protected $sortable = [
+        'name',
+        'category'
     ];
 
     public function scopeFilter($query, array $filters)
