@@ -12,15 +12,15 @@
                 <h1 class="fw-bold">{{ $user->name }}</h1>
                 <div class="list-inline list-inline-dots text-muted">
                     <div class="list-inline-item">
-                        <x-icon.map/>
+                        <i class="fa-solid fa-map me-1"></i>
                         {{ $user->address }}
                     </div>
                     <div class="list-inline-item">
-                        <x-icon.mail/>
+                        <i class="fa-solid fa-envelope me-1"></i>
                         <a href="mailto:{{ $user->email }}" class="text-reset">{{ $user->email }}</a>
                     </div>
                     <div class="list-inline-item">
-                        <x-icon.cake/>
+                        <i class="fa-solid fa-cake-candles me-1"></i>
                         {{ $user->date_of_birth }}
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             <div class="col-auto ms-auto">
                 <div class="dropdown btn btn-sm">
                     <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <x-icon.vertical-dots/>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" style="">
                         <a href="{{ route('profile.edit') }}" class="dropdown-item">{{ __('Edit Profile') }}</a>

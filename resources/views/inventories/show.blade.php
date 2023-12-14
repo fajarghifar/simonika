@@ -1,6 +1,20 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center mb-3">
+            <div class="col">
+                <h2 class="page-title">
+                    {{ $inventory->model }}
+                </h2>
+            </div>
+        </div>
+
+        @include('partials._breadcrumbs')
+    </div>
+</div>
+
 <div class="page-body">
     <div class="container-xl">
 
@@ -16,8 +30,6 @@
                             src="{{ $inventory->photo ? asset('images/inventories/'.$inventory->photo) : asset('static/product.webp') }}"
                             id="image-preview"
                         />
-
-                        {{-- <img class="img-fluid rounded mx-auto d-block" style="max-width: 250px" src="{{ $inventory->photo ? asset('images/inventories/'.$inventory->photo) : Avatar::create($inventory->model)->toBase64() }}" id="image-preview" /> --}}
                     </div>
                 </div>
             </div>
@@ -80,14 +92,12 @@
                     </div>
 
                     <div class="card-footer text-end">
-                        <a class="btn btn-info" href="{{ route('inventories.index') }}">
-                            <x-icon.chevron-left/>
-                            {{ __('Kembali') }}
-                        </a>
-                        <a class="btn btn-warning" href="{{ route('inventories.edit', $inventory) }}">
-                            <x-icon.pencil/>
+                        <x-button class="btn btn-info" route="{{ route('inventories.edit', $inventory) }}">
                             {{ __('Edit') }}
-                        </a>
+                        </x-button>
+                        <x-button class="btn btn-warning" route="{{ route('inventories.index') }}">
+                            {{ __('Kembali') }}
+                        </x-button>
                     </div>
                 </div>
             </div>
@@ -152,9 +162,6 @@
                         <tr>
                             <td class="align-middle text-center" colspan="7">
                                 <div class="empty">
-                                    <div class="empty-icon">
-                                        <x-icon.sad/>
-                                    </div>
                                     <p class="empty-title">
                                         Tidak ada riwayat peminjaman!
                                     </p>

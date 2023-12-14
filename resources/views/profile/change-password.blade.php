@@ -62,10 +62,10 @@
 
                         <div class="card-footer text-end">
                             <x-button type="submit">
-                                {{ __('Perbarui') }}
+                                {{ __('Update') }}
                             </x-button>
                             <x-button class="btn btn-warning" route="{{ route('profile.index') }}">
-                                {{ __('Batal') }}
+                                {{ __('Kembali') }}
                             </x-button>
                         </div>
                     </x-form>

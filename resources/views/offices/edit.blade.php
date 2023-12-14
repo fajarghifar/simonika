@@ -1,10 +1,24 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center mb-3">
+            <div class="col">
+                <h2 class="page-title">
+                    {{ $office->name }}
+                </h2>
+            </div>
+        </div>
+
+        @include('partials._breadcrumbs')
+    </div>
+</div>
+
 <div class="page-body">
     <div class="container-xl">
         <div class="card">
-            <form action="{{ route('offices.update', $office->id) }}" method="POST">
+            <form action="{{ route('offices.update', $office) }}" method="POST">
                 @csrf
                 @method('put')
                 <div class="card-header">
@@ -47,7 +61,7 @@
                         {{ __('Update') }}
                     </x-button>
                     <x-button class="btn btn-warning" route="{{ route('offices.index') }}">
-                        {{ __('Batal') }}
+                        {{ __('Kembali') }}
                     </x-button>
                 </div>
             </form>

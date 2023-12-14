@@ -16,19 +16,19 @@
                 <div class="card-actions btn-group">
                     <div class="dropdown">
                         <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <x-icon.vertical-dots/>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
                             <a href="{{ route('offices.create') }}" class="dropdown-item">
-                                <x-icon.plus/>
+                                <i class="fa-solid fa-plus me-1"></i>
                                 {{ __('Tambah Kantor') }}
                             </a>
                             <a href="{{ route('offices.import.view') }}" class="dropdown-item">
-                                <x-icon.plus/>
+                                <i class="fa-solid fa-plus me-1"></i>
                                 {{ __('Import Kantor') }}
                             </a>
                             <a href="{{ route('offices.export') }}" class="dropdown-item">
-                                <x-icon.plus/>
+                                <i class="fa-solid fa-plus me-1"></i>
                                 {{ __('Export Kantor') }}
                             </a>
                         </div>
@@ -55,7 +55,7 @@
                             <div class="ms-2 d-inline-block input-icon">
                                 <input type="text"class="form-control form-control-sm" aria-label="Search…" placeholder="Search…" name="search" value="{{ request('search') }}">
                                 <span class="input-icon-addon">
-                                    <x-icon.search/>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
                                 </span>
                             </div>
                         </div>

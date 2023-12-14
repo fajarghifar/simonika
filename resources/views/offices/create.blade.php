@@ -1,6 +1,20 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center mb-3">
+            <div class="col">
+                <h2 class="page-title">
+                    {{ __('Tambah Kantor') }}
+                </h2>
+            </div>
+        </div>
+
+        @include('partials._breadcrumbs')
+    </div>
+</div>
+
 <div class="page-body">
     <div class="container-xl">
         <div class="card">
@@ -9,7 +23,7 @@
                 <div class="card-header">
                     <div>
                         <h3 class="card-title">
-                            {{ __('Tambah Kantor') }}
+                            {{ __('Detail Kantor') }}
                         </h3>
                     </div>
 
@@ -58,7 +72,7 @@
                         {{ __('Simpan') }}
                     </x-button.save>
                     <x-button class="btn btn-warning" route="{{ route('offices.index') }}">
-                        {{ __('Batal') }}
+                        {{ __('Kembali') }}
                     </x-button>
                 </div>
             </form>

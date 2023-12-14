@@ -1,6 +1,20 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center mb-3">
+            <div class="col">
+                <h2 class="page-title">
+                    {{ $user->name }}
+                </h2>
+            </div>
+        </div>
+
+        @include('partials._breadcrumbs')
+    </div>
+</div>
+
 <div class="page-body">
     <div class="container-xl">
 
@@ -21,7 +35,7 @@
 
                                         <img
                                             class="img-fluid rounded mx-auto d-block mb-2" style="max-width: 250px"
-                                            src="{{ Auth::user()->photo ? asset('images/profile/'.Auth::user()->photo) : Avatar::create(Auth::user()->name)->toBase64() }}"
+                                            src="{{ $user->photo ? asset('images/profile/'.$user->photo) : Avatar::create($user->name)->toBase64() }}"
                                             id="image-preview"
                                         />
 
@@ -53,16 +67,19 @@
                                         <h3 class="card-title">
                                             {{ __('Lainnya') }}
                                         </h3>
+                                        <div class="medium font-italic text-muted mb-2">
+                                            Tampilkan riwayat peminjaman yang dilakukan oleh pengguna ini.
+                                        </div>
                                         <div class="row">
                                             <div class="col-6 py-3">
                                                 <a class="btn btn-outline-info w-100" href="{{ route('users.inventories', $user) }}">
-                                                    <x-icon.box/>
+                                                    <i class="fa-solid fa-box me-2"></i>
                                                     {{ __('Inventaris') }}
                                                 </a>
                                             </div>
                                             <div class="col-6 py-3">
                                                 <a class="btn btn-outline-info w-100" href="{{ route('users.vehicles', $user) }}">
-                                                    <x-icon.car/>
+                                                    <i class="fa-solid fa-car-side me-2"></i>
                                                     {{ __('Kendaraan') }}
                                                 </a>
                                             </div>
@@ -80,7 +97,7 @@
                                     <div class="card-header">
                                         <div>
                                             <h3 class="card-title">
-                                                {{ __('Edit Pengguna') }}
+                                                {{ __('Detail Pengguna') }}
                                             </h3>
                                         </div>
 
@@ -203,10 +220,9 @@
                                         <x-button.save type="submit">
                                             {{ __('Update') }}
                                         </x-button.save>
-
-                                        <a class="btn btn-warning" href="{{ route('users.index') }}">
-                                            {{ __('Batal') }}
-                                        </a>
+                                        <x-button class="btn btn-warning" route="{{ route('users.index') }}">
+                                            {{ __('Kembali') }}
+                                        </x-button>
                                     </div>
                                 </div>
                             </div>
@@ -258,10 +274,6 @@
                                 <x-button.save type="submit">
                                     {{ __('Update') }}
                                 </x-button.save>
-
-                                <a class="btn btn-warning" href="{{ route('users.index') }}">
-                                    {{ __('Batal') }}
-                                </a>
                             </div>
                         </div>
                     </div>

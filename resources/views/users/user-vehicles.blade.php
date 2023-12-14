@@ -113,9 +113,6 @@
                         <tr>
                             <td class="align-middle text-center" colspan="7">
                                 <div class="empty">
-                                    <div class="empty-icon">
-                                        <x-icon.sad/>
-                                    </div>
                                     <p class="empty-title">
                                         Tidak ada riwayat peminjaman!
                                     </p>

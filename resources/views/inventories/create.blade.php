@@ -142,9 +142,9 @@
                                 {{ __('Simpan') }}
                             </x-button.save>
 
-                            <a class="btn btn-warning" href="{{ route('inventories.index') }}">
-                                {{ __('Batal') }}
-                            </a>
+                            <x-button class="btn btn-warning" route="{{ route('inventories.index') }}">
+                                {{ __('Kembali') }}
+                            </x-button>
                         </div>
                     </div>
                 </div>

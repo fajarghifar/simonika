@@ -9,15 +9,6 @@
                     {{ $brand->name }}
                 </h2>
             </div>
-
-            <div class="col-auto ms-auto d-print-none">
-                <div class="btn-list">
-                    <a href="{{ route('brands.edit', $brand) }}" class="btn btn-warning d-none d-sm-inline-block">
-                        <x-icon.pencil/>
-                        {{ __('Edit') }}
-                    </a>
-                </div>
-            </div>
         </div>
 
         @include('partials._breadcrumbs')
@@ -50,15 +41,14 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="card-footer text-end">
-                        <a class="btn btn-info" href="{{ route('brands.index') }}">
-                            <x-icon.chevron-left/>
-                            {{ __('Back') }}
-                        </a>
-                        <a class="btn btn-warning" href="{{ route('brands.edit', $brand) }}">
-                            <x-icon.pencil/>
+                        <x-button class="btn btn-info" route="{{ route('brands.edit', $brand) }}">
                             {{ __('Edit') }}
-                        </a>
+                        </x-button>
+                        <x-button class="btn btn-warning" route="{{ route('brands.index') }}">
+                            {{ __('Kembali') }}
+                        </x-button>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,20 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center mb-3">
+            <div class="col">
+                <h2 class="page-title">
+                    {{ __('Tambah Pengguna') }}
+                </h2>
+            </div>
+        </div>
+
+        @include('partials._breadcrumbs')
+    </div>
+</div>
+
 <div class="page-body">
     <div class="container-xl">
 
@@ -46,7 +60,7 @@
                         <div class="card-header">
                             <div>
                                 <h3 class="card-title">
-                                    {{ __('Tambah Pengguna') }}
+                                    {{ __('Detail Pengguna') }}
                                 </h3>
                             </div>
 
@@ -188,10 +202,9 @@
                             <x-button.save type="submit">
                                 {{ __('Simpan') }}
                             </x-button.save>
-
-                            <a class="btn btn-warning" href="{{ route('users.index') }}">
-                                {{ __('Batal') }}
-                            </a>
+                            <x-button class="btn btn-warning" route="{{ route('users.index') }}">
+                                {{ __('Kembali') }}
+                            </x-button>
                         </div>
                     </div>
                 </div>

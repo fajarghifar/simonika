@@ -38,7 +38,7 @@
                         {{ __('Import') }}
                     </x-button>
                     <x-button class="btn btn-warning" route="{{ route('offices.index') }}">
-                        {{ __('Batal') }}
+                        {{ __('Kembali') }}
                     </x-button>
                 </div>
             </form>

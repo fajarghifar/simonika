@@ -3,5 +3,5 @@
 ])
 
 <a href="{{ $route }}" {{ $attributes->class(['btn btn-icon btn-outline-success']) }}>
-    <x-icon.plus/>
+    <i class="fa-solid fa-plus me-1"></i>
 </a>

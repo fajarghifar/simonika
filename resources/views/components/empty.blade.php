@@ -7,7 +7,7 @@
 
 <div class="empty">
     <div class="empty-icon">
-        <x-icon.sad/>
+        <i class="fa-regular fa-face-frown"></i>
     </div>
     <p class="empty-title">
         {{ $title }}
@@ -17,7 +17,7 @@
     </p>
     <div class="empty-action">
         <a href="{{ $buttonRoute }}" class="btn btn-primary">
-            <x-icon.plus/>
+            <i class="fa-solid fa-plus me-1"></i>
             {{ $buttonLabel }}
         </a>
     </div>

@@ -1,6 +1,20 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center mb-3">
+            <div class="col">
+                <h2 class="page-title">
+                    {{ $inventory->model }}
+                </h2>
+            </div>
+        </div>
+
+        @include('partials._breadcrumbs')
+    </div>
+</div>
+
 <div class="page-body">
     <div class="container-xl">
 
@@ -160,10 +174,9 @@
                         <x-button.save type="submit">
                             {{ __('Update') }}
                         </x-button.save>
-
-                        <a class="btn btn-warning" href="{{ route('inventories.index') }}">
-                            {{ __('Batal') }}
-                        </a>
+                        <x-button class="btn btn-warning" route="{{ route('inventories.index') }}">
+                            {{ __('Kembali') }}
+                        </x-button>
                     </div>
                 </div>
             </div>
@@ -210,7 +223,7 @@
 
                     <div class="card-footer text-end">
                         <x-button.save type="submit">
-                            {{ __('Kembali') }}
+                            {{ __('Kembalikan') }}
                         </x-button.save>
                     </div>
                 </div>
@@ -277,10 +290,6 @@
                         <x-button.save type="submit">
                             {{ __('Simpan') }}
                         </x-button.save>
-
-                        <a class="btn btn-warning" href="{{ route('inventories.index') }}">
-                            {{ __('Batal') }}
-                        </a>
                     </div>
                 </div>
             </div>
@@ -346,9 +355,6 @@
                         <tr>
                             <td class="align-middle text-center" colspan="7">
                                 <div class="empty">
-                                    <div class="empty-icon">
-                                        <x-icon.sad/>
-                                    </div>
                                     <p class="empty-title">
                                         Tidak ada riwayat peminjaman!
                                     </p>

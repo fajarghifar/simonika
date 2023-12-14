@@ -3,6 +3,6 @@
 ])
 
 <x-button {{ $attributes->class(['btn btn-outline-warning']) }} route="{{ $route }}">
-    <x-icon.pencil/>
+    <i class="fa-solid fa-pen-to-square"></i>
     {{ $slot }}
 </x-button>

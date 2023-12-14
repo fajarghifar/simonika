@@ -6,7 +6,7 @@
     @csrf
     @method('delete')
     <x-button type="submit" {{ $attributes->class(['btn btn-outline-danger']) }} onclick="return confirm('Apakah Anda yakin menghapus baris ini?')">
-        <x-icon.trash/>
+        <i class="fa-solid fa-trash"></i>
         {{ $slot }}
     </x-button>
 </form>
