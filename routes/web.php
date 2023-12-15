@@ -24,19 +24,24 @@ use App\Http\Controllers\InventoryDetailController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboardAdmin'])->name('dashboard');
+    Route::get('/my/dashboard', [DashboardController::class, 'showMydashboardUser'])->name('my.dashboard');
+    Route::get('/my/inventories', [DashboardController::class, 'showMyInventories'])->name('my.inventories');
+    Route::get('/my/inventories/{inventory}', [DashboardController::class, 'showMyInventoryDetail'])->name('my.inventory.detail');
+    Route::get('/my/vehicles', [DashboardController::class, 'showMyVehicles'])->name('my.vehicles');
+    Route::get('/my/vehicles/{vehicle}', [DashboardController::class, 'showMyVehicleDetail'])->name('my.vehicle.detail');
 
     // Routes Profile
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.edit.password');
-    Route::put('/profile/change-password', [PasswordController::class, 'profileUpdatePassword'])->name('profile.password.update');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/my/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/my/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/my/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.edit.password');
+    Route::put('/my/profile/change-password', [PasswordController::class, 'profileUpdatePassword'])->name('profile.password.update');
+    Route::patch('/my/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/my/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // User
     Route::get('users/import/', [UserController::class, 'import'])->name('users.import.view');

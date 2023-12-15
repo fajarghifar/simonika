@@ -51,61 +51,61 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <label class="small mb-1">Brand</label>
+                                <label class="label mb-1">Brand</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->brand->name }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Kategori</label>
+                                <label class="label mb-1">Kategori</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->category->label() }}</p>
                             </div>
 
                             <div class="col-lg-12">
-                                <label class="small mb-1">Model</label>
+                                <label class="label mb-1">Model</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->model }}</p>
                             </div>
 
                             <div class="col-lg-6">
-                                <label class="small mb-1">Tahun Pembuatan</label>
+                                <label class="label mb-1">Tahun Pembuatan</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->year }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Nomor Polisi</label>
+                                <label class="label mb-1">Nomor Polisi</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->license_plate }}</p>
                             </div>
 
                             <div class="col-lg-6">
-                                <label class="small mb-1">Nomor STNK</label>
+                                <label class="label mb-1">Nomor STNK</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->stnk_number }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Nomor BPKB</label>
+                                <label class="label mb-1">Nomor BPKB</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->bpkb_number }}</p>
                             </div>
 
                             <div class="col-lg-6">
-                                <label class="small mb-1">Nomor Rangka</label>
+                                <label class="label mb-1">Nomor Rangka</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->chassis_number }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Nomor Mesin</label>
+                                <label class="label mb-1">Nomor Mesin</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->engine_number }}</p>
                             </div>
 
                             <div class="col-lg-6">
-                                <label class="small mb-1">Periode STNK</label>
+                                <label class="label mb-1">Periode STNK</label>
                                 <p class="form-control form-control-solid ">{{ \Carbon\Carbon::parse($vehicle->stnk_period)->format('d M Y') }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Periode Pajak</label>
+                                <label class="label mb-1">Periode Pajak</label>
                                 <p class="form-control form-control-solid ">{{ \Carbon\Carbon::parse($vehicle->tax_period)->format('d M Y') }}</p>
                             </div>
 
                             <div class="col-lg-6">
-                                <label class="small mb-1">Kantor</label>
+                                <label class="label mb-1">Kantor</label>
                                 <p class="form-control form-control-solid ">{{ $vehicle->office->name }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Status</label>
+                                <label class="label mb-1">Status</label>
                                 <p>
                                     <x-status
                                         dot color="{{ $vehicle->status === \App\Enums\VehicleStatus::TERSEDIA ? 'green' : 'orange' }}"

@@ -19,6 +19,7 @@
 <div class="page-body">
     <div class="container-xl">
         <div class="row row-deck row-cards">
+
             <div class="col-12">
                 <div class="row row-cards">
 
@@ -85,6 +86,26 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card card-md">
+                    <div class="card-stamp card-stamp-lg">
+                        <div class="card-stamp-icon bg-primary">
+                            <i class="fa-solid fa-ghost"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <h3 class="h1">Selamat datang di Aplikasi Monitoring Inventaris dan Kendaraan.</h3>
+                                <div class="markdown text-secondary">
+                                Aplikasi Monitoring Inventaris dan Pajak Kendaraan adalah solusi terintegrasi yang dirancang untuk membantu perusahaan atau instansi dalam efisiensi manajemen inventaris barand dan kendaraan, serta pemantauan kewajiban pajak terkait.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

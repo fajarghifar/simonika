@@ -51,34 +51,34 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <label class="small mb-1">Brand</label>
+                                <label class="label mb-1">Brand</label>
                                 <p class="form-control form-control-solid ">{{ $inventory->brand->name }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Kategori</label>
+                                <label class="label mb-1">Kategori</label>
                                 <p class="form-control form-control-solid ">{{ $inventory->category->label() }}</p>
                             </div>
 
                             <div class="col-lg-12">
-                                <label class="small mb-1">Model</label>
+                                <label class="label mb-1">Model</label>
                                 <p class="form-control form-control-solid ">{{ $inventory->model }}</p>
                             </div>
 
                             <div class="col-lg-6">
-                                <label class="small mb-1">Nomor Seri</label>
+                                <label class="label mb-1">Nomor Seri</label>
                                 <p class="form-control form-control-solid ">{{ $inventory->serial_number }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Tanggal Pembelian</label>
+                                <label class="label mb-1">Tanggal Pembelian</label>
                                 <p class="form-control form-control-solid ">{{ \Carbon\Carbon::parse($inventory->purchased_date)->format('d M Y') }}</p>
                             </div>
 
                             <div class="col-lg-6">
-                                <label class="small mb-1">Kantor</label>
+                                <label class="label mb-1">Kantor</label>
                                 <p class="form-control form-control-solid ">{{ $inventory->office->name }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <label class="small mb-1">Status</label>
+                                <label class="label mb-1">Status</label>
                                 <p>
                                     <x-status
                                         dot color="{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }}"

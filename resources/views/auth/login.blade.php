@@ -3,13 +3,13 @@
 @section('content')
 <div class="text-center mb-4">
     <a href="#" class="navbar-brand navbar-brand-autodark">
-        <img src="{{ asset('static/logo.svg') }}" height="36" alt="">
+        <img src="{{ asset('static/logo-bjc-y.png') }}" width="150" alt="">
     </a>
 </div>
 
 <div class="card card-md">
     <div class="card-body">
-        <h2 class="h2 text-center mb-4">Login ke dalam Akun</h2>
+        <h2 class="h2 text-center mb-4">Masuk ke dalam Akun</h2>
 
         <!-- BEGIN: Login Form -->
         <form action="{{ route('login') }}" method="POST" autocomplete="off" novalidate>
@@ -77,9 +77,9 @@
     </div>
 </div>
 
-<div class="text-center text-muted mt-3">
+{{-- <div class="text-center text-muted mt-3">
     Belum memiliki akun? <a href="{{ route('register') }}" tabindex="-1">Registrasi</a>
-</div>
+</div> --}}
 @endsection
 
 @push('page-scripts')
