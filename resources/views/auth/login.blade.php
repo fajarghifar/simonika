@@ -3,7 +3,7 @@
 @section('content')
 <div class="text-center mb-4">
     <a href="#" class="navbar-brand navbar-brand-autodark">
-        <img src="{{ asset('static/logo-bjc-y.png') }}" width="150" alt="">
+        <img src="{{ asset('static/logo-bcj-y.png') }}" width="150" alt="">
     </a>
 </div>
 

@@ -5,7 +5,7 @@
         </button>
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href="{{ route('dashboard') }}">
-                <img src="{{ asset('static/logo.svg') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                <img src="{{ asset('static/logo-bcj-x.png') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
         </h1>
         <div class="navbar-nav flex-row order-md-last">
@@ -36,15 +36,30 @@
         <div class="navbar">
             <div class="container-xl">
                 <ul class="navbar-nav">
-                    <li class="nav-item {{ request()->is('dashboard') ? 'active' : null }}">
-                        <a class="nav-link" href="{{ route('dashboard') }}" >
+                    <li class="nav-item dropdown {{ request()->is('offices*', 'brands*') ? 'active' : null }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="fa-solid fa-house"></i>
                             </span>
                             <span class="nav-link-title">
-                                {{ __('Dashboard') }}
+                                {{ __('Beranda ') }}
                             </span>
                         </a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-columns">
+                                <div class="dropdown-menu-column">
+                                    <a class="dropdown-item {{ request()->is('dashboard*') ? 'active' : null }}" href="{{ route('dashboard') }}">
+                                        {{ __('Dashboard') }}
+                                    </a>
+                                    <a class="dropdown-item {{ request()->is('my/inventories*') ? 'active' : null }}" href="{{ route('my.inventories') }}">
+                                        {{ __('InventarisKu') }}
+                                    </a>
+                                    <a class="dropdown-item {{ request()->is('my/vehicles*') ? 'active' : null }}" href="{{ route('my.vehicles') }}">
+                                        {{ __('KendaraanKu') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </li>
 
                     <li class="nav-item {{ request()->is('inventories*') ? 'active' : null }}">
