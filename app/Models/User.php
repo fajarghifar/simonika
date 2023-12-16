@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Role;
 use App\Enums\Gender;
-use App\Enums\Role;
 use App\Models\Vehicle;
 use App\Models\Inventory;
-use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,8 +41,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'gender' => Gender::class,
-        'role_id' => Role::class
+        'gender' => Gender::class
     ];
 
     protected $sortable = [
@@ -58,6 +57,16 @@ class User extends Authenticatable
     public function vehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class, 'user_id', 'id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->name === 'admin';
     }
 
     public function scopeFilter($query, array $filters)

@@ -73,7 +73,8 @@ class UpdateUserRequest extends FormRequest
             ],
             'role_id' => [
                 'required',
-                'string'
+                'integer',
+                Rule::exists('roles', 'id')
             ]
         ];
     }

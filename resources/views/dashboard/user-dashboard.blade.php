@@ -24,7 +24,7 @@
                 <div class="row row-cards">
 
                     <div class="col-sm-6 col-lg-3">
-                        <div class="card card-sm">
+                        <a class="card card-sm" href="{{ route('my.vehicles') }}">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
@@ -34,19 +34,16 @@
                                     </div>
                                     <div class="col">
                                         <div class="font-weight-medium">
-                                        {{ $vehicles }} Kendaraan
-                                        </div>
-                                        <div class="text-muted">
-                                        {{ $borrowed_vehicles }} dipinjam
+                                        {{ $userVehiclesCount }} Kepemilikan Kendaraan
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-sm-6 col-lg-3">
-                        <div class="card card-sm">
+                        <a class="card card-sm" href="{{ route('my.inventories') }}" >
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
@@ -56,34 +53,12 @@
                                     </div>
                                     <div class="col">
                                         <div class="font-weight-medium">
-                                        {{ $inventories }} Inventaris
-                                        </div>
-                                        <div class="text-muted">
-                                        {{ $borrowed_inventories }} dipinjam
+                                        {{ $userInventoriesCount }} Kepemilikan Inventaris
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="card card-sm">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <span class="bg-twitter text-white avatar">
-                                            <i class="fa-solid fa-user"></i>
-                                        </span>
-                                    </div>
-                                    <div class="col">
-                                        <div class="font-weight-medium">
-                                        {{ $users }} Pengguna
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
 
                 </div>
@@ -108,6 +83,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

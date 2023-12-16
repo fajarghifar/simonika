@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\User;
 
-use App\Enums\Role;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
@@ -78,12 +77,11 @@ class StoreUserRequest extends FormRequest
                 'confirmed',
                 Password::defaults()
             ],
+            'role_id' => [
+                'required',
+                'integer',
+                Rule::exists('roles', 'id')
+            ],
         ];
-    }
-
-    protected function prepareForValidation() {
-        $this->merge([
-            'role_id' => Role::USER
-        ]);
     }
 }

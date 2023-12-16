@@ -208,7 +208,7 @@
                                                                 placeholder="{{ __('Pilih:') }}"
                                                 >
                                                     @foreach ($roles as $role)
-                                                        <option value="{{ $role->value }}" @if(old('role_id', $user->role_id->value) == $role->value) selected="selected" @endif>{{ $role->label() }}</option>
+                                                        <option value="{{ $role->id }}" @if(old('role_id', $user->role_id) == $role->id) selected="selected" @endif>{{ ucfirst($role->name) }}</option>
                                                     @endforeach
                                                 </x-input.select>
                                             </div>

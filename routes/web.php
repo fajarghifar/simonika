@@ -27,22 +27,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'dashboardAdmin'])->name('dashboard');
-    Route::get('/my/dashboard', [DashboardController::class, 'showMydashboardUser'])->name('my.dashboard');
-    Route::get('/my/inventories', [DashboardController::class, 'showMyInventories'])->name('my.inventories');
-    Route::get('/my/inventories/{inventory}', [DashboardController::class, 'showMyInventoryDetail'])->name('my.inventory.detail');
-    Route::get('/my/vehicles', [DashboardController::class, 'showMyVehicles'])->name('my.vehicles');
-    Route::get('/my/vehicles/{vehicle}', [DashboardController::class, 'showMyVehicleDetail'])->name('my.vehicle.detail');
-
-    // Routes Profile
-    Route::get('/my/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/my/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::get('/my/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.edit.password');
-    Route::put('/my/profile/change-password', [PasswordController::class, 'profileUpdatePassword'])->name('profile.password.update');
-    Route::patch('/my/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/my/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+Route::middleware(['role:admin'])->group(function(){
     // User
     Route::get('users/import/', [UserController::class, 'import'])->name('users.import.view');
     Route::post('users/import/', [UserController::class, 'importHandler'])->name('users.import.handler');
@@ -83,7 +68,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Vehicle Detail
     Route::post('/vehicle/details', [VehicleDetailController::class, 'store'])->name('vehicle.details.store');
     Route::put('/vehicle/{vehicleDetail}', [VehicleDetailController::class, 'update'])->name('vehicle.details.update');
+});
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::get('/my/inventories', [DashboardController::class, 'showMyInventories'])->name('my.inventories');
+    Route::get('/my/inventories/{inventory}', [DashboardController::class, 'showMyInventoryDetail'])->name('my.inventory.detail');
+    Route::get('/my/vehicles', [DashboardController::class, 'showMyVehicles'])->name('my.vehicles');
+    Route::get('/my/vehicles/{vehicle}', [DashboardController::class, 'showMyVehicleDetail'])->name('my.vehicle.detail');
+
+    // Routes Profile
+    Route::get('/my/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/my/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/my/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.edit.password');
+    Route::put('/my/profile/change-password', [PasswordController::class, 'profileUpdatePassword'])->name('profile.password.update');
+    Route::patch('/my/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/my/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

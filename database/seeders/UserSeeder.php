@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +19,7 @@ class UserSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'email_verified_at' => now(),
-                'role_id' => Role::ADMIN,
+                'role_id' => 1,
                 'password' => bcrypt('password'),
                 'created_at' => now()
             ],
@@ -28,7 +27,7 @@ class UserSeeder extends Seeder
                 'name' => 'User',
                 'email' => 'user@gmail.com',
                 'email_verified_at' => now(),
-                'role_id' => Role::USER,
+                'role_id' => 2,
                 'password' => bcrypt('password'),
                 'created_at' => now()
             ]

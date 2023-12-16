@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
+use App\Models\Role;
 use App\Models\User;
 use App\Enums\Gender;
 use Illuminate\View\View;
@@ -47,7 +47,8 @@ class UserController extends Controller
     public function create() : View
     {
         return view('users.create', [
-            'genders' => Gender::cases()
+            'genders' => Gender::cases(),
+            'roles' => Role::all()
         ]);
     }
 
@@ -121,7 +122,7 @@ class UserController extends Controller
         return view('users.edit', [
             'user' => $user,
             'genders' => Gender::cases(),
-            'roles' => Role::cases()
+            'roles' => Role::all()
         ]);
     }
 

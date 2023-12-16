@@ -112,10 +112,10 @@
                             </td>
                             <td class="align-middle text-center">
                                 <x-status
-                                    dot color="{{ $user->role_id === \App\Enums\Role::ADMIN ? 'green' : 'orange' }}"
+                                    dot color="{{ $user->role->id === 1 ? 'green' : 'orange' }}"
                                     class="text-uppercase"
                                 >
-                                    {{ $user->role_id->label() }}
+                                    {{ $user->role->name }}
                                 </x-status>
                             </td>
                             <td class="align-middle text-center" style="width: 10%">

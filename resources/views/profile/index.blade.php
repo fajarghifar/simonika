@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<!-- Page header -->
+<!-- BEGIN : Page header -->
 <div class="page-header">
     <div class="container">
         <div class="row align-items-center">
@@ -39,8 +39,9 @@
         </div>
     </div>
 </div>
+<!-- END : Page header -->
 
-<!-- Page body -->
+<!-- BEGIN : Page body -->
 <div class="page-body">
     <div class="container-xl">
         <div class="row g-3">
@@ -63,14 +64,6 @@
                                     <tr>
                                         <td>123.123.123</td>
                                         <td class="text-secondary">12:12 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>123.123.123</td>
-                                        <td class="text-secondary">11:11 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>123.123.123</td>
-                                        <td class="text-secondary">10:10 PM</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -137,4 +130,5 @@
         </div>
     </div>
 </div>
+<!-- END : Page body -->
 @endsection

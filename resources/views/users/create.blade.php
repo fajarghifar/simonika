@@ -195,6 +195,17 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-6">
+                                    <x-input.select name="role_id"
+                                        label="Role"
+                                        placeholder="{{ __('Pilih:') }}"
+                                    >
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}" @if(old('role_id') == $role->id) selected="selected" @endif>{{ ucfirst($role->name) }}</option>
+                                        @endforeach
+                                    </x-input.select>
+                                </div>
+
                             </div>
                         </div>
 
