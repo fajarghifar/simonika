@@ -20,11 +20,12 @@
     <div class="container-xl">
         <div class="row row-deck row-cards">
 
+            @if (Auth::user()->role->name === 'admin')
             <div class="col-12">
                 <div class="row row-cards">
 
                     <div class="col-sm-6 col-lg-3">
-                        <a class="card card-sm" href="{{ route('my.vehicles') }}">
+                        <a class="card card-sm" href="{{ route('vehicles.index') }}">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
@@ -34,7 +35,10 @@
                                     </div>
                                     <div class="col">
                                         <div class="font-weight-medium">
-                                        {{ $userVehiclesCount }} Kepemilikan Kendaraan
+                                        {{ $vehiclesCount }} Kendaraan
+                                        </div>
+                                        <div class="text-muted">
+                                        {{ $borrowedVehiclesCount }} dipinjam
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +47,7 @@
                     </div>
 
                     <div class="col-sm-6 col-lg-3">
-                        <a class="card card-sm" href="{{ route('my.inventories') }}" >
+                        <a class="card card-sm" href="{{ route('inventories.index') }}">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
@@ -53,7 +57,29 @@
                                     </div>
                                     <div class="col">
                                         <div class="font-weight-medium">
-                                        {{ $userInventoriesCount }} Kepemilikan Inventaris
+                                        {{ $inventoriesCount }} Inventaris
+                                        </div>
+                                        <div class="text-muted">
+                                        {{ $borrowedInventoriesCount }} dipinjam
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <a class="card card-sm" href="{{ route('users.index') }}">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <span class="bg-twitter text-white avatar">
+                                            <i class="fa-solid fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col">
+                                        <div class="font-weight-medium">
+                                        {{ $usersCount }} Pengguna
                                         </div>
                                     </div>
                                 </div>
@@ -63,12 +89,13 @@
 
                 </div>
             </div>
+            @endif
 
             <div class="col-12">
                 <div class="card card-md">
                     <div class="card-stamp card-stamp-lg">
                         <div class="card-stamp-icon bg-primary">
-                            <i class="fa-solid fa-ghost"></i>
+                            <i class="fa-solid fa-house"></i>
                         </div>
                     </div>
                     <div class="card-body">
@@ -81,9 +108,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-footer text-end">
+                        <x-button class="btn btn-primary" route="{{ route('my.information') }}">
+                            {{ __('Lihat Detail') }}
+                        </x-button>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

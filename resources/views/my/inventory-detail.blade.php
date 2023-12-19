@@ -100,67 +100,6 @@
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">
-                        {{ __('Riwayat Inventaris') }}
-                    </h3>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="align-middle text-center w-1">
-                                {{ __('No') }}
-                            </th>
-                            <th  scope="col" class="align-middle text-center">
-                                {{ __('Nama') }}
-                            </th>
-                            <th scope="col" class="align-middle text-center">
-                                {{ __('Tanggal Pinjam') }}
-                            </th>
-                            <th scope="col" class="align-middle text-center">
-                                {{ __('Tanggal Kembali') }}
-                            </th>
-                            <th scope="col" class="align-middle text-center">
-                                {{ __('Status') }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($inventory_details as $log)
-                            <tr>
-                                <td class="align-middle text-center">
-                                    {{ $loop->iteration }}
-                                </td>
-
-                                <td class="align-middle text-center">
-                                    {{ $log->user->name }}
-                                </td>
-                                <td class="align-middle text-center">
-                                    {{ $log->borrowed_date }}
-                                </td>
-                                <td class="align-middle text-center">
-                                    {{ $log->returned_date }}
-                                </td>
-                                <td class="align-middle text-center">
-                                    <x-status
-                                        dot color="{{ $log->status === \App\Enums\InventoryDetailStatus::KEMBALI ? 'green' : 'orange' }}"
-                                        class="text-uppercase"
-                                    >
-                                        {{ $log->status->label() }}
-                                    </x-status>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
     </div>
 </div>
 @endsection

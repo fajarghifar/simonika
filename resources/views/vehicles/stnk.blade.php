@@ -10,7 +10,7 @@
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        {{ __('Data Inventaris') }}
+                        {{ __('Data Kendaraan') }}
                     </h3>
                 </div>
 
@@ -20,17 +20,17 @@
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
-                            <a href="{{ route('inventories.create') }}" class="dropdown-item">
+                            <a href="{{ route('vehicles.create') }}" class="dropdown-item">
                                 <i class="fa-solid fa-plus me-1"></i>
-                                {{ __('Tambah Inventaris') }}
+                                {{ __('Tambah Kendaraan') }}
                             </a>
-                            <a href="{{ route('inventories.import.view') }}" class="dropdown-item">
+                            <a href="{{ route('vehicles.import.view') }}" class="dropdown-item">
                                 <i class="fa-solid fa-plus me-1"></i>
-                                {{ __('Import Inventaris') }}
+                                {{ __('Import Kendaraan') }}
                             </a>
-                            <a href="{{ route('inventories.export') }}" class="dropdown-item">
+                            <a href="{{ route('vehicles.export') }}" class="dropdown-item">
                                 <i class="fa-solid fa-plus me-1"></i>
-                                {{ __('Export Inventaris') }}
+                                {{ __('Export Kendaraan') }}
                             </a>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="card-body border-bottom py-3">
-                <form action="{{ route('inventories.index') }}" method="GET">
+                <form action="{{ $search }}" method="GET">
                     <div class="d-flex">
                         <div class="text-secondary">
                             Tampilkan
@@ -72,10 +72,10 @@
                                 {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Nomor Seri') }}
+                                {{ __('Nomor Polisi') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Merek') }}
+                                {{ __('Brand') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 @sortablelink('model', 'Model')
@@ -84,10 +84,7 @@
                                 {{ __('Kategori') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
-                                {{ __('Kantor') }}
-                            </th>
-                            <th scope="col" class="align-middle text-center">
-                                @sortablelink('status', 'Status')
+                                {{ __('Periode STNK') }}
                             </th>
                             <th scope="col" class="align-middle text-center">
                                 {{ __('Aksi') }}
@@ -95,50 +92,46 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse ($inventories as $inventory)
+                    @forelse ($vehicles as $vehicle)
                         <tr>
                             <td class="align-middle text-center">
-                                {{ ($inventories->currentPage() - 1) * $inventories->perPage() + $loop->iteration }}
-                            </td>
-
-                            <td class="align-middle text-center">
-                                {{ $inventory->serial_number }}
-                            </td>
-                            <td class="align-middle">
-                                {{ $inventory->brand->name }}
-                            </td>
-                            <td class="align-middle">
-                                {{ $inventory->model }}
+                                {{ ($vehicles->currentPage() - 1) * $vehicles->perPage() + $loop->iteration }}
                             </td>
                             <td class="align-middle text-center">
-                                {{ $inventory->category->label() }}
+                                {{ $vehicle->license_plate }}
                             </td>
                             <td class="align-middle">
-                                {{ $inventory->office->code }} - {{ $inventory->office->name }}
+                                {{ $vehicle->brand->name }}
+                            </td>
+                            <td class="align-middle">
+                                {{ $vehicle->model }}
+                            </td>
+                            <td class="align-middle text-center">
+                                {{ $vehicle->category->label() }}
                             </td>
                             <td class="align-middle text-center">
                                 <x-status
-                                    dot color="{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }}"
+                                    color="{{ \Carbon\Carbon::parse($vehicle->stnk_period)->isPast() ? 'orange' : 'green' }}"
                                     class="text-uppercase"
                                 >
-                                    {{ $inventory->status->label() }}
+                                    {{ \Carbon\Carbon::parse($vehicle->stnk_period)->format('d M Y') }}
                                 </x-status>
                             </td>
                             <td class="align-middle text-center" style="width: 10%">
-                                <x-button.show class="btn-icon" route="{{ route('inventories.show', $inventory) }}"/>
-                                <x-button.edit class="btn-icon" route="{{ route('inventories.edit', $inventory) }}"/>
-                                <x-button.delete class="btn-icon" route="{{ route('inventories.destroy', $inventory) }}"/>
+                                <x-button.show class="btn-icon" route="{{ route('vehicles.show', $vehicle) }}"/>
+                                <x-button.edit class="btn-icon" route="{{ route('vehicles.edit', $vehicle) }}"/>
+                                <x-button.delete class="btn-icon" route="{{ route('vehicles.destroy', $vehicle) }}"/>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle text-center" colspan="8">
+                            <td class="align-middle text-center" colspan="9">
                                 <x-empty
-                                    route="{{ route('inventories.create') }}"
-                                    title="{{ __('Inventaris tidak ditemukan') }}"
+                                    route="{{ route('vehicles.create') }}"
+                                    title="{{ __('Kendaraan tidak ditemukan!') }}"
                                     message="{{ __('Coba sesuaikan pencarian atau filter Anda untuk menemukan apa yang sedang Anda cari.') }}"
-                                    buttonLabel="{{ __('Tambahkan inventaris terlebih dahulu!') }}"
-                                    buttonRoute="{{ route('inventories.create') }}"
+                                    buttonLabel="{{ __('Tambahkan kendaraan terlebih dahulu!') }}"
+                                    buttonRoute="{{ route('vehicles.create') }}"
                                 />
                             </td>
                         </tr>
@@ -149,12 +142,12 @@
 
             <div class="card-footer d-flex align-items-center">
                 <p class="m-0 text-secondary">
-                    Showing <span>{{ $inventories->firstItem() }}</span>
-                    to <span>{{ $inventories->lastItem() }}</span> of <span>{{ $inventories->total() }}</span> entries
+                    Showing <span>{{ $vehicles->firstItem() }}</span>
+                    to <span>{{ $vehicles->lastItem() }}</span> of <span>{{ $vehicles->total() }}</span> entries
                 </p>
 
                 <ul class="pagination m-0 ms-auto">
-                    {{ $inventories->links() }}
+                    {{ $vehicles->links() }}
                 </ul>
             </div>
         </div>

@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\TaxReportController;
+use App\Http\Controllers\StnkReportController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\VehicleDetailController;
 use App\Http\Controllers\InventoryDetailController;
@@ -29,30 +31,30 @@ Route::get('/', function () {
 
 Route::middleware(['role:admin'])->group(function(){
     // User
-    Route::get('users/import/', [UserController::class, 'import'])->name('users.import.view');
-    Route::post('users/import/', [UserController::class, 'importHandler'])->name('users.import.handler');
-    Route::get('users/export/', [UserController::class, 'export'])->name('users.export');
+    Route::get('users/import', [UserController::class, 'import'])->name('users.import.view');
+    Route::post('users/import', [UserController::class, 'importHandler'])->name('users.import.handler');
+    Route::get('users/export', [UserController::class, 'export'])->name('users.export');
     Route::get('users/{user}/vehicles', [UserController::class, 'showUserVehicles'])->name('users.vehicles');
     Route::get('users/{user}/inventories', [UserController::class, 'showUserInventories'])->name('users.inventories');
     Route::put('/users/{user}/change-password', [ProfileController::class, 'userUpdatePassword'])->name('users.password.update');
     Route::resource('/users', UserController::class);
 
     // Offices
-    Route::get('offices/import/', [OfficeController::class, 'import'])->name('offices.import.view');
-    Route::post('offices/import/', [OfficeController::class, 'importHandler'])->name('offices.import.handler');
-    Route::get('offices/export/', [OfficeController::class, 'export'])->name('offices.export');
+    Route::get('offices/import', [OfficeController::class, 'import'])->name('offices.import.view');
+    Route::post('offices/import', [OfficeController::class, 'importHandler'])->name('offices.import.handler');
+    Route::get('offices/export', [OfficeController::class, 'export'])->name('offices.export');
     Route::resource('/offices', OfficeController::class);
 
     // Brand
-    Route::get('brands/import/', [BrandController::class, 'import'])->name('brands.import.view');
-    Route::post('brands/import/', [BrandController::class, 'importHandler'])->name('brands.import.handler');
-    Route::get('brands/export/', [BrandController::class, 'export'])->name('brands.export');
+    Route::get('brands/import', [BrandController::class, 'import'])->name('brands.import.view');
+    Route::post('brands/import', [BrandController::class, 'importHandler'])->name('brands.import.handler');
+    Route::get('brands/export', [BrandController::class, 'export'])->name('brands.export');
     Route::resource('/brands', BrandController::class);
 
     // Inventory
-    Route::get('inventories/import/', [InventoryController::class, 'import'])->name('inventories.import.view');
-    Route::post('inventories/import/', [InventoryController::class, 'importHandler'])->name('inventories.import.handler');
-    Route::get('inventories/export/', [InventoryController::class, 'export'])->name('inventories.export');
+    Route::get('inventories/import', [InventoryController::class, 'import'])->name('inventories.import.view');
+    Route::post('inventories/import', [InventoryController::class, 'importHandler'])->name('inventories.import.handler');
+    Route::get('inventories/export', [InventoryController::class, 'export'])->name('inventories.export');
     Route::resource('/inventories', InventoryController::class);
 
     // Inventory Detail
@@ -60,9 +62,15 @@ Route::middleware(['role:admin'])->group(function(){
     Route::put('/inventory/{inventoryDetail}', [InventoryDetailController::class, 'update'])->name('inventory.details.update');
 
     // Vehicle
-    Route::get('vehicles/import/', [VehicleController::class, 'import'])->name('vehicles.import.view');
-    Route::post('vehicles/import/', [VehicleController::class, 'importHandler'])->name('vehicles.import.handler');
-    Route::get('vehicles/export/', [VehicleController::class, 'export'])->name('vehicles.export');
+    Route::get('vehicles/import', [VehicleController::class, 'import'])->name('vehicles.import.view');
+    Route::post('vehicles/import', [VehicleController::class, 'importHandler'])->name('vehicles.import.handler');
+    Route::get('vehicles/export', [VehicleController::class, 'export'])->name('vehicles.export');
+
+    // Vehicle Report
+    Route::get('vehicles/weekly-tax-report', [TaxReportController::class, 'weeklyTaxReport'])->name('vehicles.weekly.tax.report');
+    Route::get('vehicles/monthly-tax-report', [TaxReportController::class, 'monthlyTaxReport'])->name('vehicles.monthly.tax.report');
+    Route::get('vehicles/weekly-stnk-report', [StnkReportController::class, 'weeklyStnkReport'])->name('vehicles.weekly.stnk.report');
+    Route::get('vehicles/monthly-stnk-report', [StnkReportController::class, 'monthlyStnkReport'])->name('vehicles.monthly.stnk.report');
     Route::resource('/vehicles', VehicleController::class);
 
     // Vehicle Detail
@@ -73,6 +81,7 @@ Route::middleware(['role:admin'])->group(function(){
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    Route::get('/my', [DashboardController::class, 'showMyInformation'])->name('my.information');
     Route::get('/my/inventories', [DashboardController::class, 'showMyInventories'])->name('my.inventories');
     Route::get('/my/inventories/{inventory}', [DashboardController::class, 'showMyInventoryDetail'])->name('my.inventory.detail');
     Route::get('/my/vehicles', [DashboardController::class, 'showMyVehicles'])->name('my.vehicles');

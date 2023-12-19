@@ -30,18 +30,20 @@ class DashboardController extends Controller
         $borrowedInventoriesCount = Inventory::where('status', InventoryStatus::DIPINJAM)->count();
         $usersCount = User::count();
 
-        $userVehiclesCount = Auth::user()->vehicles->count();
-        $userInventoriesCount = Auth::user()->inventories->count();
-
-        return view('dashboard.admin-dashboard', compact('vehiclesCount', 'borrowedVehiclesCount', 'inventoriesCount', 'borrowedInventoriesCount', 'usersCount', 'userVehiclesCount', 'userInventoriesCount'));
+        return view('dashboard.dashboard', compact('vehiclesCount', 'borrowedVehiclesCount', 'inventoriesCount', 'borrowedInventoriesCount', 'usersCount'));
     }
 
     private function userDashboard()
     {
+        return view('dashboard.dashboard');
+    }
+
+    public function showMyInformation(): View
+    {
         $userVehiclesCount = Auth::user()->vehicles->count();
         $userInventoriesCount = Auth::user()->inventories->count();
 
-        return view('dashboard.user-dashboard', compact('userVehiclesCount', 'userInventoriesCount'));
+        return view('my.information', compact('userVehiclesCount', 'userInventoriesCount'));
     }
 
     public function showMyInventories(): View
@@ -65,6 +67,6 @@ class DashboardController extends Controller
 
     public function showMyVehicleDetail(Vehicle $vehicle): View
     {
-        return view('my.vehicle-details', compact('vehicle'));
+        return view('my.vehicle-detail', compact('vehicle'));
     }
 }

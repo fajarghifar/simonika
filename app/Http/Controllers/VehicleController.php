@@ -48,7 +48,7 @@ class VehicleController extends Controller
         $perPage = (int) request('row', 10);
 
         if ($perPage < 1 || $perPage > 100) {
-            abort(400, 'The per-page parameter must be an   integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         $vehicles = Vehicle::with(['user'])

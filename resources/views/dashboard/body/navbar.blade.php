@@ -48,6 +48,18 @@
                         </a>
                     </li>
 
+                    <li class="nav-item {{ request()->is('my*') ? 'active' : null }}">
+                        <a class="nav-link" href="{{ route('my.information') }}" >
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="fa-solid fa-hands-holding-circle"></i>
+                            </span>
+                            <span class="nav-link-title">
+                                {{ __('Kepemilikan') }}
+                            </span>
+                        </a>
+                    </li>
+
+                    @if (Auth::user()->role->name === 'admin')
                     <li class="nav-item {{ request()->is('inventories*') ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('inventories.index') }}" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -59,8 +71,8 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ request()->is('vehicles*') ? 'active' : null }}">
-                        <a class="nav-link" href="{{ route('vehicles.index') }}" >
+                    <li class="nav-item dropdown {{ request()->is('vehicles*') ? 'active' : null }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="fa-solid fa-car-side"></i>
                             </span>
@@ -68,9 +80,43 @@
                                 {{ __('Kendaraan') }}
                             </span>
                         </a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-columns">
+                                <div class="dropdown-menu-column">
+                                    <a class="dropdown-item" href="{{ route('vehicles.index') }}">
+                                        Kendaraan
+                                    </a>
+                                    <div class="dropend">
+                                        <a class="dropdown-item dropdown-toggle" href="#sidebar-cards" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                                            Pajak
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a href="{{ route('vehicles.weekly.tax.report') }}" class="dropdown-item">
+                                                &lt; 1 Minggu
+                                            </a>
+                                            <a href="{{ route('vehicles.monthly.tax.report') }}" class="dropdown-item">
+                                                &lt; 1 Bulan
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="dropend">
+                                        <a class="dropdown-item dropdown-toggle" href="#sidebar-cards" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                                            STNK
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a href="{{ route('vehicles.weekly.stnk.report') }}" class="dropdown-item">
+                                                &lt; 1 Minggu
+                                            </a>
+                                            <a href="{{ route('vehicles.weekly.stnk.report') }}" class="dropdown-item">
+                                                &lt; 1 Bulan
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
 
-                    @if (Auth::user()->role->name === 'admin')
                     <li class="nav-item {{ request()->is('users*') ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('users.index') }}" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -81,9 +127,7 @@
                             </span>
                         </a>
                     </li>
-                    @endif
 
-                    @if (Auth::user()->role->name === 'admin')
                     <li class="nav-item dropdown {{ request()->is('offices*', 'brands*') ? 'active' : null }}">
                         <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
