@@ -27,7 +27,6 @@
             {{ $readonly ? 'readonly' : '' }}
             {{ $disabled ? 'disabled' : '' }}
             {{ $required ? 'required' : '' }}
-            {{--           value="{{ old($name, $model->name ) }}"--}}
             value="{{ $value }}"
     >
 

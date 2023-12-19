@@ -65,28 +65,28 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                <table class="table table-vcenter card-table text-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th class="align-middle text-center w-1">
+                            <th class="align-middle w-1">
                                 {{ __('No') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('NIP') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 @sortablelink('name', 'Nama')
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Email') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Telepon') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 @sortablelink('role_id', 'Role')
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Aksi') }}
                             </th>
                         </tr>
@@ -94,7 +94,7 @@
                     <tbody>
                     @forelse ($users as $user)
                         <tr>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
                             </td>
 
@@ -110,7 +110,7 @@
                             <td class="align-middle">
                                 {{ $user->phone }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 <x-status
                                     dot color="{{ $user->role->id === 1 ? 'green' : 'orange' }}"
                                     class="text-uppercase"
@@ -118,7 +118,7 @@
                                     {{ $user->role->name }}
                                 </x-status>
                             </td>
-                            <td class="align-middle text-center" style="width: 10%">
+                            <td class="align-middle" style="width: 10%">
                                 <x-button.show class="btn-icon" route="{{ route('users.show', $user) }}"/>
                                 <x-button.edit class="btn-icon" route="{{ route('users.edit', $user) }}"/>
                                 <x-button.delete class="btn-icon" route="{{ route('users.destroy', $user) }}"/>

@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                        <table class="table table-vcenter card-table text-nowrap">
                             <tbody>
                                 <tr>
                                     <td>Kode</td>

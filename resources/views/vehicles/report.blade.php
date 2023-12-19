@@ -24,14 +24,21 @@
                                 <i class="fa-solid fa-plus me-1"></i>
                                 {{ __('Tambah Kendaraan') }}
                             </a>
-                            <a href="{{ route('vehicles.import.view') }}" class="dropdown-item">
+                            <x-form action="{{ route('vehicles.users.reminder') }}" method="POST">
+                                @csrf
+                                <button class="dropdown-item" type="submit" onclick="return confirm('Apakah Anda yakin untuk mengirimkan pesan pengingat untuk semuanya?')">
+                                    <i class="fa-solid fa-envelope me-1"></i>
+                                    {{ __('Ingatkan Semua') }}
+                                </button>
+                            </x-form>
+                            {{-- <a href="{{ route('vehicles.import.view') }}" class="dropdown-item">
                                 <i class="fa-solid fa-plus me-1"></i>
                                 {{ __('Import Kendaraan') }}
                             </a>
                             <a href="{{ route('vehicles.export') }}" class="dropdown-item">
                                 <i class="fa-solid fa-plus me-1"></i>
                                 {{ __('Export Kendaraan') }}
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -65,28 +72,34 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                <table class="table table-vcenter card-table text-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th class="align-middle text-center w-1">
+                            <th class="align-middle w- 1">
                                 {{ __('No') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Nomor Polisi') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Brand') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 @sortablelink('model', 'Model')
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Kategori') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
+                                {{ __('Pengguna') }}
+                            </th>
+                            <th scope="col" class="align-middle">
+                                {{ __('Periode Pajak') }}
+                            </th>
+                            <th scope="col" class="align-middle">
                                 {{ __('Periode STNK') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Aksi') }}
                             </th>
                         </tr>
@@ -94,10 +107,10 @@
                     <tbody>
                     @forelse ($vehicles as $vehicle)
                         <tr>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ ($vehicles->currentPage() - 1) * $vehicles->perPage() + $loop->iteration }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $vehicle->license_plate }}
                             </td>
                             <td class="align-middle">
@@ -106,10 +119,21 @@
                             <td class="align-middle">
                                 {{ $vehicle->model }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $vehicle->category->label() }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
+                                {{ $vehicle->user ? $vehicle->user->name : '-' }}
+                            </td>
+                            <td class="align-middle">
+                                <x-status
+                                    color="{{ \Carbon\Carbon::parse($vehicle->tax_period)->isPast() ? 'orange' : 'green' }}"
+                                    class="text-uppercase"
+                                >
+                                    {{ \Carbon\Carbon::parse($vehicle->tax_period)->format('d M Y') }}
+                                </x-status>
+                            </td>
+                            <td class="align-middle">
                                 <x-status
                                     color="{{ \Carbon\Carbon::parse($vehicle->stnk_period)->isPast() ? 'orange' : 'green' }}"
                                     class="text-uppercase"
@@ -117,11 +141,22 @@
                                     {{ \Carbon\Carbon::parse($vehicle->stnk_period)->format('d M Y') }}
                                 </x-status>
                             </td>
-                            <td class="align-middle text-center" style="width: 10%">
-                                <x-button.show class="btn-icon" route="{{ route('vehicles.show', $vehicle) }}"/>
-                                <x-button.edit class="btn-icon" route="{{ route('vehicles.edit', $vehicle) }}"/>
-                                <x-button.delete class="btn-icon" route="{{ route('vehicles.destroy', $vehicle) }}"/>
+                            <td class="w-4">
+                                <div class="d-flex justify-content-end">
+                                @if ($vehicle->user?->phone)
+                                    <x-form action="{{ route('vehicles.user.reminder', $vehicle) }}" method="POST" class="me-1">
+                                        @csrf
+                                        <x-button type="submit" class="btn btn-icon btn-outline-success" onclick="return confirm('Apakah Anda yakin untuk mengirimkan pesan pengingat pada {{ $vehicle->user->name }}?')">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </x-button>
+                                    </x-form>
+                                @endif
+                                    <x-button.show class="btn-icon me-1" route="{{ route('vehicles.show', $vehicle) }}" />
+                                    <x-button.edit class="btn-icon me-1" route="{{ route('vehicles.edit', $vehicle) }}" />
+                                    <x-button.delete class="btn-icon me-1" route="{{ route('vehicles.destroy', $vehicle) }}" />
+                                </div>
                             </td>
+
                         </tr>
                     @empty
                         <tr>

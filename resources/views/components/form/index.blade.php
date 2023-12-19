@@ -1,9 +1,10 @@
 @props([
     'action',
-    'method'
+    'method',
+    'class' => ''
 ])
 
-<form action="{{ $action }}" method="POST">
+<form action="{{ $action }}" method="POST" class="{{ $class }}">
     @csrf
     @method($method)
 

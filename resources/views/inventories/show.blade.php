@@ -113,22 +113,22 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                <table class="table table-vcenter card-table text-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th class="align-middle text-center w-1">
+                            <th class="align-middle w-1">
                                 {{ __('No') }}
                             </th>
-                            <th  scope="col" class="align-middle text-center">
+                            <th  scope="col" class="align-middle">
                                 {{ __('Nama') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Tanggal Pinjam') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Tanggal Kembali') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Status') }}
                             </th>
                         </tr>
@@ -136,20 +136,20 @@
                     <tbody>
                     @forelse ($inventory_details as $log)
                         <tr>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $loop->iteration }}
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $log->user->name }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $log->borrowed_date }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $log->returned_date }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 <x-status
                                     dot color="{{ $log->status === \App\Enums\InventoryDetailStatus::KEMBALI ? 'green' : 'orange' }}"
                                     class="text-uppercase"
@@ -160,7 +160,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle text-center" colspan="7">
+                            <td class="align-middle" colspan="7">
                                 <div class="empty">
                                     <p class="empty-title">
                                         Tidak ada riwayat peminjaman!

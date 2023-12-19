@@ -64,22 +64,22 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                <table class="table table-vcenter card-table text-nowrap">
                     <thead class="thead-light">
                         <tr>
                             <th class="align-middle text-center w-1">
                                 {{ __('No') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 @sortablelink('code', 'Kode')
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 @sortablelink('name', 'Nama')
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Alamat') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Aksi') }}
                             </th>
                         </tr>
@@ -87,7 +87,7 @@
                     <tbody>
                     @forelse ($offices as $office)
                         <tr>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $loop->iteration }}
                             </td>
                             <td class="align-middle">
@@ -99,7 +99,7 @@
                             <td class="align-middle">
                                 {{ $office->address }}
                             </td>
-                            <td class="align-middle text-center" style="width: 10%">
+                            <td class="align-middle" style="width: 10%">
                                 <x-button.show class="btn-icon" route="{{ route('offices.show', $office) }}"/>
                                 <x-button.edit class="btn-icon" route="{{ route('offices.edit', $office) }}"/>
                                 <x-button.delete class="btn-icon" route="{{ route('offices.destroy', $office) }}"/>

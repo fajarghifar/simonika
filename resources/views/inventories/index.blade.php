@@ -65,31 +65,31 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered card-table table-vcenter text-nowrap datatable">
+                <table class="table table-vcenter card-table text-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th class="align-middle text-center w-1">
+                            <th class="align-middle w-1">
                                 {{ __('No') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Nomor Seri') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Merek') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 @sortablelink('model', 'Model')
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Kategori') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Kantor') }}
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 @sortablelink('status', 'Status')
                             </th>
-                            <th scope="col" class="align-middle text-center">
+                            <th scope="col" class="align-middle">
                                 {{ __('Aksi') }}
                             </th>
                         </tr>
@@ -97,11 +97,11 @@
                     <tbody>
                     @forelse ($inventories as $inventory)
                         <tr>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ ($inventories->currentPage() - 1) * $inventories->perPage() + $loop->iteration }}
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $inventory->serial_number }}
                             </td>
                             <td class="align-middle">
@@ -110,13 +110,13 @@
                             <td class="align-middle">
                                 {{ $inventory->model }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 {{ $inventory->category->label() }}
                             </td>
                             <td class="align-middle">
                                 {{ $inventory->office->code }} - {{ $inventory->office->name }}
                             </td>
-                            <td class="align-middle text-center">
+                            <td class="align-middle">
                                 <x-status
                                     dot color="{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }}"
                                     class="text-uppercase"
@@ -124,7 +124,7 @@
                                     {{ $inventory->status->label() }}
                                 </x-status>
                             </td>
-                            <td class="align-middle text-center" style="width: 10%">
+                            <td class="align-middle" style="width: 10%">
                                 <x-button.show class="btn-icon" route="{{ route('inventories.show', $inventory) }}"/>
                                 <x-button.edit class="btn-icon" route="{{ route('inventories.edit', $inventory) }}"/>
                                 <x-button.delete class="btn-icon" route="{{ route('inventories.destroy', $inventory) }}"/>
@@ -132,7 +132,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle text-center" colspan="8">
+                            <td class="align-middle" colspan="8">
                                 <x-empty
                                     route="{{ route('inventories.create') }}"
                                     title="{{ __('Inventaris tidak ditemukan') }}"

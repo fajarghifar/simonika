@@ -86,32 +86,9 @@
                                     <a class="dropdown-item" href="{{ route('vehicles.index') }}">
                                         Kendaraan
                                     </a>
-                                    <div class="dropend">
-                                        <a class="dropdown-item dropdown-toggle" href="#sidebar-cards" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                                            Pajak
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <a href="{{ route('vehicles.weekly.tax.report') }}" class="dropdown-item">
-                                                &lt; 1 Minggu
-                                            </a>
-                                            <a href="{{ route('vehicles.monthly.tax.report') }}" class="dropdown-item">
-                                                &lt; 1 Bulan
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="dropend">
-                                        <a class="dropdown-item dropdown-toggle" href="#sidebar-cards" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                                            STNK
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <a href="{{ route('vehicles.weekly.stnk.report') }}" class="dropdown-item">
-                                                &lt; 1 Minggu
-                                            </a>
-                                            <a href="{{ route('vehicles.weekly.stnk.report') }}" class="dropdown-item">
-                                                &lt; 1 Bulan
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <a class="dropdown-item" href="{{ route('vehicles.report') }}">
+                                        Periode Pembayaran
+                                    </a>
                                 </div>
                             </div>
                         </div>
