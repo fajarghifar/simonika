@@ -21,15 +21,15 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
                             <a href="{{ route('users.create') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-plus me-2"></i>
                                 {{ __('Tambah Pengguna') }}
                             </a>
                             <a href="{{ route('users.import.view') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-file-import me-2"></i>
                                 {{ __('Import Pengguna') }}
                             </a>
                             <a href="{{ route('users.export') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-file-export me-2"></i>
                                 {{ __('Export Pengguna') }}
                             </a>
                         </div>

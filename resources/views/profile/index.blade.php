@@ -12,15 +12,15 @@
                 <h1 class="fw-bold">{{ $user->name }}</h1>
                 <div class="list-inline list-inline-dots text-muted">
                     <div class="list-inline-item">
-                        <i class="fa-solid fa-map me-1"></i>
+                        <i class="fa-solid fa-map me-2"></i>
                         {{ $user->address }}
                     </div>
                     <div class="list-inline-item">
-                        <i class="fa-solid fa-envelope me-1"></i>
+                        <i class="fa-solid fa-envelope me-2"></i>
                         <a href="mailto:{{ $user->email }}" class="text-reset">{{ $user->email }}</a>
                     </div>
                     <div class="list-inline-item">
-                        <i class="fa-solid fa-cake-candles me-1"></i>
+                        <i class="fa-solid fa-cake-candles me-2"></i>
                         {{ $user->date_of_birth }}
                     </div>
                 </div>

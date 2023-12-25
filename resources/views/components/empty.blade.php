@@ -17,7 +17,7 @@
     </p>
     <div class="empty-action">
         <a href="{{ $buttonRoute }}" class="btn btn-primary">
-            <i class="fa-solid fa-plus me-1"></i>
+            <i class="fa-solid fa-plus me-2"></i>
             {{ $buttonLabel }}
         </a>
     </div>

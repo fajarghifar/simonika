@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
-use App\Enums\InventoryCategory;
 use App\Enums\InventoryStatus;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\InventoryCategory;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Inventory extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory, SoftDeletes, Sortable;
+
+    protected $table = "inventories";
 
     protected $guarded = ['id'];
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'brand_id',
@@ -29,6 +34,7 @@ class Inventory extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
         'category' => InventoryCategory::class,
         'status' => InventoryStatus::class
     ];

@@ -21,16 +21,20 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
                             <a href="{{ route('vehicles.create') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-plus me-2"></i>
                                 {{ __('Tambah Kendaraan') }}
                             </a>
-                            <a href="{{ route('vehicles.import.view') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                            <a href="{{ route('vehicles.import.excel') }}" class="dropdown-item">
+                                <i class="fa-solid fa-file-import me-2"></i>
                                 {{ __('Import Kendaraan') }}
                             </a>
-                            <a href="{{ route('vehicles.export') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                            <a href="{{ route('vehicles.export.excel') }}" class="dropdown-item">
+                                <i class="fa-solid fa-file-export me-2"></i>
                                 {{ __('Export Kendaraan') }}
+                            </a>
+                            <a href="{{ route('vehicles.export.pdf') }}" class="dropdown-item">
+                                <i class="fa-solid fa-file-pdf me-2"></i>
+                                {{ __('PDF Kendaraan') }}
                             </a>
                         </div>
                     </div>

@@ -12,6 +12,8 @@ class Brand extends Model
 {
     use HasFactory, SoftDeletes, Sortable;
 
+    protected $table = "brands";
+
     protected $guarded = ['id'];
 
     protected $dates = ['deleted_at'];
@@ -24,6 +26,7 @@ class Brand extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
         'category' => BrandCategory::class
     ];
 

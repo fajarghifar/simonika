@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Office extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory, SoftDeletes, Sortable;
 
-    protected $guarded = [
-        'id',
-    ];
+    protected $table = "offices";
+
+    protected $guarded = ['id'];
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'code',
@@ -23,6 +26,7 @@ class Office extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     protected $sortable = [

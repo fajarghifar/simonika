@@ -20,15 +20,15 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
                             <a href="{{ route('offices.create') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-plus me-2"></i>
                                 {{ __('Tambah Kantor') }}
                             </a>
                             <a href="{{ route('offices.import.view') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-file-import me-2"></i>
                                 {{ __('Import Kantor') }}
                             </a>
                             <a href="{{ route('offices.export') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-file-export me-2"></i>
                                 {{ __('Export Kantor') }}
                             </a>
                         </div>

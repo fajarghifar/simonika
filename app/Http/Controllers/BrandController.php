@@ -116,11 +116,11 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand): RedirectResponse
     {
-        // if ($brand->inventories()->exists() || $brand->vehicles()->exists()) {
-        //     return redirect()
-        //         ->route('brands.index')
-        //         ->with('error', 'Brand terkait dengan inventaris/kendaraan dan tidak dapat dihapus.');
-        // }
+        if ($brand->inventories()->exists() || $brand->vehicles()->exists()) {
+            return redirect()
+                ->route('brands.index')
+                ->with('error', 'Brand terkait dengan inventaris/kendaraan dan tidak dapat dihapus.');
+        }
 
         $brand->delete();
 

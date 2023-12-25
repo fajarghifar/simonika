@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
-use App\Enums\VehicleCategory;
 use App\Enums\VehicleStatus;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\VehicleCategory;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vehicle extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory, SoftDeletes, Sortable;
+
+    protected $table = "vehicles";
 
     protected $guarded = ['id'];
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'brand_id',
@@ -35,6 +40,7 @@ class Vehicle extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
         'category' => VehicleCategory::class,
         'status' => VehicleStatus::class
     ];

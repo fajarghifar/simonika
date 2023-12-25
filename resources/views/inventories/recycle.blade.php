@@ -3,41 +3,39 @@
 @section('content')
 <div class="page-body">
     <div class="container-xl">
+
         <x-alert/>
 
         <div class="card">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        {{ __('Data Brand') }}
+                        <i class="fa-solid fa-trash me-2"></i>
+                        {{ __('Recycle Inventaris') }}
                     </h3>
                 </div>
 
-                <div class="card-actions btn-group">
+                {{-- <div class="card-actions btn-group">
                     <div class="dropdown">
                         <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
-                            <a href="{{ route('brands.create') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-2"></i>
-                                {{ __('Tambah Brand') }}
-                            </a>
-                            <a href="{{ route('brands.import.view') }}" class="dropdown-item">
+                            <a href="{{ route('inventories.import.view') }}" class="dropdown-item">
                                 <i class="fa-solid fa-file-import me-2"></i>
-                                {{ __('Import Brand') }}
+                                {{ __('Import Inventaris') }}
                             </a>
-                            <a href="{{ route('brands.export') }}" class="dropdown-item">
+                            <a href="{{ route('inventories.export') }}" class="dropdown-item">
                                 <i class="fa-solid fa-file-export me-2"></i>
-                                {{ __('Export Brand') }}
+                                {{ __('Export Inventaris') }}
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <div class="card-body border-bottom py-3">
-                <form action="{{ route('brands.index') }}" method="GET">
+                <form action="{{ route('inventories.recycle.show') }}" method="GET">
                     <div class="d-flex">
                         <div class="text-secondary">
                             Tampilkan
@@ -71,10 +69,19 @@
                                 {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle">
-                                @sortablelink('name', 'Nama')
+                                {{ __('Nomor Seri') }}
                             </th>
                             <th scope="col" class="align-middle">
-                                @sortablelink('category', 'Kategori')
+                                {{ __('Merek') }}
+                            </th>
+                            <th scope="col" class="align-middle">
+                                @sortablelink('model', 'Model')
+                            </th>
+                            <th scope="col" class="align-middle">
+                                {{ __('Kategori') }}
+                            </th>
+                            <th scope="col" class="align-middle">
+                                {{ __('Kantor') }}
                             </th>
                             <th scope="col" class="align-middle">
                                 {{ __('Aksi') }}
@@ -82,33 +89,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse ($brands as $brand)
+                    @forelse ($inventories as $inventory)
                         <tr>
                             <td class="align-middle">
-                                {{ $loop->iteration }}
+                                {{ ($inventories->currentPage() - 1) * $inventories->perPage() + $loop->iteration }}
+                            </td>
+
+                            <td class="align-middle">
+                                {{ $inventory->serial_number }}
                             </td>
                             <td class="align-middle">
-                                {{ $brand->name }}
+                                {{ $inventory->brand->name }}
                             </td>
                             <td class="align-middle">
-                                {{ $brand->category->label() }}
+                                {{ $inventory->model }}
+                            </td>
+                            <td class="align-middle">
+                                {{ $inventory->category->label() }}
+                            </td>
+                            <td class="align-middle">
+                                {{ $inventory->office->code }} - {{ $inventory->office->name }}
                             </td>
                             <td class="align-middle" style="width: 10%">
-                                <x-button.show class="btn-icon" route="{{ route('brands.show', $brand) }}"/>
-                                <x-button.edit class="btn-icon" route="{{ route('brands.edit', $brand) }}"/>
-                                <x-button.delete class="btn-icon" route="{{ route('brands.destroy', $brand) }}"/>
+                                <x-button.restore class="btn-icon" route="{{ route('inventories.recycle.restore', $inventory) }}"/>
+                                <x-button.delete class="btn-icon" route="{{ route('inventories.recycle.delete', $inventory) }}"/>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle text-center" colspan="4">
-                                <x-empty
-                                    route="{{ route('brands.create') }}"
-                                    title="{{ __('Brand tidak ditemukan') }}"
-                                    message="{{ __('Coba sesuaikan pencarian atau filter Anda untuk menemukan apa yang sedang Anda cari.') }}"
-                                    buttonLabel="{{ __('Tambahkan brand terlebih dahulu!') }}"
-                                    buttonRoute="{{ route('brands.create') }}"
-                                />
+                            <td class="align-middle" colspan="8">
+                                <div class="empty">
+                                    <p class="empty-title">
+                                        Tidak ditemukan inventaris!
+                                    </p>
+                                    <p class="empty-subtitle text-secondary">
+                                        Coba sesuaikan pencarian atau filter Anda untuk menemukan apa yang sedang Anda cari.
+                                    </p>
+                                </div>
                             </td>
                         </tr>
                     @endforelse
@@ -118,12 +135,12 @@
 
             <div class="card-footer d-flex align-items-center">
                 <p class="m-0 text-secondary">
-                    Showing <span>{{ $brands->firstItem() }}</span>
-                    to <span>{{ $brands->lastItem() }}</span> of <span>{{ $brands->total() }}</span> entries
+                    Showing <span>{{ $inventories->firstItem() }}</span>
+                    to <span>{{ $inventories->lastItem() }}</span> of <span>{{ $inventories->total() }}</span> entries
                 </p>
 
                 <ul class="pagination m-0 ms-auto">
-                    {{ $brands->links() }}
+                    {{ $inventories->links() }}
                 </ul>
             </div>
         </div>

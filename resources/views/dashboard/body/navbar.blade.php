@@ -60,6 +60,7 @@
                     </li>
 
                     @if (Auth::user()->role->name === 'admin')
+
                     <li class="nav-item {{ request()->is('inventories*') ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('inventories.index') }}" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -84,15 +85,16 @@
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
                                     <a class="dropdown-item" href="{{ route('vehicles.index') }}">
-                                        Kendaraan
+                                        {{ __('Kendaraan') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('vehicles.report') }}">
-                                        Periode Pembayaran
+                                        {{ __('Periode Pembayaran') }}
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </li>
+
 
                     <li class="nav-item {{ request()->is('users*') ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('users.index') }}" >
@@ -103,6 +105,32 @@
                                 {{ __('Pengguna') }}
                             </span>
                         </a>
+                    </li>
+
+                    <li class="nav-item dropdown {{ request()->is('recycle*') ? 'active' : null }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="fa-solid fa-trash"></i>
+                            </span>
+                            <span class="nav-link-title">
+                                {{ __('Recycle') }}
+                            </span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-columns">
+                                <div class="dropdown-menu-column">
+                                    <a class="dropdown-item {{ request()->is('recycle/inventories*') ? 'active' : null }}" href="{{ route('inventories.recycle.show') }}">
+                                        {{ __('Inventaris') }}
+                                    </a>
+                                    <a class="dropdown-item {{ request()->is('recycle/vehicles*') ? 'active' : null }}" href="{{ route('vehicles.recycle.show') }}">
+                                        {{ __('Kendaraan') }}
+                                    </a>
+                                    <a class="dropdown-item {{ request()->is('recycle/users*') ? 'active' : null }}" href="{{ route('users.recycle.show') }}">
+                                        {{ __('Pengguna') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </li>
 
                     <li class="nav-item dropdown {{ request()->is('offices*', 'brands*') ? 'active' : null }}">
@@ -117,10 +145,10 @@
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
-                                    <a class="dropdown-item {{ request()->is('offices*') ? 'active' : null }}" href="{{ route('offices.index') }}">
+                                    <a class="dropdown-item" href="{{ route('offices.index') }}">
                                         {{ __('Kantor') }}
                                     </a>
-                                    <a class="dropdown-item {{ request()->is('brands*') ? 'active' : null }}" href="{{ route('brands.index') }}">
+                                    <a class="dropdown-item" href="{{ route('brands.index') }}">
                                         {{ __('Brand') }}
                                     </a>
                                 </div>

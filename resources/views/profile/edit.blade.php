@@ -40,7 +40,7 @@
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <!-- Profile picture image -->
-                                    <img class="avatar avatar-lg rounded" src="{{ $user->photo ? asset('images/profile/'.$user->photo) : Avatar::create(Auth::user()->name)->toBase64() }}" id="image-preview" />
+                                    <img class="avatar avatar-lg rounded" src="{{ $user->photo ? Storage::url($user->photo) : Avatar::create(Auth::user()->name)->toBase64() }}" id="image-preview" />
                                     <!-- Profile picture help block -->
                                     <div class="small font-italic text-muted my-2">JPG or PNG no larger than 1 MB</div>
                                     <!-- Profile picture input -->

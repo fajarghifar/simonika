@@ -21,22 +21,22 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" style="">
                             <a href="{{ route('vehicles.create') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-plus me-2"></i>
                                 {{ __('Tambah Kendaraan') }}
                             </a>
                             <x-form action="{{ route('vehicles.users.reminder') }}" method="POST">
                                 @csrf
                                 <button class="dropdown-item" type="submit" onclick="return confirm('Apakah Anda yakin untuk mengirimkan pesan pengingat untuk semuanya?')">
-                                    <i class="fa-solid fa-envelope me-1"></i>
+                                    <i class="fa-solid fa-envelope me-2"></i>
                                     {{ __('Ingatkan Semua') }}
                                 </button>
                             </x-form>
                             {{-- <a href="{{ route('vehicles.import.view') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-file-import me-2"></i>
                                 {{ __('Import Kendaraan') }}
                             </a>
                             <a href="{{ route('vehicles.export') }}" class="dropdown-item">
-                                <i class="fa-solid fa-plus me-1"></i>
+                                <i class="fa-solid fa-file-export me-2"></i>
                                 {{ __('Export Kendaraan') }}
                             </a> --}}
                         </div>
@@ -144,16 +144,16 @@
                             <td class="w-4">
                                 <div class="d-flex justify-content-end">
                                 @if ($vehicle->user?->phone)
-                                    <x-form action="{{ route('vehicles.user.reminder', $vehicle) }}" method="POST" class="me-1">
+                                    <x-form action="{{ route('vehicles.user.reminder', $vehicle) }}" method="POST" class="me-2">
                                         @csrf
                                         <x-button type="submit" class="btn btn-icon btn-outline-success" onclick="return confirm('Apakah Anda yakin untuk mengirimkan pesan pengingat pada {{ $vehicle->user->name }}?')">
                                             <i class="fa-solid fa-envelope"></i>
                                         </x-button>
                                     </x-form>
                                 @endif
-                                    <x-button.show class="btn-icon me-1" route="{{ route('vehicles.show', $vehicle) }}" />
-                                    <x-button.edit class="btn-icon me-1" route="{{ route('vehicles.edit', $vehicle) }}" />
-                                    <x-button.delete class="btn-icon me-1" route="{{ route('vehicles.destroy', $vehicle) }}" />
+                                    <x-button.show class="btn-icon me-2" route="{{ route('vehicles.show', $vehicle) }}" />
+                                    <x-button.edit class="btn-icon me-2" route="{{ route('vehicles.edit', $vehicle) }}" />
+                                    <x-button.delete class="btn-icon me-2" route="{{ route('vehicles.destroy', $vehicle) }}" />
                                 </div>
                             </td>
 

@@ -32,6 +32,7 @@ class CreateVehiclesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->tinyInteger('status')->comment('0=tersedia, 1=dipinjam');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -8,7 +8,6 @@ use App\Models\Inventory;
 use Illuminate\View\View;
 use App\Enums\VehicleStatus;
 use App\Enums\InventoryStatus;
-use App\Models\InventoryDetail;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller

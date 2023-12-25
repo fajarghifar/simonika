@@ -25,6 +25,7 @@ class VehicleDetail extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
         'status' => VehicleDetailStatus::class,
     ];
 

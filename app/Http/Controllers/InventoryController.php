@@ -21,11 +21,6 @@ use App\Http\Requests\Inventory\UpdateInventoryRequest;
 
 class InventoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(): View
     {
         $perPage = (int) request('row', 10);
@@ -41,11 +36,6 @@ class InventoryController extends Controller
         return view('inventories.index', compact('inventories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()  : View
     {
         return view('inventories.create', [
@@ -56,12 +46,6 @@ class InventoryController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreInventoryRequest $request) : RedirectResponse
     {
         $inventory = Inventory::create($request->all());
@@ -81,12 +65,6 @@ class InventoryController extends Controller
             ->with('success', 'Inventaris berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
     public function show(Inventory $inventory)  : View
     {
         $inventory_details = InventoryDetail::with(['user'])
@@ -100,12 +78,6 @@ class InventoryController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Inventory $inventory) : View
     {
         $inventory_details = InventoryDetail::with(['user'])
@@ -127,13 +99,6 @@ class InventoryController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateInventoryRequest $request, Inventory $inventory) : RedirectResponse
     {
         $inventory->update($request->except('photo'));
@@ -159,19 +124,8 @@ class InventoryController extends Controller
             ->with('success', 'Inventaris berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Inventory $inventory) : RedirectResponse
     {
-        $filePath = public_path('images/inventories/' . $inventory->photo);
-        if (File::exists($filePath)) {
-            File::delete($filePath);
-        }
-
         $inventory->delete();
         InventoryDetail::where('inventory_id', $inventory->id)->delete();
 
@@ -180,7 +134,48 @@ class InventoryController extends Controller
             ->with('success', 'Inventaris berhasil dihapus!');
     }
 
-    // Import Excel
+    public function showRecycled(): View
+    {
+        $perPage = (int) request('row', 10);
+
+        abort_if($perPage < 1 || $perPage > 25, 404);
+
+        $inventories = Inventory::onlyTrashed()
+            ->with(['brand', 'office'])
+            ->sortable()
+            ->filter(request(['search']))
+            ->paginate($perPage)
+            ->appends(request()->query());
+
+        return view('inventories.recycle', compact('inventories'));
+    }
+
+    public function restoreRecycled($id)
+    {
+        $inventory = Inventory::onlyTrashed()->findOrFail($id);
+        $inventory->restore();
+
+        return redirect()
+            ->route('inventories.recycle.show')
+            ->with('success', 'Inventaris berhasil dipulihkan!');
+    }
+
+    public function deleteRecycled($id)
+    {
+        $inventory = Inventory::onlyTrashed()->findOrFail($id);
+
+        $filePath = public_path('images/inventories/' . $inventory->photo);
+        if (File::exists($filePath)) {
+            File::delete($filePath);
+        }
+
+        $inventory->forceDelete();
+
+        return redirect()
+            ->route('inventories.recycle.show')
+            ->with('success', 'Inventaris berhasil dihapus permanen!');
+    }
+
     public function import(Request $request)
     {
         return view('inventories.import');
@@ -188,15 +183,15 @@ class InventoryController extends Controller
 
     public function importHandler(Request $request)
     {
-        // Validate the uploaded file
+
         $request->validate([
             'file' => 'required|mimes:xlsx,xls',
         ]);
 
-        // Get the uploaded file
+
         $file = $request->file('file');
 
-        // Process the Excel file
+
         Excel::import(new InventoriesImport, $file);
 
         return redirect()
@@ -204,7 +199,6 @@ class InventoryController extends Controller
             ->with('success', 'Excel file imported successfully!');
     }
 
-    // Excel Export
     public function export(){
         $file_name = 'inventories_'.date('Y_m_d_H_i_s').'.xlsx';
         return Excel::download(new InventoriesExport, $file_name);

@@ -9,6 +9,8 @@ use Illuminate\View\View;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use App\Models\VehicleDetail;
+use App\Models\InventoryDetail;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,11 +20,6 @@ use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index() : View
     {
         $perPage = (int) request('row', 10);
@@ -39,11 +36,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create() : View
     {
         return view('users.create', [
@@ -52,12 +44,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreUserRequest $request) : RedirectResponse
     {
         $validatedData = $request->all();
@@ -78,12 +64,6 @@ class UserController extends Controller
             ->with('success', 'Pengguna berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function show(User $user) : View
     {
         return view('users.show', [
@@ -111,12 +91,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user) : View
     {
         return view('users.edit', [
@@ -126,13 +100,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateUserRequest $request, User $user) : RedirectResponse
     {
         $updateData = $request->validated();
@@ -158,15 +125,60 @@ class UserController extends Controller
             ->with('success', 'User berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
+    public function destroy(User $user) : RedirectResponse
     {
-        //
+        VehicleDetail::where('user_id', $user->id)->delete();
+        InventoryDetail::where('user_id', $user->id)->delete();
+
+        $user->delete();
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Pengguna berhasil dihapus!');
+    }
+
+    public function showRecycled(): View
+    {
+        $perPage = (int) request('row', 10);
+
+        abort_if($perPage < 1 || $perPage > 25, 404);
+
+        $users = User::onlyTrashed()
+            ->sortable()
+            ->filter(request(['search']))
+            ->paginate($perPage)
+            ->appends(request()->query());
+
+        return view('users.recycle', [
+            'users' => $users,
+        ]);
+    }
+
+    public function restoreRecycled($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+
+        $user->restore();
+
+        return redirect()
+            ->route('users.recycle.show')
+            ->with('success', 'User berhasil dipulihkan!');
+    }
+
+    public function deleteRecycled($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+
+        $filePath = public_path('images/profile/' . $user->photo);
+        if (File::exists($filePath)) {
+            File::delete($filePath);
+        }
+
+        $user->forceDelete();
+
+        return redirect()
+            ->route('users.recycle.show')
+            ->with('success', 'Pengguna berhasil dihapus permanen!');
     }
 
     // Import Excel

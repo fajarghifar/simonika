@@ -24,10 +24,10 @@ class UserSeeder extends Seeder
                 'created_at' => now()
             ],
             [
-                'name' => 'User',
                 'email' => 'user@user.com',
                 'email_verified_at' => now(),
                 'role_id' => 2,
+
                 'password' => bcrypt('password'),
                 'created_at' => now()
             ]
@@ -36,5 +36,7 @@ class UserSeeder extends Seeder
         $users->each(function ($user){
             User::factory()->create($user);
         });
+
+        User::factory(10)->create();
     }
 }
