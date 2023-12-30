@@ -81,7 +81,7 @@
                                 @sortablelink('model', 'Model')
                             </th>
                             <th scope="col" class="align-middle">
-                                {{ __('Kategori') }}
+                                @sortablelink('category', 'Kategori')
                             </th>
                             <th scope="col" class="align-middle">
                                 {{ __('Kantor') }}
@@ -111,8 +111,22 @@
                                 {{ $inventory->model }}
                             </td>
                             <td class="align-middle">
-                                {{ $inventory->category->label() }}
+                                <span class="badge
+                                    @php
+                                        if ($inventory->category === \App\Enums\InventoryCategory::LAPTOP) {
+                                            echo('bg-orange');
+                                        } elseif ($inventory->category === \App\Enums\InventoryCategory::KOMPUTER) {
+                                            echo('bg-blue');
+                                        } else {
+                                            echo('bg-success');
+                                        }
+                                    @endphp
+                                    text-blue-fg"
+                                >
+                                    {{ $inventory->category->label() }}
+                                </span>
                             </td>
+
                             <td class="align-middle">
                                 {{ $inventory->office->code }} - {{ $inventory->office->name }}
                             </td>

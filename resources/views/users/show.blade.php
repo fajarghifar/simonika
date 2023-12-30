@@ -148,7 +148,7 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label class="form-label mb-1">Role</label>
-                                    <p class="btn btn-pill btn-outline-{{ $user->role->id === 1 ? 'green' : 'orange' }} w-10">
+                                    <p class="btn position-relative btn-{{ $user->role->id === 1 ? 'green' : 'orange' }} w-10">
                                         {{ ucfirst($user->role->name) }}
                                     </p>
                                 </div>

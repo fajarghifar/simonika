@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\VehicleDetailStatus;
-use App\Enums\VehicleStatus;
-use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Vehicle;
+use Illuminate\View\View;
+use App\Enums\VehicleStatus;
 use Illuminate\Http\Request;
 use App\Models\VehicleDetail;
+use App\Enums\VehicleDetailStatus;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\VehicleDetail\StoreVehicleDetailRequest;
 
@@ -18,9 +19,17 @@ class VehicleDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() : Void
+    public function index(Vehicle $vehicle) : View
     {
-        //
+        $vehicle_details = VehicleDetail::with(['user'])
+            ->where('vehicle_id', $vehicle->id)
+            ->orderByDesc('id')
+            ->get();
+
+        return view('vehicles.history', [
+            'vehicle' => $vehicle,
+            'vehicle_details' => $vehicle_details,
+        ]);
     }
 
     /**
@@ -39,18 +48,17 @@ class VehicleDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVehicleDetailRequest $request) : RedirectResponse
+    public function store(StoreVehicleDetailRequest $request, Vehicle $vehicle) : RedirectResponse
     {
-        Vehicle::findOrFail($request->vehicle_id)
-            ->update([
+        $vehicle->update([
                 'status' => VehicleStatus::DIPINJAM,
                 'user_id' => $request->user_id
             ]);
 
-        VehicleDetail::create($request->all());
+        VehicleDetail::create(array_merge($request->all(), ['vehicle_id' => $vehicle->id]));
 
         return redirect()
-            ->route('vehicles.edit', $request->vehicle_id)
+            ->route('vehicles.show', $vehicle)
             ->with('success', 'Kendaraan berhasil dipinjamkan!');
     }
 
@@ -60,9 +68,21 @@ class VehicleDetailController extends Controller
      * @param  \App\Models\VehicleDetail  $vehicleDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(VehicleDetail $vehicleDetail) : Void
+    public function show(Vehicle $vehicle) : View
     {
-        //
+        $vehicle_details = VehicleDetail::with(['user'])
+            ->where('vehicle_id', $vehicle->id)
+            ->orderByDesc('id')
+            ->get();
+
+        $vehicle_detail_current = $vehicle_details->first() ?? 0 ;
+
+        return view('vehicles.borrow', [
+            'vehicle' => $vehicle,
+            'vehicle_detail_current' => $vehicle_detail_current,
+
+            'users' => User::all()
+        ]);
     }
 
     /**
@@ -97,7 +117,7 @@ class VehicleDetailController extends Controller
             ]);
 
         return redirect()
-            ->route('vehicles.edit', $vehicleDetail->vehicle_id)
+            ->route('vehicles.show', $vehicleDetail->vehicle_id)
             ->with('success', 'Kendaraan berhasil dikembalikan!');
     }
 

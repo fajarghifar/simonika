@@ -42,7 +42,7 @@ class Inventory extends Model
     protected $with = [
         'brand',
         'office',
-        'user',
+        'user'
     ];
 
     protected $sortable = [

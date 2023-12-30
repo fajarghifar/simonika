@@ -51,14 +51,14 @@ Route::middleware(['role:admin'])->group(function () {
         Route::get('/import', [InventoryController::class, 'import'])->name('inventories.import.view');
         Route::post('/import', [InventoryController::class, 'importHandler'])->name('inventories.import.handler');
         Route::get('/export', [InventoryController::class, 'export'])->name('inventories.export');
+
+        // Borrowed Inventory (Inventory Details)
+        Route::get('/{inventory}/history', [InventoryDetailController::class, 'index'])->name('inventories.borrowing.history');
+        Route::get('/{inventory}/borrow', [InventoryDetailController::class, 'show'])->name('inventories.borrow');
+        Route::post('/{inventory}/borrow', [InventoryDetailController::class, 'store'])->name('inventories.borrow.store');
+        Route::put('/{inventoryDetail}/return', [InventoryDetailController::class, 'update'])->name('inventories.return');
     });
     Route::resource('inventories', InventoryController::class);
-
-    // Inventory Detail
-    Route::prefix('inventory')->group(function () {
-        Route::post('/details', [InventoryDetailController::class, 'store'])->name('inventory.details.store');
-        Route::put('/{inventoryDetail}', [InventoryDetailController::class, 'update'])->name('inventory.details.update');
-    });
 
     // Vehicle
     Route::prefix('vehicles')->group(function () {
@@ -66,6 +66,12 @@ Route::middleware(['role:admin'])->group(function () {
         Route::post('/import/excel', [VehicleController::class, 'importHandlerExcel'])->name('vehicles.import.handler');
         Route::get('/export/excel', [VehicleController::class, 'exportExcel'])->name('vehicles.export.excel');
         Route::get('/export/pdf', [VehicleController::class, 'exportPdf'])->name('vehicles.export.pdf');
+
+        // Borrow Vehicles (Vehicle Details)
+        Route::get('/{vehicle}/history', [VehicleDetailController::class, 'index'])->name('vehicles.borrowing.history');
+        Route::get('/{vehicle}/borrow', [VehicleDetailController::class, 'show'])->name('vehicles.borrow');
+        Route::post('/{vehicle}/borrow', [VehicleDetailController::class, 'store'])->name('vehicles.borrow.store');
+        Route::put('/{vehicleDetail}/return', [VehicleDetailController::class, 'update'])->name('vehicles.return');
 
         // Vehicle Report
         Route::get('/report', [VehicleReportController::class, 'index'])->name('vehicles.report');
@@ -75,12 +81,6 @@ Route::middleware(['role:admin'])->group(function () {
         Route::post('/reminder/{vehicle}', [VehicleReminderController::class, 'userReminder'])->name('vehicles.user.reminder');
     });
     Route::resource('vehicles', VehicleController::class);
-
-    // Vehicle Detail
-    Route::prefix('vehicle')->group(function () {
-        Route::post('/details', [VehicleDetailController::class, 'store'])->name('vehicle.details.store');
-        Route::put('/{vehicleDetail}', [VehicleDetailController::class, 'update'])->name('vehicle.details.update');
-    });
 
     // Recycle
     Route::prefix('recycle')->group(function () {

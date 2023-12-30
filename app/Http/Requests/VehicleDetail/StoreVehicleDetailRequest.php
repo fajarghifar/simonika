@@ -25,11 +25,6 @@ class StoreVehicleDetailRequest extends FormRequest
     public function rules()
     {
         return [
-            'vehicle_id' => [
-                'required',
-                'string',
-                'exists:vehicles,id'
-            ],
             'user_id' => [
                 'required',
                 'string',

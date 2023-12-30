@@ -25,11 +25,6 @@ class StoreInventoryDetailRequest extends FormRequest
     public function rules()
     {
         return [
-            'inventory_id' => [
-                'required',
-                'string',
-                'exists:inventories,id'
-            ],
             'user_id' => [
                 'required',
                 'string',

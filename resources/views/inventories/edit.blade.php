@@ -25,36 +25,65 @@
             @method('put')
 
             <div class="col-lg-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">
-                            {{ __('Foto') }}
-                        </h3>
+                <div class="row row-cards">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    {{ __('Foto') }}
+                                </h3>
 
-                        <img class="img-fluid rounded mx-auto d-block mb-2"
-                            style="max-width: 250px"
-                            src="{{ $inventory->photo ? asset('images/inventories/'.$inventory->photo) : asset('static/product.webp') }}"
-                            id="image-preview"
-                        />
+                                <img class="img-fluid rounded mx-auto d-block mb-2"
+                                    style="max-width: 250px"
+                                    src="{{ $inventory->photo ? asset('images/inventories/'.$inventory->photo) : asset('static/product.webp') }}"
+                                    id="image-preview"
+                                />
 
-                        <div class="small font-italic text-muted mb-2">
-                            JPG or PNG no larger than 2 MB
+                                <div class="small font-italic text-muted mb-2">
+                                    JPG or PNG no larger than 2 MB
+                                </div>
+
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    id="image"
+                                    name="photo"
+                                    class="form-control @error('photo') is-invalid @enderror"
+                                    onchange="previewImage();"
+                                >
+
+                                @error('photo')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
                         </div>
+                    </div>
 
-                        <input
-                            type="file"
-                            accept="image/*"
-                            id="image"
-                            name="photo"
-                            class="form-control @error('photo') is-invalid @enderror"
-                            onchange="previewImage();"
-                        >
-
-                        @error('photo')
-                        <div class="invalid-feedback">
-                            {{ $message }}
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    {{ __('Peminjaman') }}
+                                </h3>
+                                <div class="medium font-italic text-muted mb-2">
+                                    Lakukan peminjaman atau tampilkan riwayat peminjaman pada inventaris ini.
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 py-3">
+                                        <a class="btn btn-outline-info w-100" href="{{ route('inventories.borrow', $inventory) }}">
+                                            {{ __('Peminjaman') }}
+                                        </a>
+                                    </div>
+                                    <div class="col-6 py-3">
+                                        <a class="btn btn-outline-warning w-100" href="{{ route('inventories.borrowing.history', $inventory) }}">
+                                            {{ __('Riwayat') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        @enderror
                     </div>
                 </div>
             </div>
@@ -158,12 +187,7 @@
                                         {{ __('Status') }}
                                     </label>
 
-                                    <x-status
-                                        dot color="{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }}"
-                                        class="text-uppercase"
-                                    >
-                                        {{ $inventory->status->label() }}
-                                    </x-status>
+                                    <span class="btn position-relative btn-{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }}">{{ $inventory->status->label() }}<span class="badge bg-{{ $inventory->status === \App\Enums\InventoryStatus::TERSEDIA ? 'green' : 'orange' }} badge-notification badge-blink"></span></span>
                                 </div>
                             </div>
 
@@ -181,194 +205,6 @@
                 </div>
             </div>
         </form>
-
-        @if ($inventory_detail_current && $inventory_detail_current->status == \App\Enums\InventoryDetailStatus::PINJAM)
-        <form class="row" action="{{ route('inventory.details.update', $inventory_detail_current->id) }}" method="POST">
-            @csrf
-            @method('put')
-            <input type="hidden" name="id" value="{{ $inventory_detail_current->id }}"/>
-
-            <div class="col-lg-4 mb-3"></div>
-
-            <div class="col-lg-8 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <h3 class="card-title">
-                                {{ __('Data Peminjaman') }}
-                            </h3>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="row row-cards">
-
-                            <div class="col-sm-6 col-md-6">
-                                <x-input name="user_id"
-                                            label="Nama Pengguna"
-                                            value="{{ $inventory_detail_current->user->name }}"
-                                            readonly="true"
-                                />
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <x-input name="borrowed_date"
-                                            label="Tanggal Pinjam"
-                                            value="{{ $inventory_detail_current->borrowed_date }}"
-                                            readonly="true"
-                                />
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="card-footer text-end">
-                        <x-button.save type="submit">
-                            {{ __('Kembalikan') }}
-                        </x-button.save>
-                    </div>
-                </div>
-            </div>
-        </form>
-        @else
-        <form action="{{ route('inventory.details.store') }}" class="row" method="POST">
-            @csrf
-            <input type="hidden" name="inventory_id" value="{{ $inventory->id }}" required>
-
-            <div class="col-lg-4 mb-3"></div>
-
-            <div class="col-lg-8 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <h3 class="card-title">
-                                {{ __('Data Peminjaman') }}
-                            </h3>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="row">
-
-                            <div class="col-lg-6">
-                                <x-input.select name="user_id"
-                                                label="Nama Pengguna"
-                                                placeholder="{{ __('Pilih pengguna:') }}"
-                                >
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">
-                                            {{ $user->name }}
-                                        </option>
-                                    @endforeach
-                                </x-input.select>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        {{ __('Tanggal Pinjam') }}
-                                        <span class="text-danger">*</span>
-                                    </label>
-
-                                    <input name="borrowed_date" type="date"
-                                        class="form-control @error('borrowed_date') is-invalid @enderror"
-                                        value="{{ old('borrowed_date') }}"
-                                        required
-                                    >
-
-                                    @error('borrowed_date')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="card-footer text-end">
-                        <x-button.save type="submit">
-                            {{ __('Simpan') }}
-                        </x-button.save>
-                    </div>
-                </div>
-            </div>
-        </form>
-        @endif
-
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">
-                        {{ __('Riwayat Inventaris') }}
-                    </h3>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-vcenter card-table text-nowrap">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="align-middle w-1">
-                                {{ __('No') }}
-                            </th>
-                            <th  scope="col" class="align-middle">
-                                {{ __('Nama') }}
-                            </th>
-                            <th scope="col" class="align-middle">
-                                {{ __('Tanggal Pinjam') }}
-                            </th>
-                            <th scope="col" class="align-middle">
-                                {{ __('Tanggal Kembali') }}
-                            </th>
-                            <th scope="col" class="align-middle">
-                                {{ __('Status') }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @forelse ($inventory_details as $log)
-                        <tr>
-                            <td class="align-middle">
-                                {{ $loop->iteration }}
-                            </td>
-
-                            <td class="align-middle">
-                                {{ $log->user->name }}
-                            </td>
-                            <td class="align-middle">
-                                {{ $log->borrowed_date }}
-                            </td>
-                            <td class="align-middle">
-                                {{ $log->returned_date }}
-                            </td>
-                            <td class="align-middle">
-                                <x-status
-                                    dot color="{{ $log->status === \App\Enums\InventoryDetailStatus::KEMBALI ? 'green' : 'orange' }}"
-                                    class="text-uppercase"
-                                >
-                                    {{ $log->status->label() }}
-                                </x-status>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td class="align-middle text-center" colspan="7">
-                                <div class="empty">
-                                    <p class="empty-title">
-                                        Tidak ada riwayat peminjaman!
-                                    </p>
-                                    <p class="empty-subtitle text-secondary">
-                                        Barang ini belum pernah dipinjamkan, sehingga tidak memiliki riwayat peminjaman.
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
     </div>
 </div>

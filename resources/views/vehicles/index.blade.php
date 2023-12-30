@@ -121,7 +121,7 @@
                                 {{ $vehicle->model }}
                             </td>
                             <td class="align-middle">
-                                {{ $vehicle->category->label() }}
+                                <span class="badge bg-{{ $vehicle->category === \App\Enums\VehicleCategory::MOBIL ? 'blue' : 'orange' }} text-blue-fg">{{ $vehicle->category->label() }}</span>
                             </td>
                             <td class="align-middle">
                                 {{ $vehicle->office->code }} - {{ $vehicle->office->name }}

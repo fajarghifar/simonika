@@ -69,35 +69,19 @@ class VehicleController extends Controller
 
     public function show(Vehicle $vehicle) : View
     {
-        $vehicle_details = VehicleDetail::with(['user'])
-            ->where('vehicle_id', $vehicle->id)
-            ->orderByDesc('id')
-            ->get();
-
         return view('vehicles.show', [
-            'vehicle' => $vehicle,
-            'vehicle_details' => $vehicle_details,
+            'vehicle' => $vehicle
         ]);
     }
 
     public function edit(Vehicle $vehicle) : View
     {
-        $vehicle_details = VehicleDetail::with(['user'])
-            ->where('vehicle_id', $vehicle->id)
-            ->orderByDesc('id')
-            ->get();
-
-        $vehicle_detail_current = $vehicle_details->first() ?? 0 ;
-
         return view('vehicles.edit', [
             'vehicle' => $vehicle,
-            'vehicle_details' => $vehicle_details,
-            'vehicle_detail_current' => $vehicle_detail_current,
 
             'categories' => VehicleCategory::cases(),
             'brands' => Brand::where('category', '=', BrandCategory::OTOMOTIF)->get(),
-            'offices' => Office::all(),
-            'users' => User::all()
+            'offices' => Office::all()
         ]);
     }
 

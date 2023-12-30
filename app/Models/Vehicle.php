@@ -53,6 +53,7 @@ class Vehicle extends Model
 
     protected $sortable = [
         'model',
+        'category',
         'status'
     ];
 
