@@ -2,6 +2,7 @@
     'label',
     'name',
     'placeholder',
+    'disabled' => null
 ])
 
 <div class="mb-3">
@@ -9,8 +10,8 @@
         {{ $label }} <span class="text-danger">*</span>
     </label>
 
-    <select name="{{ $name }}" class="form-select @error($name) is-invalid @enderror">
-        <option selected disabled="">{{ $placeholder }}</option>
+    <select name="{{ $name }}" id="{{ $name }}" class="form-select @error($name) is-invalid @enderror" @isset($disabled) disabled @endisset>
+        <option disabled>{{ $placeholder }}</option>
         {{ $slot }}
     </select>
 

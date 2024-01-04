@@ -1,5 +1,10 @@
 @extends('layouts.dashboard')
 
+@push('page-styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="{{ asset('dist/css/select2-bootstrap-5-theme.min.css') }}" />
+@endpush
+
 @section('content')
 <div class="page-header d-print-none">
     <div class="container-xl">
@@ -109,6 +114,7 @@
                                 <x-input.select name="brand_id"
                                                 label="Brand"
                                                 placeholder="{{ __('Pilih brand:') }}"
+                                                class="form-select-sm"
                                 >
                                     @foreach ($brands as $brand)
                                         <option value="{{ $brand->id }}" @if(old('brand_id', $inventory->brand_id) == $brand->id) selected="selected" @endif>
@@ -122,6 +128,7 @@
                                 <x-input.select name="category"
                                                 label="Kategori"
                                                 placeholder="{{ __('Pilih kategori:') }}"
+                                                class="form-select-sm"
                                 >
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->value }}" @if(old('category', $inventory->category->value) == $category->value) selected="selected" @endif>{{ $category->label() }}</option>
@@ -172,6 +179,7 @@
                                 <x-input.select name="office_id"
                                                 label="Kantor"
                                                 placeholder="{{ __('Pilih kantor:') }}"
+                                                class="form-select-sm"
                                 >
                                     @foreach ($offices as $office)
                                         <option value="{{ $office->id }}" @if(old('office_id', $inventory->office_id) == $office->id) selected="selected" @endif>
@@ -211,5 +219,16 @@
 @endsection
 
 @push('page-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('dist/js/img-preview.js') }}"></script>
+
+    <script>
+        let classList = '#brand_id, #office_id, #category';
+        $( classList ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+        } );
+    </script>
 @endpush

@@ -69,7 +69,7 @@
                             </td>
                             <td class="align-middle">
                                 <x-status
-                                    dot color="{{ $log->status === \App\Enums\VehicleDetailStatus::KEMBALI ? 'green' : 'orange' }}"
+                                    dot color="{{ $log->status === \App\Enums\InventoryDetailStatus::KEMBALI ? 'green' : 'orange' }}"
                                     class="text-uppercase"
                                 >
                                     {{ $log->status->label() }}

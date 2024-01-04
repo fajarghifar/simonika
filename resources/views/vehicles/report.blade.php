@@ -122,9 +122,19 @@
                             <td class="align-middle">
                                 {{ $vehicle->category->label() }}
                             </td>
+                            @if ($vehicle->user)
                             <td class="align-middle">
-                                {{ $vehicle->user ? $vehicle->user->name : '-' }}
+                                <x-button class="btn btn-success" route="{{ route('users.show', $vehicle->user->id) }}">
+                                    {{ $vehicle->user->name }}
+                                </x-button>
                             </td>
+                            @else
+                            <td class="align-middle">
+                                <x-button class="btn btn-danger" route="{{ route('vehicles.borrow', $vehicle->id) }}">
+                                    {{ __('Tidak ada') }}
+                                </x-button>
+                            </td>
+                            @endif
                             <td class="align-middle">
                                 <x-status
                                     color="{{ \Carbon\Carbon::parse($vehicle->tax_period)->isPast() ? 'orange' : 'green' }}"

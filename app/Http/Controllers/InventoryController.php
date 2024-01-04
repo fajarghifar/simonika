@@ -120,7 +120,7 @@ class InventoryController extends Controller
         }
 
         return redirect()
-            ->route('inventories.edit', $inventory->id)
+            ->route('inventories.edit', $inventory)
             ->with('success', 'Inventaris berhasil diperbarui!');
     }
 

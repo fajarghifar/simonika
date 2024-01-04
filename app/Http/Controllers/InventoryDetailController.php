@@ -14,11 +14,6 @@ use App\Http\Requests\InventoryDetail\StoreInventoryDetailRequest;
 
 class InventoryDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Inventory $inventory) : View
     {
         $inventory_details = InventoryDetail::with(['user'])
@@ -32,22 +27,11 @@ class InventoryDetailController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *S
-     * @return \Illuminate\Http\Response
-     */
     public function create() : Void
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreInventoryDetailRequest $request, Inventory $inventory) : RedirectResponse
     {
         $inventory->update([
@@ -62,12 +46,6 @@ class InventoryDetailController extends Controller
             ->with('success', 'Inventaris berhasil dipinjam!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\InventoryDetail  $inventoryDetail
-     * @return \Illuminate\Http\Response
-     */
     public function show(Inventory $inventory) : View
     {
         $inventory_details = InventoryDetail::with(['user'])
@@ -85,24 +63,11 @@ class InventoryDetailController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\InventoryDetail  $inventoryDetail
-     * @return \Illuminate\Http\Response
-     */
     public function edit(InventoryDetail $inventoryDetail) : Void
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InventoryDetail  $inventoryDetail
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, InventoryDetail $inventoryDetail) : RedirectResponse
     {
         $inventoryDetail->update([
@@ -120,12 +85,6 @@ class InventoryDetailController extends Controller
             ->with('success', 'Inventaris berhasil dikembalikan!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\InventoryDetail  $inventoryDetail
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(InventoryDetail $inventoryDetail) : Void
     {
         //
