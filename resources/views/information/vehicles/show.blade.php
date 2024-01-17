@@ -20,16 +20,46 @@
 
         <div class="row row-cards">
             <div class="col-lg-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">
-                            {{ __('Foto') }}
-                        </h3>
-                        <img class="img-fluid rounded mx-auto d-block mb-2"
-                            style="max-width: 250px"
-                            src="{{ $vehicle->photo ? asset('images/vehicles/'.$vehicle->photo) : asset('static/product.webp') }}"
-                            id="image-preview"
-                        />
+
+                <div class="row row-cards">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    {{ __('Foto') }}
+                                </h3>
+                                <img class="img-fluid rounded mx-auto d-block mb-2"
+                                    style="max-width: 250px"
+                                    src="{{ $vehicle->photo ? asset('images/vehicles/'.$vehicle->photo) : asset('static/product.webp') }}"
+                                    id="image-preview"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    {{ __('Ajukan Perpanjang') }}
+                                </h3>
+                                <div class="medium font-italic text-muted mb-2">
+                                    Anda bisa melakukan pengaujuan untuk melakukan perpanjang pajak dan Stnk dari kendaraan yang dimiliki.
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 py-3">
+                                        <a class="btn btn-outline-info w-100" href="{{ route('information.extensions.create') }}">
+                                            {{ __('Ajukan') }}
+                                        </a>
+                                    </div>
+                                    <div class="col-6 py-3">
+                                        <a class="btn btn-outline-info w-100" href="{{ route('information.extensions.index') }}">
+                                            {{ __('Riwayat') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,12 +137,7 @@
                             <div class="col-lg-6">
                                 <label class="label mb-1">Status</label>
                                 <p>
-                                    <x-status
-                                        dot color="{{ $vehicle->status === \App\Enums\VehicleStatus::TERSEDIA ? 'green' : 'orange' }}"
-                                        class="text-uppercase"
-                                    >
-                                        {{ $vehicle->status->label() }}
-                                    </x-status>
+                                    <span class="btn position-relative btn-{{ $vehicle->status === \App\Enums\VehicleStatus::TERSEDIA ? 'green' : 'orange' }}">{{ $vehicle->status->label() }}<span class="badge bg-{{ $vehicle->status === \App\Enums\VehicleStatus::TERSEDIA ? 'green' : 'orange' }} badge-notification badge-blink"></span></span>
                                 </p>
                             </div>
                         </div>

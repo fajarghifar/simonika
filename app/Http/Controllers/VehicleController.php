@@ -134,7 +134,7 @@ class VehicleController extends Controller
             ->paginate($perPage)
             ->appends(request()->query());
 
-        return view('vehicles.recycle', [
+        return view('recycle.vehicles.index', [
             'vehicles' => $vehicles,
         ]);
     }

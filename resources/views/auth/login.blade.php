@@ -63,7 +63,7 @@
             <!-- BEGIN : Input Remember Me -->
             <div class="mb-2">
                 <label class="form-check">
-                    <input type="checkbox" class="form-check-input"/>
+                    <input type="checkbox" class="form-check-input" name="remember"/>
                     <span class="form-check-label">Biarkan tetap masuk!</span>
                 </label>
             </div>

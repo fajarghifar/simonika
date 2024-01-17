@@ -15,11 +15,11 @@ class CreateVehicleDetailsTable extends Migration
     {
         Schema::create('vehicle_details', function (Blueprint $table) {
             $table->id();
-            $table->string('vehicle_id');
-            $table->string('user_id');
+            $table->foreignId('vehicle_id')->constrained('brands');
+            $table->foreignId('user_id')->constrained('brands');
             $table->date('borrowed_date');
             $table->date('returned_date')->nullable();
-            $table->string('status');
+            $table->tinyInteger('status')->comment('0=kembali, 1=pinjam');
             $table->timestamps();
         });
     }

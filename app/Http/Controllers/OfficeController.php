@@ -112,17 +112,17 @@ class OfficeController extends Controller
      */
     public function destroy(Office $office)  : RedirectResponse
     {
-        // if ($office->inventories()->exists() || $office->vehicles()->exists()) {
-        //     return redirect()
-        //         ->route('offices.index')
-        //         ->with('error', 'Kantor terkait dengan inventaris/kendaraan dan tidak dapat dihapus.');
-        // }
+        if ($office->vehicles()->exists()) {
+            return redirect()
+                ->route('offices.index')
+                ->with('error', 'Kantor terkait dengan inventaris/kendaraan dan tidak dapat dihapus.');
+        } else {
+            $office->delete();
+            return redirect()
+                ->back()
+                ->with('success', 'Kantor berhasil dihapus!');
+        }
 
-        $office->delete();
-
-        return redirect()
-            ->back()
-            ->with('success', 'Kantor berhasil dihapus!');
     }
 
     // Import Excel

@@ -10,7 +10,7 @@
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        {{ __('Kepemilikan Kendaraan') }}
+                        {{ __('Data Kepemilikan Kendaraan') }}
                     </h3>
                 </div>
             </div>
@@ -38,6 +38,12 @@
                                 {{ __('Kategori') }}
                             </th>
                             <th scope="col" class="align-middle">
+                                {{ __('Periode Pajak') }}
+                            </th>
+                            <th scope="col" class="align-middle">
+                                {{ __('Periode STNK') }}
+                            </th>
+                            <th scope="col" class="align-middle">
                                 {{ __('Aksi') }}
                             </th>
                         </tr>
@@ -62,15 +68,31 @@
                                 {{ $vehicle->model }}
                             </td>
                             <td class="align-middle">
-                                {{ $vehicle->category->label() }}
+                                <span class="badge bg-{{ $vehicle->category === \App\Enums\VehicleCategory::MOBIL ? 'blue' : 'orange' }} text-blue-fg">{{ $vehicle->category->label() }}</span>
+                            </td>
+                            <td class="align-middle">
+                                <x-status
+                                    color="{{ \Carbon\Carbon::parse($vehicle->tax_period)->isPast() ? 'orange' : 'green' }}"
+                                    class="text-uppercase"
+                                >
+                                    {{ \Carbon\Carbon::parse($vehicle->tax_period)->format('d M Y') }}
+                                </x-status>
+                            </td>
+                            <td class="align-middle">
+                                <x-status
+                                    color="{{ \Carbon\Carbon::parse($vehicle->stnk_period)->isPast() ? 'orange' : 'green' }}"
+                                    class="text-uppercase"
+                                >
+                                    {{ \Carbon\Carbon::parse($vehicle->stnk_period)->format('d M Y') }}
+                                </x-status>
                             </td>
                             <td class="align-middle" style="width: 10%">
-                                <x-button.show class="btn-icon" route="{{ route('my.vehicle.detail', $vehicle) }}"/>
+                                <x-button.show class="btn-icon" route="{{ route('information.vehicles.show', $vehicle) }}"/>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle text-center" colspan="7">
+                            <td class="align-middle text-center" colspan="9">
                                 <div class="empty">
                                     <p class="empty-title">
                                         Tidak ada riwayat peminjaman!
@@ -81,6 +103,18 @@
                     @endforelse
                     </tbody>
                 </table>
+            </div>
+
+
+            <div class="card-footer d-flex align-items-center">
+                <p class="m-0 text-secondary">
+                    Showing <span>{{ $userVehicles->firstItem() }}</span>
+                    to <span>{{ $userVehicles->lastItem() }}</span> of <span>{{ $userVehicles->total() }}</span> entries
+                </p>
+
+                <ul class="pagination m-0 ms-auto">
+                    {{ $userVehicles->links() }}
+                </ul>
             </div>
         </div>
     </div>

@@ -7,8 +7,8 @@
         <div class="row g-2 align-items-center">
             <div class="col">
                 <!-- Page pre-title -->
-                <div class="page-pretitle">Halaman</div>
-                <h2 class="page-title">Dashboard</h2>
+                <div class="page-pretitle">Informasi</div>
+                <h2 class="page-title">Kepemilikan Inventaris dan Kendaraan</h2>
             </div>
         </div>
     </div>
@@ -20,12 +20,11 @@
     <div class="container-xl">
         <div class="row row-deck row-cards">
 
-            @if (Auth::user()->role->name === 'admin')
             <div class="col-12">
                 <div class="row row-cards">
 
                     <div class="col-sm-6 col-lg-3">
-                        <a class="card card-sm" href="{{ route('vehicles.index') }}">
+                        <a class="card card-sm" href="{{ route('information.vehicles.index') }}">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
@@ -35,10 +34,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="font-weight-medium">
-                                        {{ $vehiclesCount }} Kendaraan
-                                        </div>
-                                        <div class="text-muted">
-                                        {{ $borrowedVehiclesCount }} dipinjam
+                                        {{ $userVehiclesCount }} Kepemilikan Kendaraan
                                         </div>
                                     </div>
                                 </div>
@@ -47,7 +43,7 @@
                     </div>
 
                     <div class="col-sm-6 col-lg-3">
-                        <a class="card card-sm" href="{{ route('inventories.index') }}">
+                        <a class="card card-sm" href="{{ route('information.inventories.index') }}" >
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
@@ -57,29 +53,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="font-weight-medium">
-                                        {{ $inventoriesCount }} Inventaris
-                                        </div>
-                                        <div class="text-muted">
-                                        {{ $borrowedInventoriesCount }} dipinjam
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-3">
-                        <a class="card card-sm" href="{{ route('users.index') }}">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <span class="bg-twitter text-white avatar">
-                                            <i class="fa-solid fa-user"></i>
-                                        </span>
-                                    </div>
-                                    <div class="col">
-                                        <div class="font-weight-medium">
-                                        {{ $usersCount }} Pengguna
+                                        {{ $userInventoriesCount }} Kepemilikan Inventaris
                                         </div>
                                     </div>
                                 </div>
@@ -89,32 +63,28 @@
 
                 </div>
             </div>
-            @endif
 
             <div class="col-12">
                 <div class="card card-md">
                     <div class="card-stamp card-stamp-lg">
                         <div class="card-stamp-icon bg-primary">
-                            <i class="fa-solid fa-house"></i>
+                            <i class="fa-solid fa-hands-holding-circle"></i>
                         </div>
                     </div>
+                    <div class="card-status-start bg-primary"></div>
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-10">
-                                <h3 class="h1">Selamat datang di Aplikasi Monitoring Inventaris dan Kendaraan.</h3>
+                                <h3 class="h1">Selamat datang di halaman Informasi Inventaris dan Kendaraan</h3>
                                 <div class="markdown text-secondary">
-                                Aplikasi Monitoring Inventaris dan Pajak Kendaraan adalah solusi terintegrasi yang dirancang untuk membantu perusahaan atau instansi dalam efisiensi manajemen inventaris barand dan kendaraan, serta pemantauan kewajiban pajak terkait.
+                                    Di sini Anda akan menemukan ringkasan mengenai inventaris dan kendaraan yang dimiliki atau dipegang oleh Anda.
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer text-end">
-                        <x-button class="btn btn-primary" route="{{ route('my.information') }}">
-                            {{ __('Lihat Detail') }}
-                        </x-button>
-                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

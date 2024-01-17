@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Vehicle;
-use App\Enums\InventoryStatus;
+use App\Enums\VehicleStatus;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -29,7 +29,7 @@ class VehiclesImport implements ToModel, WithHeadingRow
                 'stnk_period' => $row['periode_stnk'],
                 'tax_period' => $row['periode_pajak'],
                 'office_id' => $row['kantor_id'],
-                'status' => InventoryStatus::TERSEDIA
+                'status' => VehicleStatus::TERSEDIA
             ]
         );
 

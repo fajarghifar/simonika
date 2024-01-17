@@ -10,8 +10,7 @@
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i class="fa-solid fa-trash me-2"></i>
-                        {{ __('Recycle Inventaris') }}
+                        {{ __('Pulihkan Data Inventaris') }}
                     </h3>
                 </div>
 

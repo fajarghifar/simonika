@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-use Carbon\Carbon;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -29,8 +28,8 @@ class UsersExport implements FromCollection, WithHeadings
                 'Tempat Lahir' => $record->place_of_birth,
                 'Tanggal Lahir' => $record->date_of_birth,
                 'Alamat' => $record->address,
-                'Id Role' => $record->role_id->value,
-                'Role' => $record->role_id->label()
+                'Id Role' => $record->role->id,
+                'Role' => $record->role->name
             );
         }
 

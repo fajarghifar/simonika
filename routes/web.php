@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\VehicleReminderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
@@ -13,6 +12,8 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\VehicleDetailController;
 use App\Http\Controllers\VehicleReportController;
 use App\Http\Controllers\InventoryDetailController;
+use App\Http\Controllers\VehicleReminderController;
+use App\Http\Controllers\VehicleExtensionController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -21,12 +22,13 @@ Route::get('/', function () {
 Route::middleware(['role:admin'])->group(function () {
     // User
     Route::prefix('users')->group(function () {
-        Route::get('/{user}/vehicles', [UserController::class, 'showUserVehicles'])->name('users.vehicles');
-        Route::get('/{user}/inventories', [UserController::class, 'showUserInventories'])->name('users.inventories');
-        Route::put('/{user}/change-password', [ProfileController::class, 'userUpdatePassword'])->name('users.password.update');
         Route::get('/import', [UserController::class, 'import'])->name('users.import.view');
         Route::post('/import', [UserController::class, 'importHandler'])->name('users.import.handler');
         Route::get('/export', [UserController::class, 'export'])->name('users.export');
+
+        Route::get('/{user}/vehicles', [UserController::class, 'showUserVehicles'])->name('users.vehicles');
+        Route::get('/{user}/inventories', [UserController::class, 'showUserInventories'])->name('users.inventories');
+        Route::put('/{user}/change-password', [ProfileController::class, 'userUpdatePassword'])->name('users.password.update');
     });
     Route::resource('users', UserController::class);
 
@@ -67,18 +69,24 @@ Route::middleware(['role:admin'])->group(function () {
         Route::get('/export/excel', [VehicleController::class, 'exportExcel'])->name('vehicles.export.excel');
         Route::get('/export/pdf', [VehicleController::class, 'exportPdf'])->name('vehicles.export.pdf');
 
-        // Borrow Vehicles (Vehicle Details)
-        Route::get('/{vehicle}/history', [VehicleDetailController::class, 'index'])->name('vehicles.borrowing.history');
-        Route::get('/{vehicle}/borrow', [VehicleDetailController::class, 'show'])->name('vehicles.borrow');
-        Route::post('/{vehicle}/borrow', [VehicleDetailController::class, 'store'])->name('vehicles.borrow.store');
-        Route::put('/{vehicleDetail}/return', [VehicleDetailController::class, 'update'])->name('vehicles.return');
-
         // Vehicle Report
         Route::get('/report', [VehicleReportController::class, 'index'])->name('vehicles.report');
 
         // Vehicle Reminder
         Route::post('/reminder', [VehicleReminderController::class, 'usersReminder'])->name('vehicles.users.reminder');
         Route::post('/reminder/{vehicle}', [VehicleReminderController::class, 'userReminder'])->name('vehicles.user.reminder');
+
+        // Vehicle Extensions Report
+        Route::get('/extensions', [VehicleExtensionController::class, 'adminIndex'])->name('vehicles.extensions.index');
+        Route::get('/extensions/{vehicleExtension}', [VehicleExtensionController::class, 'adminShow'])->name('vehicles.extensions.show');
+        Route::put('/extensions/{vehicleExtension}', [VehicleExtensionController::class, 'adminUpdate'])->name('vehicles.extensions.update');
+        Route::delete('/extensions/{vehicleExtension}', [VehicleExtensionController::class, 'adminDestroy'])->name('vehicles.extensions.destroy');
+
+        // Borrow Vehicles (Vehicle Details)
+        Route::get('/{vehicle}/history', [VehicleDetailController::class, 'index'])->name('vehicles.borrowing.history');
+        Route::get('/{vehicle}/borrow', [VehicleDetailController::class, 'show'])->name('vehicles.borrow');
+        Route::post('/{vehicle}/borrow', [VehicleDetailController::class, 'store'])->name('vehicles.borrow.store');
+        Route::put('/{vehicleDetail}/return', [VehicleDetailController::class, 'update'])->name('vehicles.return');
     });
     Route::resource('vehicles', VehicleController::class);
 
@@ -107,12 +115,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // My Information
-    Route::prefix('my')->group(function () {
-        Route::get('/', [DashboardController::class, 'showMyInformation'])->name('my.information');
-        Route::get('/inventories', [DashboardController::class, 'showMyInventories'])->name('my.inventories');
-        Route::get('/inventories/{inventory}', [DashboardController::class, 'showMyInventoryDetail'])->name('my.inventory.detail');
-        Route::get('/vehicles', [DashboardController::class, 'showMyVehicles'])->name('my.vehicles');
-        Route::get('/vehicles/{vehicle}', [DashboardController::class, 'showMyVehicleDetail'])->name('my.vehicle.detail');
+    Route::prefix('information')->group(function () {
+        Route::get('/', [DashboardController::class, 'showInformation'])->name('information.index');
+
+        Route::prefix('inventories')->group(function () {
+            Route::get('/', [DashboardController::class, 'showInventories'])->name('information.inventories.index');
+            Route::get('/{inventory}', [DashboardController::class, 'showInventoryDetail'])->name('information.inventories.show');
+        });
+
+        Route::prefix('vehicles')->group(function () {
+            Route::get('/', [DashboardController::class, 'showVehicles'])->name('information.vehicles.index');
+
+            // Vehicle Extensions
+            Route::get('/extensions', [VehicleExtensionController::class, 'userIndex'])->name('information.extensions.index');
+            Route::get('/extensions/create', [VehicleExtensionController::class, 'userCreate'])->name('information.extensions.create');
+            Route::post('/extensions/create', [VehicleExtensionController::class, 'userStore'])->name('information.extensions.store');
+            Route::get('/extensions/{vehicleExtension}', [VehicleExtensionController::class, 'userShow'])->name('information.extensions.show');
+            Route::delete('/extensions/{vehicleExtension}', [VehicleExtensionController::class, 'userDestroy'])->name('information.extensions.destroy');
+
+            Route::get('/{vehicle}', [DashboardController::class, 'showVehicleDetail'])->name('information.vehicles.show');
+        });
 
         // Profile
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');

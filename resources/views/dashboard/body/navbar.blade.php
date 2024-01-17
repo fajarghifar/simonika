@@ -48,15 +48,33 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ request()->is('my*') ? 'active' : null }}">
-                        <a class="nav-link" href="{{ route('my.information') }}" >
+                    <li class="nav-item dropdown {{ request()->is('information*') ? 'active' : null }}">
+                        <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="fa-solid fa-hands-holding-circle"></i>
                             </span>
                             <span class="nav-link-title">
-                                {{ __('Kepemilikan') }}
+                                {{ __('Informasi') }}
                             </span>
                         </a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-columns">
+                                <div class="dropdown-menu-column">
+                                    <a class="dropdown-item" href="{{ route('information.index') }}">
+                                        {{ __('Informasi') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('information.inventories.index') }}">
+                                        {{ __('Inventaris') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('information.vehicles.index') }}">
+                                        {{ __('Kendaraan') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('information.extensions.index') }}">
+                                        {{ __('Perpanjang Kendaraan') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </li>
 
                     @if (Auth::user()->role->name === 'admin')
@@ -88,13 +106,15 @@
                                         {{ __('Kendaraan') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('vehicles.report') }}">
-                                        {{ __('Periode Pembayaran') }}
+                                        {{ __('Laporan Kendaraan') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('vehicles.extensions.index') }}">
+                                        {{ __('Laporan Perpanjang') }}
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </li>
-
 
                     <li class="nav-item {{ request()->is('users*') ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('users.index') }}" >
@@ -119,13 +139,13 @@
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
-                                    <a class="dropdown-item {{ request()->is('recycle/inventories*') ? 'active' : null }}" href="{{ route('inventories.recycle.show') }}">
+                                    <a class="dropdown-item" href="{{ route('inventories.recycle.show') }}">
                                         {{ __('Inventaris') }}
                                     </a>
-                                    <a class="dropdown-item {{ request()->is('recycle/vehicles*') ? 'active' : null }}" href="{{ route('vehicles.recycle.show') }}">
+                                    <a class="dropdown-item" href="{{ route('vehicles.recycle.show') }}">
                                         {{ __('Kendaraan') }}
                                     </a>
-                                    <a class="dropdown-item {{ request()->is('recycle/users*') ? 'active' : null }}" href="{{ route('users.recycle.show') }}">
+                                    <a class="dropdown-item" href="{{ route('users.recycle.show') }}">
                                         {{ __('Pengguna') }}
                                     </a>
                                 </div>

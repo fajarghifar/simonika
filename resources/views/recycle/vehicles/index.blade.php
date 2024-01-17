@@ -10,8 +10,7 @@
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i class="fa-solid fa-trash me-2"></i>
-                        {{ __('Recycle Pengguna') }}
+                        {{ __('Pulihkan Data Kendaraan') }}
                     </h3>
                 </div>
 
@@ -35,7 +34,7 @@
             </div>
 
             <div class="card-body border-bottom py-3">
-                <form action="{{ route('users.recycle.show') }}" method="GET">
+                <form action="{{ route('vehicles.recycle.show') }}" method="GET">
                     <div class="d-flex">
                         <div class="text-secondary">
                             Tampilkan
@@ -69,16 +68,22 @@
                                 {{ __('No') }}
                             </th>
                             <th scope="col" class="align-middle">
-                                {{ __('NIP') }}
+                                {{ __('Nomor STNK') }}
                             </th>
                             <th scope="col" class="align-middle">
-                                @sortablelink('name', 'Nama')
+                                {{ __('Nomor Polisi') }}
                             </th>
                             <th scope="col" class="align-middle">
-                                {{ __('Email') }}
+                                {{ __('Brand') }}
                             </th>
                             <th scope="col" class="align-middle">
-                                {{ __('Telepon') }}
+                                @sortablelink('model', 'Model')
+                            </th>
+                            <th scope="col" class="align-middle">
+                                @sortablelink('category', 'Kategori')
+                            </th>
+                            <th scope="col" class="align-middle">
+                                {{ __('Kantor') }}
                             </th>
                             <th scope="col" class="align-middle">
                                 {{ __('Aksi') }}
@@ -86,35 +91,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse ($users as $user)
+                    @forelse ($vehicles as $vehicle)
                         <tr>
                             <td class="align-middle">
-                                {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                {{ ($vehicles->currentPage() - 1) * $vehicles->perPage() + $loop->iteration }}
                             </td>
 
                             <td class="align-middle">
-                                {{ $user->nip }}
+                                {{ $vehicle->stnk_number }}
                             </td>
                             <td class="align-middle">
-                                {{ $user->name }}
+                                {{ $vehicle->license_plate }}
                             </td>
                             <td class="align-middle">
-                                {{ $user->email }}
+                                {{ $vehicle->brand->name }}
                             </td>
                             <td class="align-middle">
-                                {{ $user->phone }}
+                                {{ $vehicle->model }}
+                            </td>
+                            <td class="align-middle">
+                                {{ $vehicle->category->label() }}
+                            </td>
+                            <td class="align-middle">
+                                {{ $vehicle->office->code }} - {{ $vehicle->office->name }}
                             </td>
                             <td class="align-middle" style="width: 10%">
-                                <x-button.restore class="btn-icon" route="{{ route('users.recycle.restore', $user) }}"/>
-                                <x-button.delete class="btn-icon" route="{{ route('users.recycle.delete', $user) }}"/>
+                                <x-button.restore class="btn-icon" route="{{ route('vehicles.recycle.restore', $vehicle) }}"/>
+                                <x-button.delete class="btn-icon" route="{{ route('vehicles.recycle.delete', $vehicle) }}"/>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="align-middle" colspan="8">
+                            <td class="align-middle text-center" colspan="9">
                                 <div class="empty">
                                     <p class="empty-title">
-                                        Tidak ditemukan pengguna!
+                                        Tidak ditemukan kendaraan!
                                     </p>
                                     <p class="empty-subtitle text-secondary">
                                         Coba sesuaikan pencarian atau filter Anda untuk menemukan apa yang sedang Anda cari.
@@ -129,12 +140,12 @@
 
             <div class="card-footer d-flex align-items-center">
                 <p class="m-0 text-secondary">
-                    Showing <span>{{ $users->firstItem() }}</span>
-                    to <span>{{ $users->lastItem() }}</span> of <span>{{ $users->total() }}</span> entries
+                    Showing <span>{{ $vehicles->firstItem() }}</span>
+                    to <span>{{ $vehicles->lastItem() }}</span> of <span>{{ $vehicles->total() }}</span> entries
                 </p>
 
                 <ul class="pagination m-0 ms-auto">
-                    {{ $users->links() }}
+                    {{ $vehicles->links() }}
                 </ul>
             </div>
         </div>

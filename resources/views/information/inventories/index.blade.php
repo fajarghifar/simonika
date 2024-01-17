@@ -52,7 +52,7 @@
                                 {{ $inventory->model }}
                             </td>
                             <td class="align-middle" style="width: 10%">
-                                <x-button.show class="btn-icon" route="{{ route('my.inventory.detail', $inventory) }}"/>
+                                <x-button.show class="btn-icon" route="{{ route('information.inventories.show', $inventory) }}"/>
                             </td>
                         </tr>
                     @empty

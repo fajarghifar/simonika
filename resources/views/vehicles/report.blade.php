@@ -10,7 +10,7 @@
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        {{ __('Data Kendaraan') }}
+                        {{ __('Laporan Kendaraan') }}
                     </h3>
                 </div>
 
@@ -85,7 +85,7 @@
                                 {{ __('Brand') }}
                             </th>
                             <th scope="col" class="align-middle">
-                                @sortablelink('model', 'Model')
+                                {{ __('Model') }}
                             </th>
                             <th scope="col" class="align-middle">
                                 {{ __('Kategori') }}
@@ -120,21 +120,15 @@
                                 {{ $vehicle->model }}
                             </td>
                             <td class="align-middle">
-                                {{ $vehicle->category->label() }}
+                                <span class="badge bg-{{ $vehicle->category === \App\Enums\VehicleCategory::MOBIL ? 'blue' : 'orange' }} text-blue-fg">{{ $vehicle->category->label() }}</span>
                             </td>
-                            @if ($vehicle->user)
                             <td class="align-middle">
-                                <x-button class="btn btn-success" route="{{ route('users.show', $vehicle->user->id) }}">
-                                    {{ $vehicle->user->name }}
-                                </x-button>
+                                @if ($vehicle->user)
+                                    <a href="{{ route('users.show', $vehicle->user->id) }}" class="text-reset">{{ $vehicle->user->name }}</a>
+                                @else
+                                    <div class="text-secondary"><a href="{{ route('vehicles.borrow', $vehicle->id) }}" class="text-reset">{{ __('(Tidak Ada)') }}</a></div>
+                                @endif
                             </td>
-                            @else
-                            <td class="align-middle">
-                                <x-button class="btn btn-danger" route="{{ route('vehicles.borrow', $vehicle->id) }}">
-                                    {{ __('Tidak ada') }}
-                                </x-button>
-                            </td>
-                            @endif
                             <td class="align-middle">
                                 <x-status
                                     color="{{ \Carbon\Carbon::parse($vehicle->tax_period)->isPast() ? 'orange' : 'green' }}"

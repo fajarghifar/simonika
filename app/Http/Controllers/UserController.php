@@ -149,7 +149,7 @@ class UserController extends Controller
             ->paginate($perPage)
             ->appends(request()->query());
 
-        return view('users.recycle', [
+        return view('recycle.users.index', [
             'users' => $users,
         ]);
     }

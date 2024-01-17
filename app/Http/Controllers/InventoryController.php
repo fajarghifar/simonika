@@ -147,7 +147,7 @@ class InventoryController extends Controller
             ->paginate($perPage)
             ->appends(request()->query());
 
-        return view('inventories.recycle', compact('inventories'));
+        return view('recycle.inventories.index', compact('inventories'));
     }
 
     public function restoreRecycled($id)

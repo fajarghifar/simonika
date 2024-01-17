@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $borrowedInventoriesCount = Inventory::where('status', InventoryStatus::DIPINJAM)->count();
         $usersCount = User::count();
 
-        return view('dashboard.dashboard', compact('vehiclesCount', 'borrowedVehiclesCount', 'inventoriesCount', 'borrowedInventoriesCount', 'usersCount'));
+        return view('dashboard.index', compact('vehiclesCount', 'borrowedVehiclesCount', 'inventoriesCount', 'borrowedInventoriesCount', 'usersCount'));
     }
 
     private function userDashboard()
@@ -37,35 +37,37 @@ class DashboardController extends Controller
         return view('dashboard.dashboard');
     }
 
-    public function showMyInformation(): View
+    public function showInformation(): View
     {
         $userVehiclesCount = Auth::user()->vehicles->count();
         $userInventoriesCount = Auth::user()->inventories->count();
 
-        return view('my.information', compact('userVehiclesCount', 'userInventoriesCount'));
+        return view('information.index', compact('userVehiclesCount', 'userInventoriesCount'));
     }
 
-    public function showMyInventories(): View
+    public function showInventories(): View
     {
         $userInventories = Auth::user()->load('inventories')->inventories;
 
-        return view('my.inventories', compact('userInventories'));
+        return view('information.inventories.index', compact('userInventories'));
     }
 
-    public function showMyInventoryDetail(Inventory $inventory): View
+    public function showInventoryDetail(Inventory $inventory): View
     {
-        return view('my.inventory-detail', compact('inventory'));
+        return view('information.inventories.show', compact('inventory'));
     }
 
-    public function showMyVehicles(): View
+    public function showVehicles(): View
     {
-        $userVehicles = Auth::user()->load('vehicles')->vehicles;
+        $userId = Auth::id();
+        $userVehicles = Vehicle::where('user_id', $userId)
+            ->paginate(10);
 
-        return view('my.vehicles', compact('userVehicles'));
+        return view('information.vehicles.index', compact('userVehicles'));
     }
 
-    public function showMyVehicleDetail(Vehicle $vehicle): View
+    public function showVehicleDetail(Vehicle $vehicle): View
     {
-        return view('my.vehicle-detail', compact('vehicle'));
+        return view('information.vehicles.show', compact('vehicle'));
     }
 }
