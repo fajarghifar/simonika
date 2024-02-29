@@ -4,6 +4,9 @@ Inventory and Vehicle Monitoring Information System.
 
 ![Dashboard](https://github.com/fajarghifar/laravel-point-of-sale/assets/71541409/174cdf09-41ef-4cdf-bb16-f093ee5e0e56)
 
+## 💀 Design Database
+![Diagram Class](https://github.com/fajarghifar/simonika/assets/71541409/85bc96af-6266-475e-94b0-6b49594bce09)
+
 ## 😎 Features
 - Inventory
 - Vehicles
