@@ -34,7 +34,7 @@ class DashboardController extends Controller
 
     private function userDashboard()
     {
-        return view('dashboard.dashboard');
+        return view('dashboard.index');
     }
 
     public function showInformation(): View

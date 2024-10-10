@@ -41,7 +41,7 @@
 
     <!-- Libs JS -->
     <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/4c897dc313.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9ccaf776a1.js" crossorigin="anonymous"></script>
     <!-- Tabler Core -->
     <script src="{{ asset('dist/js/tabler.min.js') }}" defer></script>
 
